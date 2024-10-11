@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de18c0f7485a584da8e4e84f15cfc7c, type: 3}
+  m_Name: 003_bluedragon
+  m_EditorClassIdentifier: 
+  number: 3
+  name: "\u30D6\u30EB\u30FC\u30C9\u30E9\u30B4\u30F3"
+  info: "\u9752\u3044\u30C9\u30E9\u30B4\u30F3\u3002"
+  image: {fileID: 21300000, guid: 3990bd97ce2b433468d3120df389e1a2, type: 3}
+  prefab: {fileID: 0}
+  hp: 150
+  atk: 8
+  dropItemList: []
+  dropArmorList:
+  - armorData: {fileID: 11400000, guid: 41249aec73f41fd4d9adaf1245e9de7c, type: 2}
+    parsent: 50
+  - armorData: {fileID: 11400000, guid: 4272b4f3218d89340b884b8461967e99, type: 2}
+    parsent: 200
+  - armorData: {fileID: 11400000, guid: c1d7e350fcd1cc845bb0d01f9d6d8dc6, type: 2}
+    parsent: 50
+  - armorData: {fileID: 11400000, guid: 59b2d517b122d4c4ba22ad25ad6dc0d6, type: 2}
+    parsent: 150
+  dropWeaponList:
+  - weaponData: {fileID: 11400000, guid: 6e84b074063eb22408dc00044eb2f7a6, type: 2}
+    parsent: 90

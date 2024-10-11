@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de18c0f7485a584da8e4e84f15cfc7c, type: 3}
+  m_Name: 002_reddragon
+  m_EditorClassIdentifier: 
+  number: 2
+  name: "\u30EC\u30C3\u30C9\u30C9\u30E9\u30B4\u30F3"
+  info: "\u8D64\u3044\u30C9\u30E9\u30B4\u30F3\u3002"
+  image: {fileID: 21300000, guid: 85f0b7ae9cf9bc24b9aa0fd2d93eaee6, type: 3}
+  prefab: {fileID: 0}
+  hp: 100
+  atk: 10
+  dropItemList: []
+  dropArmorList:
+  - armorData: {fileID: 11400000, guid: 881b6b2a65da95c45958a10d06e3ab47, type: 2}
+    parsent: 100
+  - armorData: {fileID: 11400000, guid: fdce3c5aeeb2f884c9922669efab7726, type: 2}
+    parsent: 100
+  - armorData: {fileID: 11400000, guid: 4bd8d0d8d807390408da71b5e5f88f75, type: 2}
+    parsent: 100
+  - armorData: {fileID: 11400000, guid: f61f45e7b3b786d41813c3b192ed8de2, type: 2}
+    parsent: 100
+  dropWeaponList:
+  - weaponData: {fileID: 11400000, guid: 3d3cfaef61a63b4468e08c0239f22414, type: 2}
+    parsent: 100

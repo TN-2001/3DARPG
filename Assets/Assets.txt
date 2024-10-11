@@ -1,0 +1,7 @@
+/内部アセット/
+URP
+TextMeshPro
+InputSystem
+CinemaChine
+ProBullder
+Recorder
