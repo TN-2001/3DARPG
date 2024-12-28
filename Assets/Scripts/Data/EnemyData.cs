@@ -5,66 +5,54 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    [SerializeField] // 番号
-    private int number = 0;
+    [SerializeField] private int number = 0; // 番号
+    [SerializeField] private new string name = null; // 名前
+    [SerializeField, TextArea] private string info = null; // 情報
+    [SerializeField] private Sprite image = null; // イメージ
+    [SerializeField] private int hp = 0; // hp
+    [SerializeField] private int atk = 0; // 攻撃力
+    [SerializeField] private List<DropItem> dropItemList = null; // ドロップアイテム
+    [SerializeField] private List<DropArmor> dropArmorList = null; // ドロップ防具
+    [SerializeField] private List<DropWeapon> dropWeaponList = null; // ドロップ武器
+    [SerializeField] private GameObject prefab = null; // プレハブ
+
     public int Number => number;
-    [SerializeField] // 名前
-    private new string name = null;
     public string Name => name;
-    [SerializeField, TextArea] // 情報
-    private string info = null;
     public string Info => info;
-    [SerializeField] // イメージ
-    private Sprite image = null;
     public Sprite Image => image; 
-    [SerializeField] // プレハブ
-    private GameObject prefab = null;
-    public GameObject Prefab => prefab;
-    [SerializeField] // hp
-    private int hp = 0;
     public int Hp => hp;
-    [SerializeField] // 攻撃力
-    private int atk = 0;
     public int Atk => atk;
-    [SerializeField] // ドロップアイテム
-    private List<DropItem> dropItemList = null;
     public List<DropItem> DropItemList => dropItemList;
-    [SerializeField] // ドロップ防具
-    private List<DropArmor> dropArmorList = null;
     public List<DropArmor> DropArmorList => dropArmorList;
-    [SerializeField] // ドロップ武器
-    private List<DropWeapon> dropWeaponList = null;
     public List<DropWeapon> DropWeaponList => dropWeaponList;
+    public GameObject Prefab => prefab;
 
     // ドロップアイテム
     [System.Serializable]
     public class DropItem
     {
-        [SerializeField] // アイテム
-        private ItemData itemData = null;
+        [SerializeField] private ItemData itemData = null; // アイテム
+        [SerializeField] private int parsent = 0; // 生成パーセント
+
         public ItemData ItemData => itemData;
-        [SerializeField] // 生成パーセント
-        private int parsent = 0;
         public int Parsent => parsent;
     }
     [System.Serializable]
     public class DropArmor
     {
-        [SerializeField] // アイテム
-        private ArmorData armorData = null;
+        [SerializeField] private ArmorData armorData = null; // アイテム
+        [SerializeField] private int parsent = 0; // 生成パーセント
+
         public ArmorData ArmorData => armorData;
-        [SerializeField] // 生成パーセント
-        private int parsent = 0;
         public int Parsent => parsent;
     }
     [System.Serializable]
     public class DropWeapon
     {
-        [SerializeField] // アイテム
-        private WeaponData weaponData = null;
+        [SerializeField] private WeaponData weaponData = null; // アイテム
+        [SerializeField] private int parsent = 0; // 生成パーセント
+
         public WeaponData WeaponData => weaponData;
-        [SerializeField] // 生成パーセント
-        private int parsent = 0;
         public int Parsent => parsent;
     }
 }
@@ -72,25 +60,19 @@ public class EnemyData : ScriptableObject
 [System.Serializable]
 public class Enemy
 {
-    [SerializeField]
-    private EnemyData data = null;
+    [SerializeField] private EnemyData data = null;
     public EnemyData Data => data;
 
-    // hp
-    public int Hp => data.Hp;
-    // 攻撃力
-    public int Atk => data.Atk;
-    [SerializeField] // 現在のhp
-    private int currentHp = 0;
+    [SerializeField] private int currentHp = 0; // 現在のhp
+    private readonly List<ItemData> dropItemList = new(); // ドロップアイテム
+    private readonly List<ArmorData> dropArmorList = new(); // ドロップ防具
+    private readonly List<WeaponData> dropWeaponList = new(); // ドロップ武器
+
+    public int Hp => data.Hp; // hp
+    public int Atk => data.Atk; // 攻撃力
     public int CurrentHp => currentHp;
-    // ドロップアイテム
-    private List<ItemData> dropItemList = new List<ItemData>();
     public List<ItemData> DropItemList => dropItemList;
-    // ドロップ防具
-    private List<ArmorData> dropArmorList = new List<ArmorData>();
     public List<ArmorData> DropArmorList => dropArmorList;
-    // ドロップ武器
-    private List<WeaponData> dropWeaponList = new List<WeaponData>();
     public List<WeaponData> DropWeaponList => dropWeaponList;
 
 

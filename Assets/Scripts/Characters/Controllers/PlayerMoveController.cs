@@ -8,34 +8,28 @@ using UnityEngine.InputSystem;
 public class PlayerMoveController : MonoBehaviour
 {
     // コンポーネント
-    // 物理
-    private Rigidbody rb = null;
-    // アニメーター
-    private Animator anim = null;
-    // 入力
-    private PlayerInput input = null;
+    private Rigidbody rb = null; // 物理
+    private Animator anim = null; // アニメーター
+    private PlayerInput input = null; // 入力
 
     // パラメータ
     [Header("物理パラメータ")]
-    [SerializeField] // 走り速度（1秒で移動できる距離 m）
-    private float runSpeed = 3f;
-    [SerializeField] // ダッシュ速度
-    private float dashSpeed = 5f;
-    [SerializeField] // 振り向き速度
-    private float rotateSpeed = 0.25f;
+    [SerializeField] private float runSpeed = 3f; // 走り速度（1秒で移動できる距離 m）
+    [SerializeField] private float dashSpeed = 5f; // ダッシュ速度
+    [SerializeField] private float rotateSpeed = 0.25f; // 振り向き速度
     [Header("アニメーションパラメータ")]
-    [SerializeField] // アニメ遷移速度
-    private float animChangeSpeed = 3f;
+    [SerializeField] private float animChangeSpeed = 3f; // アニメ遷移速度
 
-    [HideInInspector] // ダッシュできるか
-    public bool isCanDash = true;
-    [HideInInspector] // スタミナ回復
-    public UnityEvent recoveryStamina, decreasedStamina;
+    // フラグ・イベント
+    [HideInInspector] public bool isCanDash = true; // ダッシュできるか
+    [HideInInspector] public UnityEvent recoveryStamina = null; // スタミナ回復イベント
+    [HideInInspector] public UnityEvent decreasedStamina = null; // スタミナ減少イベント
 
 
     private void OnEnable()
     {
         if(input){
+            // アニメーションの初期化
             if(input.actions["Move"].ReadValue<Vector2>().magnitude > 0){
                 if(input.actions["Dash"].IsPressed() & isCanDash){
                     anim.SetFloat("speed", 1f);
@@ -49,6 +43,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private void Start()
     {
+        // コンポーネント取得
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
@@ -65,7 +60,7 @@ public class PlayerMoveController : MonoBehaviour
 
             // ダッシュ移動
             if(input.actions["Dash"].IsPressed() & isCanDash){
-                rb.velocity = new Vector3(transform.forward.x * dashSpeed, rb.velocity.y, transform.forward.z * dashSpeed);
+                rb.linearVelocity = new Vector3(transform.forward.x * dashSpeed, rb.linearVelocity.y, transform.forward.z * dashSpeed);
 
                 if(anim.GetFloat("speed") < 1f){
                     if(anim.GetFloat("speed") + Time.fixedDeltaTime * animChangeSpeed < 1f)
@@ -79,7 +74,7 @@ public class PlayerMoveController : MonoBehaviour
             }
             // 走り移動
             else{
-                rb.velocity = new Vector3(transform.forward.x * runSpeed, rb.velocity.y, transform.forward.z * runSpeed);
+                rb.linearVelocity = new Vector3(transform.forward.x * runSpeed, rb.linearVelocity.y, transform.forward.z * runSpeed);
 
                 if(anim.GetFloat("speed") > 0.5f){
                     if(anim.GetFloat("speed") - Time.fixedDeltaTime * animChangeSpeed > 0.5f)
@@ -101,6 +96,7 @@ public class PlayerMoveController : MonoBehaviour
                 }
             }
         }
+        // 立ち
         else{
             if(anim.GetFloat("speed") > 0f){
                 if(anim.GetFloat("speed") - Time.fixedDeltaTime * animChangeSpeed > 0f)
@@ -116,7 +112,8 @@ public class PlayerMoveController : MonoBehaviour
 
     private void OnDisable()
     {
+        // 初期化
         anim.SetFloat("speed", 0f);
-        rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
     }
 }

@@ -22,7 +22,7 @@ public class FollowUI : MonoBehaviour
         firstPosition = target.position;
         Vector3 pos = Camera.main.WorldToScreenPoint(firstPosition);
         pos.z = 0;
-        transform.position = pos;
+        transform.position = pos*2;
         gameObject.SetActive(true);
 
         if(isDestroy) Destroy(gameObject, survivalTime);
@@ -32,7 +32,7 @@ public class FollowUI : MonoBehaviour
         firstPosition = position;
         Vector3 pos = Camera.main.WorldToScreenPoint(firstPosition);
         pos.z = 0;
-        transform.position = pos;
+        transform.position = pos*2;
         gameObject.SetActive(true);
 
         if(isDestroy) Destroy(gameObject, survivalTime);
@@ -44,7 +44,7 @@ public class FollowUI : MonoBehaviour
             if(target){
                 Vector3 pos = Camera.main.WorldToScreenPoint(target.position);
                 pos.z = 0;
-                transform.position = pos;
+                transform.position = pos*2;
             }
             else{
                 Destroy(gameObject);
@@ -53,7 +53,7 @@ public class FollowUI : MonoBehaviour
         else{
             Vector3 pos = Camera.main.WorldToScreenPoint(firstPosition);
             pos.z = 0;
-            transform.position = pos;
+            transform.position = pos*2;
         }
     }
 }

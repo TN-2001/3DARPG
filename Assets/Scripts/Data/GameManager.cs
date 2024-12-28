@@ -7,11 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager I = null;
 
-    [SerializeField] // データベース
-    private DataBase dataBase = null;
+    [SerializeField] private DataBase dataBase = null; // データベース
+    [SerializeField] private SaveData data = null; // セーブデータ
+
     public DataBase DataBase => dataBase;
-    [SerializeField] // セーブデータ
-    private SaveData data = null;
     public SaveData Data => data;
 
 

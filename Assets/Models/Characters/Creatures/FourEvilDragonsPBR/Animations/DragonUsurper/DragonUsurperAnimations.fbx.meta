@@ -1,0 +1,2369 @@
+fileFormatVersion: 2
+guid: d2dfbdd5e5fd3824ba555af454191c3a
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|AttackFlame
+      takeName: Armature|AttackFlame
+      internalID: 2319639868488421305
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: footFLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footFRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events:
+      - time: 0
+        functionName: OnAnimStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2606541
+        functionName: OnAttackCollisionStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.75222987
+        functionName: OnAttackCollisionEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.98612475
+        functionName: OnAnimEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|AttackHand
+      takeName: Armature|AttackHand
+      internalID: 9216618167542711636
+      firstFrame: 0
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: footFLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.16
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.161
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.38
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.381
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.68
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.681
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.85
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.86
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.98
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 50.00005
+            outSlope: 50.00005
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footFRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.11
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.111
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.22
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.38
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.381
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.74
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.75
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.85
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.86
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.98
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 50.00005
+            outSlope: 50.00005
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.11
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.111
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.22
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.38
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.381
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.55
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.57
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.85
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.86
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.98
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 50.00005
+            outSlope: 50.00005
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.11
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.38
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.381
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.55
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.57
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.85
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.86
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.98
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 50.00005
+            outSlope: 50.00005
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events:
+      - time: 0
+        functionName: OnAnimStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9980177
+        functionName: OnAnimEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.40733394
+        functionName: OnAttackCollisionStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5896927
+        functionName: OnAttackCollisionEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|AttackMouth
+      takeName: Armature|AttackMouth
+      internalID: -837224926306587042
+      firstFrame: 0
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: footFLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footFRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events:
+      - time: 0
+        functionName: OnAnimStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9940535
+        functionName: OnAnimEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.34786913
+        functionName: OnAttackCollisionStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6253716
+        functionName: OnAttackCollisionEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Defend
+      takeName: Armature|Defend
+      internalID: -7737000216430242122
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Die
+      takeName: Armature|Die
+      internalID: 6059336001588132254
+      firstFrame: 0
+      lastFrame: 64
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: OnAnimStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9728555
+        functionName: OnAnimEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|FlyFlame
+      takeName: Armature|FlyFlame
+      internalID: -4979934519726593797
+      firstFrame: 0
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|FlyForward
+      takeName: Armature|FlyForward
+      internalID: 3461402299353232527
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|FlyGlide
+      takeName: Armature|FlyGlide
+      internalID: 7098879317301127196
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|FlyIdle
+      takeName: Armature|FlyIdle
+      internalID: 5154044263299310189
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|GetHit
+      takeName: Armature|GetHit
+      internalID: -3287015505493907452
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: OnAnimStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9980178
+        functionName: OnAnimEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Idle01
+      takeName: Armature|Idle01
+      internalID: -2740961779425588932
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: footFLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footFRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Idle02
+      takeName: Armature|Idle02
+      internalID: -5613601399520762725
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Land
+      takeName: Armature|Land
+      internalID: -7690588252518188395
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Run
+      takeName: Armature|Run
+      internalID: -7551964380084998518
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: footFLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: -14.05413
+            outSlope: -14.05413
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.07115346
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.30770254
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5999737
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footFRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: -0.0146665415
+            outSlope: -0.0146665415
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2570513
+            value: 0.99622995
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.50000906
+            value: 0.008347596
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5999737
+            value: 0.010501593
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.8749667
+            value: 0.99958944
+            inSlope: -0.0026702795
+            outSlope: -0.0026702795
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: -0.0146665415
+            outSlope: -0.0146665415
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2570513
+            value: 0.99622995
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.50000906
+            value: 0.008347596
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5999737
+            value: 0.010501593
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.8749667
+            value: 0.99958944
+            inSlope: -0.0026702795
+            outSlope: -0.0026702795
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: -14.05413
+            outSlope: -14.05413
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.07115346
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.30770254
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5999737
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Scream
+      takeName: Armature|Scream
+      internalID: -5942496539334969922
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Sleep
+      takeName: Armature|Sleep
+      internalID: 5754330143168782828
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|TakeOff
+      takeName: Armature|TakeOff
+      internalID: -2514377940837399814
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Walk
+      takeName: Armature|Walk
+      internalID: 8349542763059015795
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: DragonUsurper(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: DragonUsurper(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.000000037748947, y: 0, z: -0, w: 1}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
+    - name: Root
+      parentName: Armature
+      position: {x: -6.807143e-14, y: 309.6981, z: -42.624866}
+      rotation: {x: -0.702966, y: 0.702966, z: 0.07641272, w: 0.07641252}
+      scale: {x: 0.9999999, y: 1, z: 0.9999999}
+    - name: Spine01
+      parentName: Root
+      position: {x: -97.52405, y: 0, z: -0.00008201599}
+      rotation: {x: -0.45666653, y: 0.53986627, z: 0.53986627, w: 0.4566667}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Spine02
+      parentName: Spine01
+      position: {x: -0.00010752678, y: 114.43835, z: -0.00000026969394}
+      rotation: {x: 0.1073463, y: -0.99422175, z: 0.00000011920929, w: 0.00000031292439}
+      scale: {x: 0.99999976, y: 1, z: 0.99999976}
+    - name: Chest
+      parentName: Spine02
+      position: {x: -0.00005722046, y: 127.45938, z: 0.00000068890193}
+      rotation: {x: -0.21351027, y: 0.9769409, z: 0.000000017234454, w: 0.00000033997526}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.9999999}
+    - name: Neck01
+      parentName: Chest
+      position: {x: -0.000030517578, y: 126.84964, z: 0.0000018333317}
+      rotation: {x: 0.00000006757844, y: -0.000000023963509, z: 0.097008176, w: 0.99528366}
+      scale: {x: 1.0000001, y: 1, z: 1.0000004}
+    - name: Neck02
+      parentName: Neck01
+      position: {x: 0.000030517578, y: 122.34739, z: -0.00000009522046}
+      rotation: {x: 0.000000028558318, y: -0.00000032064773, z: -0.064626195, w: -0.99790955}
+      scale: {x: 1.0000001, y: 1.0000002, z: 0.99999994}
+    - name: Neck03
+      parentName: Neck02
+      position: {x: -0.00002861023, y: 112.5272, z: -0.0000012305431}
+      rotation: {x: 0.000000036253965, y: -0.00000026037299, z: 0.03633795, w: 0.9993396}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Head
+      parentName: Neck03
+      position: {x: -0.000030517578, y: 105.24413, z: 2.1145752e-11}
+      rotation: {x: 0.046342727, y: 0.70558655, z: -0.04634298, w: 0.7055865}
+      scale: {x: 1.0000001, y: 0.99999976, z: 0.9999999}
+    - name: Jaw01
+      parentName: Head
+      position: {x: 0.0000056142962, y: 52.978394, z: 81.75948}
+      rotation: {x: 0.23508929, y: 0.66688323, z: 0.23508942, w: 0.6668829}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Jaw01_end
+      parentName: Jaw01
+      position: {x: -0, y: 131.77065, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UpperMouth01
+      parentName: Head
+      position: {x: -0.0000012340679, y: 97.2478, z: -15.6440325}
+      rotation: {x: -0.032815106, y: -0.7063458, z: 0.03281534, w: 0.70634407}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: UpperMouth01_end
+      parentName: UpperMouth01
+      position: {x: -0, y: 97.058754, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tongue01
+      parentName: Head
+      position: {x: 0.0000019967238, y: 31.774963, z: 21.65159}
+      rotation: {x: 0.032631785, y: 0.7063544, z: 0.03263203, w: 0.70635253}
+      scale: {x: 1, y: 0.9999997, z: 0.9999999}
+    - name: Tongue02
+      parentName: Tongue01
+      position: {x: -0.000022888233, y: 53.17003, z: 9.094947e-12}
+      rotation: {x: 0.000000087544294, y: 0.00000008940694, z: 0.03812474, w: 0.999273}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000004}
+    - name: Tongue03
+      parentName: Tongue02
+      position: {x: -0.000015258882, y: 46.743324, z: -2.5465852e-11}
+      rotation: {x: -0.00000024748422, y: 0.00000013356052, z: 0.053578284, w: 0.99856365}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Tongue03_end
+      parentName: Tongue03
+      position: {x: -0, y: 54.004093, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye_L
+      parentName: Head
+      position: {x: -34.315453, y: 64.8308, z: -31.9836}
+      rotation: {x: 0.00000011548394, y: 0.000000089406925, z: 0.00000011920923, w: 1}
+      scale: {x: 0.99999994, y: 0.9999999, z: 1.0000001}
+    - name: Eye_L_end
+      parentName: Eye_L
+      position: {x: -0, y: 79.44208, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye_R
+      parentName: Head
+      position: {x: 34.315403, y: 64.831245, z: -31.98403}
+      rotation: {x: -1, y: -0.00000013038512, z: 0.00000006845219, w: 0.00000013038512}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Eye_R_end
+      parentName: Eye_R
+      position: {x: -0, y: 79.44208, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye_Under_L
+      parentName: Head
+      position: {x: -38.478428, y: 70.03484, z: -12.224445}
+      rotation: {x: -0.000000011175868, y: 0.000000029802315, z: 0.000000022351736,
+        w: 1}
+      scale: {x: 0.99999994, y: 0.99999976, z: 0.99999994}
+    - name: Eye_Under_L_end
+      parentName: Eye_Under_L
+      position: {x: -0, y: 79.44208, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye_Under_R
+      parentName: Head
+      position: {x: 38.47841, y: 70.035286, z: -12.224019}
+      rotation: {x: -1, y: -0.00000013038512, z: 0.00000006845219, w: 0.00000013038512}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: Eye_Under_R_end
+      parentName: Eye_Under_R
+      position: {x: -0, y: 79.44208, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UpperArm_L
+      parentName: Chest
+      position: {x: 32.90591, y: -19.313276, z: 82.73582}
+      rotation: {x: 0.55151886, y: -0.40767643, z: -0.42302278, w: 0.5921814}
+      scale: {x: 1.0000005, y: 1.0000007, z: 1.0000004}
+    - name: LowerArm_L
+      parentName: UpperArm_L
+      position: {x: -0.000005722046, y: 176.29112, z: 0.00000333786}
+      rotation: {x: -0.01595571, y: -0.059260555, z: 0.0074114176, w: -0.9980875}
+      scale: {x: 1.0000004, y: 1.0000004, z: 0.99999994}
+    - name: Hand_L
+      parentName: LowerArm_L
+      position: {x: 0.0000009536743, y: 171.87784, z: -0.000019490719}
+      rotation: {x: 0.2409761, y: -0.06290891, z: 0.11698293, w: 0.961399}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000002}
+    - name: Index01_L
+      parentName: Hand_L
+      position: {x: 5.3780384, y: 55.339252, z: -24.943493}
+      rotation: {x: -0.055369038, y: -0.0069937143, z: -0.0042056562, w: 0.9984327}
+      scale: {x: 1.0000001, y: 0.9999998, z: 1.0000001}
+    - name: Index02_L
+      parentName: Index01_L
+      position: {x: 2.2072134, y: 39.77077, z: -0.31770986}
+      rotation: {x: 0.019484399, y: -0.00000024083417, z: 0.00000029078362, w: 0.99981016}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000004}
+    - name: Index02_L_end
+      parentName: Index02_L
+      position: {x: -0, y: 27.591139, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Middle01_L
+      parentName: Hand_L
+      position: {x: 5.2744927, y: 61.946537, z: 2.2970717}
+      rotation: {x: -0.030158821, y: -0.014480082, z: -0.03273041, w: 0.99890417}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: Middle02_L
+      parentName: Middle01_L
+      position: {x: -0.72691697, y: 43.11693, z: 0.7686342}
+      rotation: {x: 0.01136154, y: -0.000000048428767, z: 0.0000000532309, w: 0.9999355}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: Middle02_L_end
+      parentName: Middle02_L
+      position: {x: -0, y: 32.284534, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Pinky01_L
+      parentName: Hand_L
+      position: {x: 9.550665, y: 54.729, z: 28.829376}
+      rotation: {x: 0.08549246, y: -0.0009884455, z: -0.009812494, w: 0.9962901}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Pinky02_L
+      parentName: Pinky01_L
+      position: {x: -0.11292797, y: 39.613964, z: 0.5629602}
+      rotation: {x: 0.011361775, y: 0.00000032340168, z: -0.00000028428616, w: 0.99993545}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000002}
+    - name: Pinky02_L_end
+      parentName: Pinky02_L
+      position: {x: -0, y: 32.284492, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Thumb01_L
+      parentName: Hand_L
+      position: {x: 12.599319, y: -25.3917, z: 3.054258}
+      rotation: {x: -0.3929356, y: -0.19117104, z: 0.019726103, w: 0.89925873}
+      scale: {x: 1.0000006, y: 0.99999964, z: 1.0000203}
+    - name: Thumb01_L_end
+      parentName: Thumb01_L
+      position: {x: -0, y: 36.651524, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UpperArm_R
+      parentName: Chest
+      position: {x: 32.906002, y: -19.313204, z: -82.73584}
+      rotation: {x: 0.5515179, y: -0.4076772, z: 0.42302337, w: -0.59218127}
+      scale: {x: 0.9999998, y: 1.0000001, z: 1.0000001}
+    - name: RowerArm_R
+      parentName: UpperArm_R
+      position: {x: -0.000012397766, y: 176.29134, z: -0.000022649765}
+      rotation: {x: 0.015956275, y: 0.059258595, z: 0.0074115805, w: -0.99808764}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: Hand_R
+      parentName: RowerArm_R
+      position: {x: 0.000003695488, y: 171.87738, z: -0.000002682209}
+      rotation: {x: 0.22959389, y: -0.0357455, z: -0.10319235, w: -0.96714026}
+      scale: {x: 1.000001, y: 1.0000002, z: 1.0000005}
+    - name: Thumb01_R
+      parentName: Hand_R
+      position: {x: 13.441561, y: -24.940065, z: -3.1879044}
+      rotation: {x: 0.37521344, y: 0.32726654, z: 0.06774375, w: 0.8645937}
+      scale: {x: 0.9999996, y: 0.9999999, z: 0.99999976}
+    - name: Thumb01_R_end
+      parentName: Thumb01_R
+      position: {x: -0, y: 36.650867, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Pinky01_R
+      parentName: Hand_R
+      position: {x: 5.944208, y: 54.442417, z: -30.303307}
+      rotation: {x: -0.1136372, y: 0.03286945, z: 0.026605198, w: 0.99262196}
+      scale: {x: 0.99999976, y: 0.99999994, z: 0.9999999}
+    - name: Pinky02_R
+      parentName: Pinky01_R
+      position: {x: 1.0779746, y: 39.593838, z: 0.89717144}
+      rotation: {x: 0.016424807, y: 0.00000004097818, z: 0.0000002598389, w: 0.9998652}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+    - name: Pinky02_R_end
+      parentName: Pinky02_R
+      position: {x: -0, y: 32.284515, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Middle01_R
+      parentName: Hand_R
+      position: {x: 2.6757336, y: 62.042637, z: -3.7346678}
+      rotation: {x: 0.01959901, y: 0.038921818, z: 0.00018498667, w: 0.9990501}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: Middle02_R
+      parentName: Middle01_R
+      position: {x: 0.48539507, y: 43.120716, z: -0.7689482}
+      rotation: {x: -0.008576255, y: -0.040848825, z: -0.011603806, w: 0.9990612}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: Middle02_R_end
+      parentName: Middle02_R
+      position: {x: -0, y: 32.28484, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Index01_R
+      parentName: Hand_R
+      position: {x: 4.365431, y: 56.017776, z: 23.587992}
+      rotation: {x: -0.048878558, y: -0.030558415, z: 0.025479348, w: -0.99801195}
+      scale: {x: 0.9999995, y: 1, z: 0.99999946}
+    - name: Index02_R
+      parentName: Index01_R
+      position: {x: -0.92222285, y: 39.822807, z: -0.089646846}
+      rotation: {x: -0.024596175, y: 0.0023608217, z: 0.0140613215, w: 0.99959576}
+      scale: {x: 1.0000004, y: 0.99999994, z: 1}
+    - name: Index02_R_end
+      parentName: Index02_R
+      position: {x: -0, y: 27.590881, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Wing01_L
+      parentName: Spine02
+      position: {x: 56.105637, y: 20.234043, z: -89.39555}
+      rotation: {x: -0.41716632, y: 0.16855334, z: -0.77142954, w: 0.44995385}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Wing02_L
+      parentName: Wing01_L
+      position: {x: 0.000015258789, y: 299.2441, z: 0.000023126602}
+      rotation: {x: -0.013623476, y: 0.00007496774, z: 0.62606776, w: 0.77964973}
+      scale: {x: 1.0000001, y: 0.99999976, z: 0.99999976}
+    - name: Wing03_L
+      parentName: Wing02_L
+      position: {x: -0.000015258789, y: 468.65533, z: -0.0001540184}
+      rotation: {x: 0.0076042707, y: -0.008174416, z: -0.6619554, w: 0.74946016}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000001}
+    - name: WingIndex01_L
+      parentName: Wing03_L
+      position: {x: 0.0000076293945, y: 40.39839, z: -0.00006027976}
+      rotation: {x: 0.0013426797, y: 0.0013156324, z: -0.0103343185, w: 0.9999449}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000006}
+    - name: WingIndex02_L
+      parentName: WingIndex01_L
+      position: {x: 0.000022888184, y: 209.26459, z: 0.00005986431}
+      rotation: {x: -0.015524553, y: -0.02083354, z: -0.14435548, w: 0.98918474}
+      scale: {x: 1.0000001, y: 0.99999976, z: 1.0000004}
+    - name: WingIndex02_L_end
+      parentName: WingIndex02_L
+      position: {x: -0, y: 228.36516, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingMiddle01_L
+      parentName: Wing03_L
+      position: {x: 18.335602, y: 37.623703, z: -3.889224}
+      rotation: {x: 0.004313281, y: 0.0064920844, z: -0.21777008, w: 0.975969}
+      scale: {x: 0.9999999, y: 1.0000002, z: 1.0000002}
+    - name: WingMiddle02_L
+      parentName: WingMiddle01_L
+      position: {x: 0.00005340576, y: 205.20625, z: -0.000035963825}
+      rotation: {x: -0.0025461598, y: -0.008008565, z: -0.059041493, w: 0.9982202}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000002}
+    - name: WingMiddle04_L
+      parentName: WingMiddle02_L
+      position: {x: 7.2703247, y: 370.67627, z: -3.47453}
+      rotation: {x: -0.15415613, y: -0.98660004, z: 0.00500362, w: -0.05320922}
+      scale: {x: 1.0000005, y: 1.0000001, z: 1.0000006}
+    - name: WingMiddle04_L_end
+      parentName: WingMiddle04_L
+      position: {x: -0, y: 540.4807, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingRing01_L
+      parentName: Wing03_L
+      position: {x: 39.98214, y: 25.864738, z: -5.6384635}
+      rotation: {x: 0.016713064, y: 0.033599164, z: -0.33738613, w: 0.9406181}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000007}
+    - name: WingRing02_L
+      parentName: WingRing01_L
+      position: {x: 0.000038146973, y: 199.69012, z: 0.00006649366}
+      rotation: {x: -0.07196622, y: -0.9930769, z: 0.0041630473, w: -0.092745334}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1}
+    - name: WingRing04_L
+      parentName: WingRing02_L
+      position: {x: -14.586231, y: 326.02097, z: 6.447755}
+      rotation: {x: 0.003415767, y: 0.019993572, z: 0.1412157, w: 0.9897711}
+      scale: {x: 0.99999994, y: 1.0000004, z: 1.0000001}
+    - name: WingRing04_L_end
+      parentName: WingRing04_L
+      position: {x: -0, y: 407.36713, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingPinky01_L
+      parentName: Wing03_L
+      position: {x: 61.174393, y: 16.226555, z: -8.790444}
+      rotation: {x: -0.5008134, y: -0.8643359, z: 0.012729529, w: -0.044128545}
+      scale: {x: 1.0000004, y: 1.0000007, z: 1.0000005}
+    - name: WingPinky02_L
+      parentName: WingPinky01_L
+      position: {x: 0.000009536743, y: 195.33759, z: -0.000058241276}
+      rotation: {x: 0.013565232, y: 0.03791712, z: 0.09901942, w: 0.9942703}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1.0000002}
+    - name: WingPinky04_L
+      parentName: WingPinky02_L
+      position: {x: -0.22909546, y: 253.06989, z: 3.6350205}
+      rotation: {x: 0.00045646803, y: 0.00071717775, z: 0.12332838, w: 0.9923656}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000004}
+    - name: WingPinky04_L_end
+      parentName: WingPinky04_L
+      position: {x: -0, y: 281.86108, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingThumb01_L
+      parentName: Wing02_L
+      position: {x: 59.19352, y: -168.73314, z: -0.6596775}
+      rotation: {x: -0.9989156, y: -0.03959891, z: -0.01617514, w: 0.018379604}
+      scale: {x: 1.000012, y: 1.0000008, z: 1.0000029}
+    - name: WingThumb01_L_end
+      parentName: WingThumb01_L
+      position: {x: -0, y: 323.7355, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Wing01_R
+      parentName: Spine02
+      position: {x: 56.106003, y: 20.234108, z: 89.39564}
+      rotation: {x: -0.7714287, y: -0.4499539, z: -0.41716796, w: -0.16855288}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Wing02_R
+      parentName: Wing01_R
+      position: {x: 0.000022888184, y: 299.24423, z: 0.00001692772}
+      rotation: {x: 0.013621954, y: 0.00007498264, z: 0.6260682, w: -0.7796494}
+      scale: {x: 1.0000002, y: 0.9999998, z: 1.0000001}
+    - name: Wing03_R
+      parentName: Wing02_R
+      position: {x: 0.000030517578, y: 468.6552, z: 0.000029563904}
+      rotation: {x: -0.0076004076, y: -0.008173018, z: -0.6619602, w: -0.7494559}
+      scale: {x: 1.0000001, y: 1, z: 1.0000004}
+    - name: WingIndex01_R
+      parentName: Wing03_R
+      position: {x: -0.000022888184, y: 40.397964, z: -0.000043208056}
+      rotation: {x: 0.0013465305, y: -0.0013191333, z: 0.010326907, w: 0.999945}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.99999994}
+    - name: WingIndex02_R
+      parentName: WingIndex01_R
+      position: {x: 0.000012397766, y: 209.26535, z: 0.00000027019857}
+      rotation: {x: -0.015526522, y: 0.020836674, z: 0.14435822, w: 0.98918426}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: WingIndex02_R_end
+      parentName: WingIndex02_R
+      position: {x: -0, y: 228.36441, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingMiddle01_R
+      parentName: Wing03_R
+      position: {x: -18.335373, y: 37.623665, z: -3.8888667}
+      rotation: {x: 0.004315527, y: -0.0064950064, z: 0.21776418, w: 0.9759703}
+      scale: {x: 0.99999994, y: 1.0000004, z: 0.99999994}
+    - name: WingMiddle02_R
+      parentName: WingMiddle01_R
+      position: {x: 0.000022888184, y: 205.20628, z: 0.00009064503}
+      rotation: {x: -0.0025472092, y: 0.0080114985, z: 0.05904082, w: 0.9982202}
+      scale: {x: 1, y: 1.0000002, z: 1.0000004}
+    - name: WingMiddle04_R
+      parentName: WingMiddle02_R
+      position: {x: -4.7966385, y: 414.72656, z: -2.1642818}
+      rotation: {x: 0.15415716, y: -0.9866006, z: 0.0050024916, w: 0.05319733}
+      scale: {x: 0.9999998, y: 1.0000002, z: 0.99999994}
+    - name: WingMiddle04_R_end
+      parentName: WingMiddle04_R
+      position: {x: -0, y: 498.57574, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingRing01_R
+      parentName: Wing03_R
+      position: {x: -39.98207, y: 25.86444, z: -5.638622}
+      rotation: {x: 0.01671581, y: -0.033604104, z: 0.3373779, w: 0.9406209}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.99999976}
+    - name: WingRing02_R
+      parentName: WingRing01_R
+      position: {x: 0.000052452087, y: 199.69063, z: -0.00003499771}
+      rotation: {x: 0.071968816, y: -0.993075, z: 0.004164542, w: 0.09276469}
+      scale: {x: 0.9999998, y: 0.99999964, z: 0.99999994}
+    - name: WingRing04_R
+      parentName: WingRing02_R
+      position: {x: 13.788884, y: 362.52615, z: 6.7540693}
+      rotation: {x: 0.0034180954, y: -0.020008376, z: -0.1412152, w: 0.9897709}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000002}
+    - name: WingRing04_R_end
+      parentName: WingRing04_R
+      position: {x: -0, y: 371.8181, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingPinky01_R
+      parentName: Wing03_R
+      position: {x: -61.174294, y: 16.226685, z: -8.790629}
+      rotation: {x: 0.50080687, y: -0.86434, z: 0.012727722, w: 0.04412448}
+      scale: {x: 1, y: 1.0000001, z: 0.9999993}
+    - name: WingPinky02_R
+      parentName: WingPinky01_R
+      position: {x: 0.0000076293945, y: 195.33784, z: -0.00003610533}
+      rotation: {x: 0.01356516, y: -0.037915513, z: -0.0990208, w: 0.9942702}
+      scale: {x: 1, y: 1.0000004, z: 1}
+    - name: WingPinky04_R
+      parentName: WingPinky02_R
+      position: {x: 9.829636, y: 246.3066, z: 2.7114406}
+      rotation: {x: 0.00045554055, y: -0.0007167607, z: -0.12332767, w: 0.99236566}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000001}
+    - name: WingPinky04_R_end
+      parentName: WingPinky04_R
+      position: {x: -0, y: 286.66632, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WingThumb01_R
+      parentName: Wing02_R
+      position: {x: -57.61357, y: -166.63365, z: -0.8447609}
+      rotation: {x: -0.9989157, y: 0.039598886, z: 0.016175529, w: 0.01837977}
+      scale: {x: 1.0000123, y: 1.000001, z: 1.0000026}
+    - name: WingThumb01_R_end
+      parentName: WingThumb01_R
+      position: {x: -0, y: 322.4848, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UpperLeg_L
+      parentName: Root
+      position: {x: -6.6201363, y: 85.2297, z: -42.187794}
+      rotation: {x: 0.43771562, y: 0.23767209, z: 0.48252442, w: -0.72047704}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000004}
+    - name: LowerLeg_L
+      parentName: UpperLeg_L
+      position: {x: 0.000019073486, y: 179.43756, z: 0.0000060796738}
+      rotation: {x: -0.010861277, y: 0.031793248, z: 0.04384217, w: -0.9984734}
+      scale: {x: 1.0000006, y: 1.0000006, z: 1.0000002}
+    - name: Feet_L
+      parentName: LowerLeg_L
+      position: {x: -0.000002861023, y: 155.87439, z: 0.0000104904175}
+      rotation: {x: -0.31641558, y: -0.13206266, z: -0.9372871, w: -0.0627187}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: IndexToe01_L
+      parentName: Feet_L
+      position: {x: 3.4307766, y: 25.755098, z: -25.50106}
+      rotation: {x: -0.13798216, y: -0.0018107591, z: 0.007322233, w: 0.99040604}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000004}
+    - name: IndexToe02_L
+      parentName: IndexToe01_L
+      position: {x: 2.437461, y: 28.115871, z: -0.14254825}
+      rotation: {x: 0.011361479, y: -0.0000000032596286, z: -0.00000005535548, w: 0.99993545}
+      scale: {x: 0.9999997, y: 0.9999997, z: 0.99999964}
+    - name: IndexToe02_L_end
+      parentName: IndexToe02_L
+      position: {x: -0, y: 27.591162, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MiddleToe01_L
+      parentName: Feet_L
+      position: {x: 3.2186604, y: 31.106062, z: -5.303338}
+      rotation: {x: 0.061294317, y: -0.017081646, z: -0.03540334, w: 0.9973454}
+      scale: {x: 0.9999998, y: 0.99999994, z: 0.99999976}
+    - name: MiddleToe02_L
+      parentName: MiddleToe01_L
+      position: {x: -0.028372511, y: 36.6463, z: 0.24334857}
+      rotation: {x: 0.011361389, y: -0.000000055879347, z: 0.00000019452997, w: 0.9999355}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000002}
+    - name: MiddleToe02_L_end
+      parentName: MiddleToe02_L
+      position: {x: -0, y: 32.284527, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PinkyToe01_L
+      parentName: Feet_L
+      position: {x: 7.2636347, y: 23.997807, z: 14.883983}
+      rotation: {x: 0.21347398, y: -0.0050653503, z: 0.0012458783, w: 0.97693485}
+      scale: {x: 0.99999994, y: 1.0000004, z: 1.0000001}
+    - name: PinkyToe02_L
+      parentName: PinkyToe01_L
+      position: {x: -0.028393209, y: 36.646317, z: 0.24336147}
+      rotation: {x: 0.01136133, y: -0.00000017276032, z: 0.000000038649883, w: 0.99993545}
+      scale: {x: 1.0000002, y: 1, z: 1}
+    - name: PinkyToe02_L_end
+      parentName: PinkyToe02_L
+      position: {x: -0, y: 32.284527, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ThumbToe01_L
+      parentName: Feet_L
+      position: {x: 8.360034, y: -33.4708, z: -2.4545982}
+      rotation: {x: -0.99861974, y: -0.033041574, z: 0.0006782003, w: -0.040823698}
+      scale: {x: 1.0000122, y: 1.0000002, z: 1.000018}
+    - name: ThumbToe01_L_end
+      parentName: ThumbToe01_L
+      position: {x: -0, y: 36.647068, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint19
+      parentName: Root
+      position: {x: 92.0656, y: 0, z: -40.335155}
+      rotation: {x: -0.3812465, y: -0.59552604, z: 0.5955259, w: -0.3812464}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: joint20
+      parentName: joint19
+      position: {x: -0.000076293945, y: 151.19955, z: -1.6392266e-11}
+      rotation: {x: 0.000000059604638, y: 0.000000059604638, z: 0.055212446, w: 0.99847466}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: joint21
+      parentName: joint20
+      position: {x: 0.00005340576, y: 154.3245, z: -0.00000024182796}
+      rotation: {x: 0.000000024507042, y: 0.00000008271859, z: -0.087768845, w: -0.9961409}
+      scale: {x: 1.0000005, y: 1, z: 1.0000002}
+    - name: joint22
+      parentName: joint21
+      position: {x: -0.00005722046, y: 195.51028, z: -0.0000007846171}
+      rotation: {x: -0.000000044436174, y: 0.00000009891185, z: 0.049017753, w: 0.9987979}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000005}
+    - name: joint22_end
+      parentName: joint22
+      position: {x: -0, y: 199.0071, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UpperReg_R
+      parentName: Root
+      position: {x: -6.619816, y: -85.2297, z: -42.187862}
+      rotation: {x: -0.7204776, y: -0.48252606, z: -0.23766993, w: 0.43771416}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: RowerReg_R
+      parentName: UpperReg_R
+      position: {x: -0.000015258789, y: 179.43716, z: -0.0000042915344}
+      rotation: {x: 0.010861486, y: -0.031793833, z: 0.04384169, w: -0.99847347}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000002}
+    - name: Feet_R
+      parentName: RowerReg_R
+      position: {x: -0.0000047683716, y: 155.87427, z: 0.000014901161}
+      rotation: {x: -0.44784278, y: -0.17864594, z: -0.6474186, w: -0.59023017}
+      scale: {x: 1.0000002, y: 0.9999999, z: 1.0000002}
+    - name: PinkyToe01_R
+      parentName: Feet_R
+      position: {x: -25.066925, y: -14.179406, z: -4.5615845}
+      rotation: {x: 0.56266266, y: -0.41434413, z: -0.6116149, w: -0.37102142}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000002}
+    - name: PinkyToe02_R
+      parentName: PinkyToe01_R
+      position: {x: -0.56733644, y: 36.63902, z: -0.52818644}
+      rotation: {x: -0.015246136, y: -0.00006352364, z: 0.0023633984, w: 0.99988097}
+      scale: {x: 0.9999998, y: 0.9999996, z: 0.9999998}
+    - name: PinkyToe02_R_end
+      parentName: PinkyToe02_R
+      position: {x: -0, y: 32.2836, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MiddleToe01_R
+      parentName: Feet_R
+      position: {x: -31.096289, y: 6.2526445, z: -0.022907257}
+      rotation: {x: 0.5260729, y: -0.49147332, z: -0.5194792, w: -0.4602637}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000004}
+    - name: MiddleToe02_R
+      parentName: MiddleToe01_R
+      position: {x: -0.39086896, y: 36.644527, z: -0.24272671}
+      rotation: {x: -0.01136124, y: -0.00005590915, z: 0.0049448605, w: 0.9999233}
+      scale: {x: 1.0000001, y: 1, z: 0.99999946}
+    - name: MiddleToe02_R_end
+      parentName: MiddleToe02_R
+      position: {x: -0, y: 32.284935, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IndexToe01_R
+      parentName: Feet_R
+      position: {x: -25.18425, y: 26.270332, z: -1.0144958}
+      rotation: {x: 0.39599854, y: -0.60458463, z: -0.437544, w: -0.5349934}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000002}
+    - name: IndexToe02_R
+      parentName: IndexToe01_R
+      position: {x: 2.2779922, y: 28.129942, z: 0.14175853}
+      rotation: {x: 0.011361402, y: 0.000032365315, z: -0.002834662, w: -0.99993145}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
+    - name: IndexToe02_R_end
+      parentName: IndexToe02_R
+      position: {x: -0, y: 27.590488, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ThumbToe01_R
+      parentName: Feet_R
+      position: {x: 32.47459, y: 1.3351074, z: -11.824159}
+      rotation: {x: 0.50599545, y: 0.483238, z: -0.5478931, w: 0.45854416}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000001}
+    - name: ThumbToe01_R_end
+      parentName: ThumbToe01_R
+      position: {x: -0, y: 36.646687, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dragon
+      parentName: DragonUsurper(Clone)
+      position: {x: -3.6758138e-10, y: 7.450594e-11, z: 0.0000000019185245}
+      rotation: {x: -0.000000037748947, y: 0.000000002910383, z: 2.2736958e-11, w: 1}
+      scale: {x: 0.010000001, y: 0.01, z: 0.01}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: Root
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8d48dc73e9b86f2488758f19bed70ba9,
+    type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

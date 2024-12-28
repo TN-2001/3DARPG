@@ -449,6 +449,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 143726028542845914, guid: 6126c131a64d4ed488a5673304b0511a,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d25f1b81615b7034d8bf0471ab5b06f7, type: 3}
+  m_Resource: {fileID: 8300000, guid: d25f1b81615b7034d8bf0471ab5b06f7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -578,6 +579,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 842474452568684305, guid: 6126c131a64d4ed488a5673304b0511a,
     type: 2}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1821,10 +1823,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1253086935255656, guid: 60e8218091f83244c9bf9c8c2569a009,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6281264902316875060}
-    - targetCorrespondingSourceObject: {fileID: 1253086935255656, guid: 60e8218091f83244c9bf9c8c2569a009,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8646066322038013757}
     - targetCorrespondingSourceObject: {fileID: 1253086935255656, guid: 60e8218091f83244c9bf9c8c2569a009,
         type: 3}
@@ -1947,21 +1945,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onAnimEnd:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &6281264902316875060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3225873684102639119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dbf1d16e4db01247a1917a5a6280ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDamage:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8646066322038013757

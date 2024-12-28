@@ -30,14 +30,14 @@ public class AttackController : MonoBehaviour
     // 経過時間
     private float countTime = 0;
     // 当てた敵
-    private List<DamageDetector> damageList = new List<DamageDetector>();
+    private List<IBattler> iBattlerList = new List<IBattler>();
 
 
     public void Initialize(int atk)
     {
         this.atk = atk * atkPercent / 100;
         countTime = 0;
-        damageList = new List<DamageDetector>();
+        iBattlerList = new List<IBattler>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,22 +45,22 @@ public class AttackController : MonoBehaviour
         if(other.gameObject.tag == tagName){
             // 1匹の敵に1度だけヒットするように
 
-            DamageDetector damage = null;
-            if(other.TryGetComponent<DamageDetector>(out DamageDetector _damage)){
-                damage = _damage;
+            IBattler iBattler = null;
+            if(other.TryGetComponent<IBattler>(out IBattler _iBattler)){
+                iBattler = _iBattler;
             }
-            else if(other.TryGetComponent<SubDamageDetector>(out SubDamageDetector _subDamage)){
-                damage = _subDamage.DamageDetector;
+            else if(other.TryGetComponent<SubIBattler>(out SubIBattler _subIBattler)){
+                iBattler = _subIBattler.IBattler;
             }
 
-            if(damage != null){
+            if(iBattler != null){
                 bool isHit = false;
-                foreach(DamageDetector target in damageList){
-                    if(target == damage) isHit = true;
+                foreach(IBattler target in iBattlerList){
+                    if(target == iBattler) isHit = true;
                 }
                 if(!isHit){
-                    damage.OnDamage(atk, other.ClosestPointOnBounds(transform.position));
-                    damageList.Add(damage);
+                    iBattler.OnDamage(atk, other.ClosestPointOnBounds(transform.position));
+                    iBattlerList.Add(iBattler);
                 }
             }
         }

@@ -67,8 +67,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30A2\u30A4\u30C6\u30E0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e3a7d8bf16c6c9e48a152ad4ab479941, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 6583849df9fc15b4ab3348de12b09ced, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3714acf9ac1a1c44aa8ca0574e3c5e69, type: 2}
+  m_sharedMaterial: {fileID: 7793189556251475918, guid: 3714acf9ac1a1c44aa8ca0574e3c5e69,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -108,15 +109,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -250,8 +253,10 @@ AudioSource:
   m_GameObject: {fileID: 6977173483242216799}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 842474452568684305, guid: 6126c131a64d4ed488a5673304b0511a, type: 2}
+  OutputAudioMixerGroup: {fileID: 842474452568684305, guid: 6126c131a64d4ed488a5673304b0511a,
+    type: 2}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -489,9 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0eec311104c1024ca9f79030b5191b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onNotMoble:
-    m_PersistentCalls:
-      m_Calls: []
+  isNotMobileToOff: 0
 --- !u!114 &3812970014813075784
 MonoBehaviour:
   m_ObjectHideFlags: 0

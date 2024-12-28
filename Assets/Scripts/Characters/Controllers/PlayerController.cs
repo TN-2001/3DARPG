@@ -3,101 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(AnimationDetector), typeof(DamageDetector), typeof(PlayerMoveController))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(AnimationDetector), typeof(PlayerMoveController))]
+public class PlayerController : MonoBehaviour, IBattler
 {
     // ステート
-    [SerializeField]
-    private string stateName = null;
+    [SerializeField] private string stateName = null;
     private StateMachine<PlayerController> stateMachine;
 
     //コンポーネント
-    // アニメーションコンポーネント
-    private Animator anim = null;
-    // 入力
-    private PlayerInput input = null;
-    // 移動
-    private PlayerMoveController move = null;
-    // アニメーションディテクター
-    private AnimationDetector animDetector = null;
-    // ダメージディテクター
-    private DamageDetector damageDetector = null;
+    private Animator anim = null; // アニメーションコンポーネント
+    private PlayerInput input = null; // 入力
+    private PlayerMoveController move = null; // 移動
+    private AnimationDetector animDetector = null; // アニメーションディテクター
 
     // カメラコントローラー
     private CameraController cameraController = null;
 
     // キャラクター
-    private Player player => GameManager.I.Data.Player;
-    // 回復可能フラグ
-    private bool isCanRecovery{get{
-        ItemData itemData = GameManager.I.DataBase.ItemDataList[0];
-        Item item = GameManager.I.Data.ItemList.Find(x => x.Data == itemData);
-        int count = 0;
-        if(item != null){
-            count = item.Count;
-        }
-        if(player.CurrentHp < player.Hp & count > 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }}
+    private Player Player => GameManager.I.Data.Player;
     // ダメージ
     private bool isDamage = false;
     // NPC
-    private List<NpcController> npcControllerList = new List<NpcController>();
-    private NpcData npcData{get{
-        if(npcControllerList.Count > 0){
-            return npcControllerList[0].NpcData;
-        }
-        else{
-            return null;
-        }
-    }}
-    // 敵
-    private List<Transform> targetTraList = new List<Transform>();
-    public Transform targetTra{get{
-        Transform tra = null;
-        for(int i = 0; i < targetTraList.Count; i++){
-            if(i == 0){
-                tra = targetTraList[0];
+    private readonly List<NpcController> npcControllerList = new();
+    private NpcData NpcData
+    {
+        get{
+            if(npcControllerList.Count > 0){
+                return npcControllerList[0].NpcData;
             }
             else{
-                Vector3 dis1 = transform.position - tra.position;
-                Vector3 dis2 = transform.position - targetTraList[i].position;
-                if(dis1.magnitude > dis2.magnitude){
-                    tra = targetTraList[i];
-                }
+                return null;
             }
         }
-        return tra;
-    }}
+    }
+    // 敵
+    private readonly List<Transform> targetTraList = new();
+    public Transform TargetTra
+    {
+        get{
+            Transform tra = null;
+            for(int i = 0; i < targetTraList.Count; i++){
+                if(i == 0){
+                    tra = targetTraList[0];
+                }
+                else{
+                    Vector3 dis1 = transform.position - tra.position;
+                    Vector3 dis2 = transform.position - targetTraList[i].position;
+                    if(dis1.magnitude > dis2.magnitude){
+                        tra = targetTraList[i];
+                    }
+                }
+            }
+            return tra;
+        }
+    }
 
     [Header("BattleParameter")]
-    [SerializeField] // 判定
-    private CollisionDetector collisionDetector = null;
-    [SerializeField] // 索敵判定
-    private CollisionDetector serchDetector = null;
-    [SerializeField] // 攻撃
-    private AttackController attackController = null;
-    [SerializeField] // バリアパーティクル
-    private ParticleSystem barrierParticle = null;
+    [SerializeField] private CollisionDetector collisionDetector = null; // 判定
+    [SerializeField] private CollisionDetector serchDetector = null; // 索敵判定
+    [SerializeField] private AttackController attackController = null; // 攻撃
+    [SerializeField] private ParticleSystem barrierParticle = null; // バリアパーティクル
 
     [Header("UI")]
-    [SerializeField] // バトルウィンドウ
-    private BattleWindow battleWindow = null;
-    [SerializeField] // チャットウィンドウ
-    private ChatWindow chatWindow = null;
+    [SerializeField] private BattleWindow battleWindow = null; // バトルウィンドウ
+    [SerializeField] private ChatWindow chatWindow = null; // チャットウィンドウ
 
 
     private void Start()
     {
+        // コンポーネント入手
         anim = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
         move = GetComponent<PlayerMoveController>();
         animDetector = GetComponent<AnimationDetector>();
-        damageDetector = GetComponent<DamageDetector>();
 
         cameraController = Camera.main.GetComponent<CameraController>();
 
@@ -115,25 +93,16 @@ public class PlayerController : MonoBehaviour
             targetTraList.Remove(other.transform);
         });
 
-        damageDetector.onDamage.AddListener(delegate(int damage, Vector3 pos){
-            if(player.BarrierTime == 0){
-                player.UpdateHp(-damage);
-                battleWindow.UpdateHpSlider(player.CurrentHp);
-                isDamage = true;
-                GetComponent<CharacterAudio>().PlayOneShot_Hit();
-            }
-        });
-
-        battleWindow.InitHpSlider(player.Hp);
-        battleWindow.InitStrSlider(player.Str);
+        battleWindow.InitHpSlider(Player.Hp);
+        battleWindow.InitStrSlider(Player.Str);
         battleWindow.InitMapUI(transform);
 
         move.recoveryStamina.AddListener(delegate{
             RecoveryStr();
         });
         move.decreasedStamina.AddListener(delegate{
-            player.UpdateStr(-50*Time.fixedDeltaTime);
-            battleWindow.UpdateStrSlider(player.CurrentStr);
+            Player.UpdateStr(-50*Time.fixedDeltaTime);
+            battleWindow.UpdateStrSlider(Player.CurrentStr);
         });
 
         // パーティクルストップ
@@ -147,7 +116,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // インプットビュー
-        if(npcData != null){
+        if(NpcData != null){
             battleWindow.UpdateInputView("話しかける");
         }
         else{
@@ -155,9 +124,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // バリア
-        if(player.BarrierTime > 0){
-            player.UpdateBarrierTime(Time.fixedDeltaTime);
-            if(player.BarrierTime == 0){
+        if(Player.BarrierTime > 0){
+            Player.UpdateBarrierTime(Time.fixedDeltaTime);
+            if(Player.BarrierTime == 0){
                 barrierParticle.Stop(true);
             }
         }
@@ -166,7 +135,7 @@ public class PlayerController : MonoBehaviour
         stateName = stateMachine.currentState.ToString();
     }
 
-    private class Move : StateBase<PlayerController>
+    private class Move : StateBase<PlayerController> // 通常状態（立ち、走り、ダッシュ）
     {
         public override void OnStart()
         {
@@ -175,19 +144,19 @@ public class PlayerController : MonoBehaviour
 
         public override void OnUpdate()
         {
-            Owner.move.isCanDash = Owner.player.CurrentStr > 0;
+            Owner.move.isCanDash = Owner.Player.CurrentStr > 0;
 
             // ステート変更
             if(Owner.isDamage){
                 Owner.stateMachine.ChangeState(new Hit());
                 return;
             }
-            else if(Owner.input.actions["Do"].WasPressedThisFrame() & Owner.npcData != null){
+            else if(Owner.input.actions["Do"].WasPressedThisFrame() & Owner.NpcData != null){
                 Owner.stateMachine.ChangeState(new Talk());
                 return;
             }
             for(int i = 0; i < 4; i++){
-                if(Owner.input.actions[$"{i+1}"].WasPressedThisFrame() & Owner.player.WeaponList[i] != null){
+                if(Owner.input.actions[$"{i+1}"].WasPressedThisFrame() & Owner.Player.WeaponList[i] != null){
                     Owner.stateMachine.ChangeState(new Attack(i));
                     return;
                 }
@@ -202,10 +171,8 @@ public class PlayerController : MonoBehaviour
 
     private class Attack : StateBase<PlayerController>
     {
-        // 番号
-        private readonly int number;
-        // 次の番号
-        private int nextNumber = -1;
+        private readonly int number = 0; // 番号
+        private int nextNumber = -1; // 次の番号
 
         public Attack(int number)
         {
@@ -217,16 +184,16 @@ public class PlayerController : MonoBehaviour
             // フラグ初期化
             Owner.animDetector.Init();
             Owner.animDetector.onAttackCollisionStart.AddListener(delegate{
-                Owner.attackController.Initialize(Owner.player.Atk);
+                Owner.attackController.Initialize(Owner.Player.Atk);
                 Owner.attackController.GetComponent<Collider>().enabled = true;
                 // 回復
-                if(Owner.player.WeaponList[number].Recovery > 0){
-                    Owner.player.UpdateHp(Owner.player.WeaponList[number].Recovery);
-                    Owner.battleWindow.UpdateHpSlider(Owner.player.CurrentHp);
+                if(Owner.Player.WeaponList[number].Recovery > 0){
+                    Owner.Player.UpdateHp(Owner.Player.WeaponList[number].Recovery);
+                    Owner.battleWindow.UpdateHpSlider(Owner.Player.CurrentHp);
                 }
                 // バリア
-                if(Owner.player.WeaponList[number].GuardTime > 0){
-                    Owner.player.InitBarrierTime(Owner.player.WeaponList[number].GuardTime);
+                if(Owner.Player.WeaponList[number].GuardTime > 0){
+                    Owner.Player.InitBarrierTime(Owner.Player.WeaponList[number].GuardTime);
                     Owner.barrierParticle.Play(true);
                 }
             });
@@ -235,23 +202,23 @@ public class PlayerController : MonoBehaviour
             });
 
             // 武器
-            GameObject weaponObj = Owner.player.WeaponList[number].Data.Prefab;
+            GameObject weaponObj = Owner.Player.WeaponList[number].Data.Prefab;
             foreach(Transform child in Owner.attackController.transform){
                 Destroy(child.gameObject);
             }
             Instantiate(weaponObj, Owner.attackController.transform);
 
-            if(Owner.player.WeaponList[number].Data.WeaponType == WeaponType.Sword){
+            if(Owner.Player.WeaponList[number].Data.WeaponType == WeaponType.Sword){
                 Owner.anim.SetInteger("atkNum", 0);
             }
-            else if(Owner.player.WeaponList[number].Data.WeaponType == WeaponType.Wand){
+            else if(Owner.Player.WeaponList[number].Data.WeaponType == WeaponType.Wand){
                 Owner.anim.SetInteger("atkNum", 1);
             }
             Owner.anim.SetTrigger("isAtk");
             Owner.attackController.GetComponent<Collider>().enabled = false;
             Owner.attackController.gameObject.SetActive(true);
-            if(Owner.targetTra){
-                Vector3 dir = new Vector3(Owner.targetTra.position.x-Owner.transform.position.x, 0, Owner.targetTra.position.z-Owner.transform.position.z).normalized;
+            if(Owner.TargetTra){
+                Vector3 dir = new Vector3(Owner.TargetTra.position.x-Owner.transform.position.x, 0, Owner.TargetTra.position.z-Owner.transform.position.z).normalized;
                 Owner.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             }
         }
@@ -260,7 +227,7 @@ public class PlayerController : MonoBehaviour
         {
             if(nextNumber == -1 & Owner.animDetector.isAnimStart){
                 for(int i = 0; i < 4; i++){
-                    if(Owner.input.actions[$"{i+1}"].WasPressedThisFrame() & Owner.player.WeaponList[i] != null){
+                    if(Owner.input.actions[$"{i+1}"].WasPressedThisFrame() & Owner.Player.WeaponList[i] != null){
                         nextNumber = i;
                     }
                 }
@@ -294,19 +261,19 @@ public class PlayerController : MonoBehaviour
             // カメラ操作できなくする
             Owner.cameraController.IsMove(false);
             int number = 1;
-            if(!GameManager.I.Data.IsFindNpcList[Owner.npcData.Number - 1]){
+            if(!GameManager.I.Data.IsFindNpcList[Owner.NpcData.Number - 1]){
                 number = 0;
             }
             else{
-                for(int i = 0; i < Owner.npcData.TextDataList.Count; i++){
+                for(int i = 0; i < Owner.NpcData.TextDataList.Count; i++){
                     if(i >= 2){
-                        if(Owner.npcData.TextDataList[i].EventData.Number == GameManager.I.Data.EventNumber){
+                        if(Owner.NpcData.TextDataList[i].EventData.Number == GameManager.I.Data.EventNumber){
                             number = i;
                         }
                     }
                 }
             }
-            Owner.chatWindow.Init(Owner.npcData.Name, Owner.npcData.TextDataList[number].TextList);
+            Owner.chatWindow.Init(Owner.NpcData.Name, Owner.NpcData.TextDataList[number].TextList);
         }
 
         public override void OnUpdate()
@@ -325,21 +292,20 @@ public class PlayerController : MonoBehaviour
             // カメラを初期化
             Owner.cameraController.IsMove(true);
             // NPCを見つけた
-            GameManager.I.Data.UpdateFindNpc(Owner.npcData.Number - 1);
+            GameManager.I.Data.UpdateFindNpc(Owner.NpcData.Number - 1);
         }
     }
 
     private class Hit : StateBase<PlayerController>
     {
-        // 死亡処理をしたか
-        private bool isEnter = false;
+        private bool isEnter = false; // 死亡処理をしたか
 
         public override void OnStart()
         {
             // フラグ初期化
             Owner.animDetector.Init();
 
-            if(Owner.player.CurrentHp <= 0f){
+            if(Owner.Player.CurrentHp <= 0f){
                 Owner.anim.SetInteger("hitNum",1);
             }
             else{
@@ -352,7 +318,7 @@ public class PlayerController : MonoBehaviour
 
         public override void OnUpdate()
         {
-            if(Owner.player.CurrentHp <= 0f & Owner.animDetector.isAnimEnd & !isEnter){
+            if(Owner.Player.CurrentHp <= 0f & Owner.animDetector.isAnimEnd & !isEnter){
                 isEnter = true;
                 // 見つけた敵に追加
                 Owner.GetComponent<Rigidbody>().useGravity = false;
@@ -368,9 +334,20 @@ public class PlayerController : MonoBehaviour
 
     private void RecoveryStr()
     {
-        if(player.CurrentStr < player.Str){
-            player.UpdateStr(100*Time.deltaTime);
-            battleWindow.UpdateStrSlider(player.CurrentStr);
+        if(Player.CurrentStr < Player.Str){
+            Player.UpdateStr(100*Time.deltaTime);
+            battleWindow.UpdateStrSlider(Player.CurrentStr);
+        }
+    }
+
+    // IBattlerのダメージ関数
+    public void OnDamage(int damage, Vector3 position)
+    {
+        if (Player.BarrierTime == 0) {
+            Player.UpdateHp(-damage);
+            battleWindow.UpdateHpSlider(Player.CurrentHp);
+            isDamage = true;
+            GetComponent<CharacterAudio>().PlayOneShot_Hit();
         }
     }
 }

@@ -6,65 +6,52 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "ScriptableObject/DataBase")]
 public class DataBase : ScriptableObject
 {
-    [SerializeField]
-    private PlayerData playerData = null;
+    [SerializeField] private PlayerData playerData = null;
+    [SerializeField] private List<EnemyData> enemyDataList = new();
+    [SerializeField] private List<NpcData> npcDataList = new();
+    [SerializeField] private List<ItemData> itemDataList = new();
+    [SerializeField] private List<WeaponData> weaponDataList = new();
+    [SerializeField] private List<ArmorData> armorData = new();
+    [SerializeField] private List<EventData> eventDataList = new();
+
     public PlayerData PlayerData => playerData;
-    [SerializeField]
-    private List<EnemyData> enemyDataList = new List<EnemyData>();
     public List<EnemyData> EnemyDataList => enemyDataList;
-    [SerializeField]
-    private List<NpcData> npcDataList = new List<NpcData>();
     public List<NpcData> NpcDataList => npcDataList;
-    [SerializeField]
-    private List<ItemData> itemDataList = new List<ItemData>();
     public List<ItemData> ItemDataList => itemDataList;
-    [SerializeField]
-    private List<WeaponData> weaponDataList = new List<WeaponData>();
     public List<WeaponData> WeaponDataList => weaponDataList;
-    [SerializeField]
-    private List<ArmorData> armorData = new List<ArmorData>();
     public List<ArmorData> ArmorDataList => armorData;
-    [SerializeField]
-    private List<EventData> eventDataList = new List<EventData>();
     public List<EventData> EventDataList => eventDataList;
 }
 
 [System.Serializable]
 public class SaveData
 {
-    [SerializeField]
-    private int money = 1000;
+    // データ
+    [SerializeField] private int money = 1000;
+    [SerializeField] private Player player = null;
+    [SerializeField] private List<Item> itemList = new();
+    [SerializeField] private List<Armor> armorList = new();
+    [SerializeField] private List<Weapon> weaponList = new();
+    [SerializeField] private List<bool> isFindEnemyList = new(); // モンスターを発見したか
+    [SerializeField] private List<bool> isFindNpcList = new(); // NPCを発見したか
+    [SerializeField] private int eventNumber = 0; // 現在のイベント番号
+    [SerializeField] private List<int> volumeList = new(){80, 80}; // 音量
+
     public int Money => money;
-    [SerializeField]
-    private Player player = null;
     public Player Player => player;
-    [SerializeField]
-    private List<Item> itemList = new List<Item>();
     public List<Item> ItemList => itemList;
-    [SerializeField]
-    private List<Armor> armorList = new List<Armor>();
     public List<Armor> ArmorList => armorList;
-    [SerializeField]
-    private List<Weapon> weaponList = new List<Weapon>();
     public List<Weapon> WeaponList => weaponList;
-    [SerializeField] // モンスターを発見したか
-    private List<bool> isFindEnemyList = new List<bool>();
     public List<bool> IsFindEnemyList => isFindEnemyList;
-    [SerializeField] // NPCを発見したか
-    private List<bool> isFindNpcList = new List<bool>();
     public List<bool> IsFindNpcList => isFindNpcList;
-    [SerializeField] // 現在のイベント番号
-    private int eventNumber = 0;
     public int EventNumber => eventNumber;
-    [SerializeField] // 音量
-    private List<int> volumeList = new List<int>(){80, 80};
     public List<int> VolumeList => volumeList;
 
-    [HideInInspector]
-    public UnityEvent onChageWeapon = null;
+    // イベント
+    [HideInInspector] public UnityEvent onChageWeapon = null;
 
 
-    public SaveData(DataBase data)
+    public SaveData(DataBase data) // 生成
     {
         UpdateItem(data.ItemDataList[0], 5);
         AddWeapon(new Weapon(data.WeaponDataList[0]));
@@ -78,7 +65,7 @@ public class SaveData
         player = new Player(data.PlayerData);
     }
 
-    public void Init(DataBase data)
+    public void Init(DataBase data) // 初期化
     {
         for(int i = 0; i < itemList.Count; i++){
             itemList[i].Init(data.ItemDataList.Find(x => x.Number == itemList[i].Number));

@@ -5,30 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/ItemData")]
 public class ItemData : ScriptableObject
 {
-    [SerializeField] // 番号
-    private int number = 0;
+    [SerializeField] private int number = 0; // 番号
+    [SerializeField] private new string name = null; // 名前
+    [SerializeField, TextArea] private string info = null; // 情報
+    [SerializeField] private Sprite image = null; // イメージ
+    [SerializeField] private int price = 0; // 価値
+    [SerializeField] private ItemType itemType = ItemType.None; // アイテムのタイプ
+    [SerializeField] private int value = 0; // 値
+    [SerializeField] private GameObject prefab = null; // プレハブ
+
     public int Number => number;
-    [SerializeField] // 名前
-    private new string name = null;
     public string Name => name;
-    [SerializeField, TextArea] // 情報
-    private string info = null;
     public string Info => info;
-    [SerializeField] // イメージ
-    private Sprite image = null;
     public Sprite Image => image;
-    [SerializeField] // プレハブ
-    private GameObject prefab = null;
-    public GameObject Prefab => prefab;
-    [SerializeField] // 価値
-    private int price = 0;
     public int Price => price;
-    [SerializeField] // アイテムのタイプ
-    private ItemType itemType = ItemType.None;
     public ItemType ItemType => itemType;
-    [SerializeField] // 値
-    private int value = 0;
     public int Value => value;
+    public GameObject Prefab => prefab;
 }
 
 [System.Serializable]
@@ -37,18 +30,17 @@ public class Item
     private ItemData data = null;
     public ItemData Data => data;
 
-    [SerializeField] // 番号
-    private int number = 0;
+    [SerializeField] private int number = 0; // 番号
+    [SerializeField] private int count = 0; // 数
+
     public int Number => number;
-    [SerializeField] // 数
-    private int count = 0;
     public int Count => count;
 
 
     public Item(ItemData data, int count)
     {
         this.data = data;
-        this.number = data.Number;
+        number = data.Number;
         this.count = count;
     }
 

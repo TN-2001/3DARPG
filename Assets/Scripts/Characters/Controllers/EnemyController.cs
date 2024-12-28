@@ -4,28 +4,20 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator), typeof(NavMeshAgent))]
-[RequireComponent(typeof(AnimationDetector), typeof(DamageDetector))]
+[RequireComponent(typeof(AnimationDetector))]
 [RequireComponent(typeof(MoveController), typeof(ChaseController))]
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IBattler
 {
     // ステート
-    [SerializeField]
-    private string stateName = null;
+    [SerializeField] private string stateName = null;
     private StateMachine<EnemyController> stateMachine;
 
     // コンポーネント
-    // ナビメッシュエージェント
-    private NavMeshAgent agent = null;
-    // アニメーター
-    private Animator anim = null;
-    // 移動コントローラー
-    private MoveController move = null;
-    // 追跡コントローラー
-    private ChaseController chase = null;
-    // アニメーションディテクター
-    private AnimationDetector animDetector = null;
-    // ダメージディテクター
-    private DamageDetector damageDetector = null;
+    private NavMeshAgent agent = null; // ナビメッシュエージェント
+    private Animator anim = null; // アニメーター
+    private MoveController move = null; // 移動コントローラー
+    private ChaseController chase = null; // 追跡コントローラー
+    private AnimationDetector animDetector = null; // アニメーションディテクター
 
     // バトルウィンドウ
     private BattleWindow battleWindow = null;
@@ -64,30 +56,17 @@ public class EnemyController : MonoBehaviour
         move = GetComponent<MoveController>();
         chase = GetComponent<ChaseController>();
         animDetector = GetComponent<AnimationDetector>();
-        damageDetector = GetComponent<DamageDetector>();
 
         battleWindow = GetComponentInParent<EnemyContent>().BattleWindow;
 
         searchDetector.onEnter.AddListener(delegate(Collider other){
             target = other.gameObject;
         });
-        searchDetector.onExit.AddListener(delegate(Collider other){
-            target = null;
-        });
 
         enemy = new Enemy(enemy.Data);
         for(int i = 0; i < attackControllers.Count; i++){
             attackControllers[i].Initialize(enemy.Atk);
         }
-
-        damageDetector.onDamage.AddListener(delegate(int damage, Vector3 pos){
-            if(enemy.CurrentHp >= 0f){
-                int dam = enemy.UpdateHp(-damage);
-                isDamage = true;
-                battleWindow.InitDamageText(-dam, pos);
-            }
-            GetComponent<CharacterAudio>().PlayOneShot_Hit();
-        });
 
         agent.autoBraking = false;
 
@@ -99,6 +78,7 @@ public class EnemyController : MonoBehaviour
     {
         stateMachine.OnUpdate();
         stateName = stateMachine.currentState.ToString();
+        stateName = stateName.ToString();
 
         // 時間カウント
         countCoolTime += Time.fixedDeltaTime;
@@ -108,7 +88,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private class Move : StateBase<EnemyController>
+    private class Move : StateBase<EnemyController> // 通常状態（立ち、歩き移動）
     {
         public override void OnStart()
         {
@@ -132,12 +112,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private class Chase : StateBase<EnemyController>
+    private class Chase : StateBase<EnemyController> // 追いかけ状態（立ち、走り追いかけ）
     {
         public override void OnStart()
         {
-            Owner.chase.target = Owner.target.transform;
-            Owner.chase.enabled = true;
+            if(Owner.target){
+                Owner.chase.target = Owner.target.transform;
+                Owner.chase.enabled = true;
+            }
         }
 
         public override void OnUpdate()
@@ -185,6 +167,8 @@ public class EnemyController : MonoBehaviour
 
     private class Attack : StateBase<EnemyController>
     {
+        private Quaternion rotation = Quaternion.identity; // 敵の向き
+
         public override void OnStart()
         {
             // フラグ初期化
@@ -202,8 +186,6 @@ public class EnemyController : MonoBehaviour
                 }
             });
 
-            // 敵の方を向く
-            Owner.transform.rotation = Quaternion.FromToRotation(Vector3.forward, (Owner.target.transform.position - Owner.transform.position).normalized);
 
             // 攻撃オブジェクトを初期化
             if(Owner.attackController.IsThrow){
@@ -222,10 +204,22 @@ public class EnemyController : MonoBehaviour
             // アニメーション
             Owner.anim.SetInteger("atkNum", Owner.atkNum);
             Owner.anim.SetTrigger("isAtk");
+
+            // 敵の方を向く
+            rotation = Quaternion.FromToRotation(Vector3.forward, (Owner.target.transform.position - Owner.transform.position).normalized);
         }
 
         public override void OnUpdate()
         {
+            if(!Owner.animDetector.isAttackCollisionStart){
+                // 滑らかに向きを更新
+                if(Quaternion.Angle(Owner.transform.rotation, rotation) > 0.1f) {
+                    Owner.transform.rotation = Quaternion.Slerp(Owner.transform.rotation, rotation, Time.deltaTime*5f);
+                }else if(Owner.transform.rotation != rotation) {
+                    Owner.transform.rotation = rotation;
+                }
+            }
+
             // ステート変更
             if(Owner.isDamage){
                 Owner.stateMachine.ChangeState(new Hit());
@@ -298,5 +292,16 @@ public class EnemyController : MonoBehaviour
             }
             Destroy(Owner.gameObject);
         }
+    }
+
+    // IBattlerのダメージ関数
+    public void OnDamage(int damage, Vector3 position)
+    {
+        if(enemy.CurrentHp >= 0f){
+            int dam = enemy.UpdateHp(-damage);
+            isDamage = true;
+            battleWindow.InitDamageText(-dam, position);
+        }
+        GetComponent<CharacterAudio>().PlayOneShot_Hit();
     }
 }
