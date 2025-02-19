@@ -1,25 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StoryWindow : MonoBehaviour
 {
-    [SerializeField] // アイテムコンテンツ
-    private RectTransform contentTra = null;
-    [SerializeField] // アイテムトグル
-    private GameObject toggleObj = null;
-    [SerializeField] // アイテム情報ビュー
-    private View infoView = null;
-    [SerializeField] // 現在の選択番号
-    private int number = 0;
+    [SerializeField] private RectTransform contentTra = null; // アイテムコンテンツ
+    [SerializeField] private GameObject toggleObj = null; // アイテムトグル
+    [SerializeField] private View infoView = null; // アイテム情報ビュー
+    [SerializeField] private int number = 0; // 現在の選択番号
 
 
     private void OnEnable()
     {
-        List<EventData> eventDataList = new List<EventData>();
-        for(int i = 0; i < GameManager.I.Data.EventNumber; i++){
-            eventDataList.Add(GameManager.I.DataBase.EventDataList[i]);
+        List<EventData> eventDataList = new();
+        for(int i = 0; i < DataManager.Instance.Data.EventNumber; i++){
+            eventDataList.Add(DataManager.Instance.DataBase.EventDataList[i]);
         }
         InitContent(eventDataList);
 

@@ -1,26 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterWindow : MonoBehaviour
 {
-    [SerializeField] // アイテムコンテンツ
-    private RectTransform contentTra = null;
-    [SerializeField] // アイテムトグル
-    private GameObject toggleObj = null;
-    [SerializeField] // アイテム情報ビュー
-    private View infoView = null;
-    [SerializeField] // 現在の選択番号
-    private int number = 0;
+    [SerializeField] private RectTransform contentTra = null; // アイテムコンテンツ
+    [SerializeField] private GameObject toggleObj = null; // アイテムトグル
+    [SerializeField] private View infoView = null; // アイテム情報ビュー
+    [SerializeField] private int number = 0; // 現在の選択番号
 
 
     private void OnEnable()
     {
-        List<EnemyData> enemyList = new List<EnemyData>();
-        for(int i = 0; i < GameManager.I.Data.IsFindEnemyList.Count; i++){
-            if(GameManager.I.Data.IsFindEnemyList[i]){
-                enemyList.Add(GameManager.I.DataBase.EnemyDataList[i]);
+        List<EnemyData> enemyList = new();
+        for(int i = 0; i < DataManager.Instance.Data.IsFindEnemyList.Count; i++){
+            if(DataManager.Instance.Data.IsFindEnemyList[i]){
+                enemyList.Add(DataManager.Instance.DataBase.EnemyDataList[i]);
             }
         }
         InitContent(enemyList);

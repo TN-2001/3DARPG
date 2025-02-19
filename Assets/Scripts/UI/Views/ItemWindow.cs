@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,49 +5,46 @@ using UnityEngine.Events;
 
 public class ItemWindow : MonoBehaviour
 {
-    [SerializeField] // タブトグル
-    private List<Toggle> tabToggleList = new List<Toggle>();
-    [SerializeField] // アイテムコンテンツ
-    private RectTransform itemContentTra = null;
-    [SerializeField] // アイテムトグル
-    private GameObject itemToggleObj = null;
-    [SerializeField] // アイテム情報ビュー
-    private View infoView = null;
-    [SerializeField] // インプットボタン
-    private List<Button> btnList = new List<Button>();
-    [SerializeField] // 現在のタブ番号
-    private int tabNumber = 0;
-    [SerializeField] // 現在の選択番号
-    private int number = 0;
+    [SerializeField] private List<Toggle> tabToggleList = new(); // タブトグル
+    [SerializeField] private RectTransform itemContentTra = null; // アイテムコンテンツ
+    [SerializeField] private GameObject itemToggleObj = null; // アイテムトグル
+    [SerializeField] private View infoView = null; // アイテム情報ビュー
+    [SerializeField] private List<Button> btnList = new(); // インプットボタン
+    [SerializeField] private int tabNumber = 0; // 現在のタブ番号
+    [SerializeField] private int number = 0; // 現在の選択番号
+
+    private SaveData data = null;
 
 
     private void OnEnable()
     {
+        data = DataManager.Instance.Data;
+
         foreach(Toggle child in tabToggleList){
             child.onValueChanged.RemoveAllListeners();
         }
         tabToggleList[0].onValueChanged.AddListener(delegate(bool isOn){
             if(isOn){
                 tabNumber = 0;
-                InitContent(GameManager.I.Data.ItemList.FindAll(x => x.Data.ItemType == ItemType.Recovery));
+                InitContent(data.ItemList.FindAll(x => x.Data.ItemType == ItemType.Recovery));
             }
         });
         tabToggleList[1].onValueChanged.AddListener(delegate(bool isOn){
             if(isOn){
                 tabNumber = 1;
-                InitContent(GameManager.I.Data.ItemList.FindAll(x => x.Data.ItemType == ItemType.None));
+                InitContent(data.ItemList.FindAll(x => x.Data.ItemType == ItemType.None));
             }
         });
         tabToggleList[2].onValueChanged.AddListener(delegate(bool isOn){
             if(isOn){
                 tabNumber = 2;
-                InitContent(GameManager.I.Data.WeaponList);
+                InitContent(data.WeaponList);
             }
         });
         tabToggleList[3].onValueChanged.AddListener(delegate(bool isOn){
             if(isOn){
                 tabNumber = 3;
-                InitContent(GameManager.I.Data.ArmorList);
+                InitContent(data.ArmorList);
             }
         });
 

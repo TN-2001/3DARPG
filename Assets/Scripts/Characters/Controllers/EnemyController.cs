@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-[RequireComponent(typeof(Animator), typeof(NavMeshAgent))]
 [RequireComponent(typeof(AnimationDetector))]
 [RequireComponent(typeof(MoveController), typeof(ChaseController))]
 public class EnemyController : MonoBehaviour, IBattler
@@ -13,7 +11,6 @@ public class EnemyController : MonoBehaviour, IBattler
     private StateMachine<EnemyController> stateMachine;
 
     // コンポーネント
-    private NavMeshAgent agent = null; // ナビメッシュエージェント
     private Animator anim = null; // アニメーター
     private MoveController move = null; // 移動コントローラー
     private ChaseController chase = null; // 追跡コントローラー
@@ -23,35 +20,23 @@ public class EnemyController : MonoBehaviour, IBattler
     private BattleWindow battleWindow = null;
 
     [Header("コンポーネント")]
-    [SerializeField] // キャラクター
-    private Enemy enemy = null;
+    [SerializeField] private Enemy enemy = null; // キャラクター
     public Enemy Enemy => enemy;
-    [SerializeField] // エリア判定
-    private SearchDetector searchDetector = null;
-    [SerializeField] // 攻撃
-    private List<AttackController> attackControllers = null;
-    [SerializeField] // パーティクル
-    private ParticleSystem particle = null;
+    [SerializeField] private SearchDetector searchDetector = null; // エリア判定
+    [SerializeField] private List<AttackController> attackControllers = null; // 攻撃
 
     // パラメータ
     [Header("パラメータ")]
-    [SerializeField] // クールタイム
-    private float coolTime = 3f;
-    // ダメージ
-    private bool isDamage = false;
-    // 攻撃
-    private AttackController attackController = null;
-    // 攻撃番号
-    private int atkNum = 0;
-    // 時間カウント
-    private float countCoolTime = 0f;
-    // ターゲット
-    private GameObject target = null;
+    [SerializeField] private float coolTime = 3f; // クールタイム
+    private AttackController attackController = null; // 攻撃
+    private int atkNum = 0; // 攻撃番号
+    private float countCoolTime = 0f; // 時間カウント
+    private GameObject target = null; // ターゲット
 
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        // コンポーネント入手
         anim = GetComponent<Animator>();
         move = GetComponent<MoveController>();
         chase = GetComponent<ChaseController>();
@@ -63,12 +48,18 @@ public class EnemyController : MonoBehaviour, IBattler
             target = other.gameObject;
         });
 
-        enemy = new Enemy(enemy.Data);
-        for(int i = 0; i < attackControllers.Count; i++){
+        // キャラクター
+        enemy = new(enemy.Data){
+            Transform = transform
+        };
+        DataManager.Instance.EnemyList.Add(enemy);
+
+        for (int i = 0; i < attackControllers.Count; i++){
             attackControllers[i].Initialize(enemy.Atk);
         }
 
-        agent.autoBraking = false;
+        // UI
+        battleWindow.AddMapEnemy(transform);
 
         stateMachine = new StateMachine<EnemyController>(this);
         stateMachine.ChangeState(new Move());
@@ -77,14 +68,22 @@ public class EnemyController : MonoBehaviour, IBattler
     private void FixedUpdate()
     {
         stateMachine.OnUpdate();
-        stateName = stateMachine.currentState.ToString();
-        stateName = stateName.ToString();
+        stateName = stateMachine.CurrentState.ToString();
 
-        // 時間カウント
-        countCoolTime += Time.fixedDeltaTime;
-        if(countCoolTime >= coolTime & !attackController){
-            atkNum = Random.Range(0, attackControllers.Count);
-            attackController = attackControllers[atkNum];
+        if(stateMachine.CurrentState.GetType() != typeof(Attack)){
+            // 時間カウント
+            countCoolTime += Time.fixedDeltaTime;
+
+            if(countCoolTime >= coolTime && target != null){
+                atkNum = Random.Range(0, attackControllers.Count);
+                attackController = attackControllers[atkNum];
+                if(attackController.MinRange <= Vector3.Distance(transform.position, target.transform.position) &
+                    Vector3.Distance(transform.position, target.transform.position) <= attackController.MaxRange){
+                    if(chase.IsLookTarget){
+                        stateMachine.ChangeState(new Attack());
+                    }
+                }
+            }
         }
     }
 
@@ -98,10 +97,7 @@ public class EnemyController : MonoBehaviour, IBattler
         public override void OnUpdate()
         {
             // ステート変更
-            if(Owner.isDamage){
-                Owner.stateMachine.ChangeState(new Hit());
-            }
-            else if(Owner.target){
+            if(Owner.target){
                 Owner.stateMachine.ChangeState(new Chase());
             }
         }
@@ -125,20 +121,8 @@ public class EnemyController : MonoBehaviour, IBattler
         public override void OnUpdate()
         {
             // ステート変更
-            if(Owner.isDamage){
-                Owner.stateMachine.ChangeState(new Hit());
-            }
-            else if(!Owner.target){
+            if(!Owner.target){
                 Owner.stateMachine.ChangeState(new Move());
-            }
-            else if(Owner.attackController){
-                if(Owner.attackController.MinRange > Vector3.Distance(Owner.transform.position, Owner.target.transform.position)){
-                    Owner.stateMachine.ChangeState(new Back());
-                }
-                else if(Owner.attackController.MinRange <= Vector3.Distance(Owner.transform.position, Owner.target.transform.position) &
-                    Vector3.Distance(Owner.transform.position, Owner.target.transform.position) <= Owner.attackController.MaxRange){
-                    Owner.stateMachine.ChangeState(new Attack());
-                }
             }
         }
 
@@ -221,9 +205,6 @@ public class EnemyController : MonoBehaviour, IBattler
             }
 
             // ステート変更
-            if(Owner.isDamage){
-                Owner.stateMachine.ChangeState(new Hit());
-            }
             if(Owner.animDetector.isAnimEnd){
                 if(Owner.target){
                     Owner.stateMachine.ChangeState(new Chase());
@@ -260,7 +241,6 @@ public class EnemyController : MonoBehaviour, IBattler
             }
 
             Owner.anim.SetTrigger("isHit");
-            Owner.isDamage = false;
         }
 
         public override void OnUpdate()
@@ -274,11 +254,7 @@ public class EnemyController : MonoBehaviour, IBattler
         private IEnumerator IDie()
         {
             // 見つけた敵に追加
-            GameManager.I.Data.UpdateFindEnemy(Owner.enemy.Data.Number - 1);
-
-            GameObject obj = Instantiate(Owner.particle.gameObject, Owner.transform.position, Owner.particle.transform.rotation);
-            obj.SetActive(true);
-            Destroy(obj, 2f);
+            DataManager.Instance.Data.UpdateFindEnemy(Owner.enemy.Data.Number - 1);
 
             yield return new WaitForSeconds(1f);
             foreach(ItemData data in Owner.Enemy.DropItemList){
@@ -294,14 +270,24 @@ public class EnemyController : MonoBehaviour, IBattler
         }
     }
 
+
     // IBattlerのダメージ関数
     public void OnDamage(int damage, Vector3 position)
     {
         if(enemy.CurrentHp >= 0f){
             int dam = enemy.UpdateHp(-damage);
-            isDamage = true;
             battleWindow.InitDamageText(-dam, position);
+            stateMachine.ChangeState(new Hit());
         }
         GetComponent<CharacterAudio>().PlayOneShot_Hit();
+        GetComponent<CharacterEffect>().PlayInstantiateParticle(3, position);
+    }
+
+
+    private void OnDestroy()
+    {
+        DataManager.Instance.EnemyList.Remove(enemy);
+        // UI
+        battleWindow.RemoveMapEnemy(transform);
     }
 }

@@ -159,8 +159,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30A2\u30A4\u30C6\u30E0\xD72"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e3a7d8bf16c6c9e48a152ad4ab479941, type: 2}
-  m_sharedMaterial: {fileID: 6990802094028408514, guid: e3a7d8bf16c6c9e48a152ad4ab479941, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3714acf9ac1a1c44aa8ca0574e3c5e69, type: 2}
+  m_sharedMaterial: {fileID: 7793189556251475918, guid: 3714acf9ac1a1c44aa8ca0574e3c5e69,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -200,15 +201,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

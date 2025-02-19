@@ -2,23 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using TMPro;
 
 public class ChatWindow : MonoBehaviour
 {
-    [SerializeField] // 名前テキスト
-    private TextMeshProUGUI nameText = null;
-    [SerializeField] // チャットテキスト
-    private TextMeshProUGUI chatText = null;
-    [SerializeField] // 次へボタン
-    private Button nextBtn = null;
-    [SerializeField] // 選択ボタン
-    private List<Button> selectBtnList = new List<Button>();
-    [SerializeField] // バトルウィンドウ
-    private GameObject battleWindowObj = null;
-    // 次へフラグ
-    private bool isNext = false;
+    [SerializeField] private TextMeshProUGUI nameText = null; // 名前テキスト
+    [SerializeField] private TextMeshProUGUI chatText = null; // チャットテキスト
+    [SerializeField] private Button nextBtn = null; // 次へボタン
+    [SerializeField] private List<Button> selectBtnList = new(); // 選択ボタン
+    [SerializeField] private GameObject battleWindowObj = null; // バトルウィンドウ
+
+    private bool isNext = false; // 次へフラグ
 
 
     private void Start()

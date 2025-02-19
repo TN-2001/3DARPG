@@ -412,6 +412,42 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 6424402370387442955}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: ae53903874de12b4da09efacd2d60ac9,
+        type: 2}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReturnWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7607395752172735735, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7668963560539315356, guid: 7c3cfb7eb743b964d89047c7e9ef77fa,
         type: 3}
       propertyPath: m_Pivot.x

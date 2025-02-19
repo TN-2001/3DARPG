@@ -7,28 +7,25 @@ using UnityEngine.EventSystems;
 
 public class PlayerWindow : MonoBehaviour
 {
-    [SerializeField] // トグルリスト
-    private List<Toggle> toggleList = new();
-    [SerializeField] // プレイヤービュー
-    private View playerView = null;
-    [SerializeField] // プレイヤースライダー
-    private Slider playerSlider = null;
-    [SerializeField] // アイテム情報ビュー
-    private View infoView = null;
-    [SerializeField] // コマンドボタン
-    private List<Button> btnList = new();
-    [SerializeField] // 装備ウィンドウ
-    private EquipWindow equipWindow = null;
-    // 番号
-    private int number = 0;
+    [SerializeField] private List<Toggle> toggleList = new(); // トグルリスト
+    [SerializeField] private View playerView = null; // プレイヤービュー
+    [SerializeField] private Slider playerSlider = null; // プレイヤースライダー
+    [SerializeField] private View infoView = null; // アイテム情報ビュー
+    [SerializeField] private List<Button> btnList = new(); // コマンドボタン
+    [SerializeField] private EquipWindow equipWindow = null; // 装備ウィンドウ
+
+    private SaveData data = null; // データ
+    private int number = 0; // 番号
 
 
     private void OnEnable()
     {
         Time.timeScale = 0f;
 
+        data = DataManager.Instance.Data;
+
         for(int i = 0; i < 4; i++){
-            Armor armor = GameManager.I.Data.Player.ArmorList[i];
+            Armor armor = data.Player.ArmorList[i];
             if(armor != null){
                 toggleList[i].GetComponent<View>().UpdateUI(new List<Sprite>(){armor.Data.Image});
             }
@@ -37,7 +34,7 @@ public class PlayerWindow : MonoBehaviour
             }
         }
         for(int i = 0; i < 4; i++){
-            Weapon weapon = GameManager.I.Data.Player.WeaponList[i];
+            Weapon weapon = data.Player.WeaponList[i];
             if(weapon != null){
                 toggleList[i+4].GetComponent<View>().UpdateUI(new List<Sprite>(){weapon.Data.Image});
             }
@@ -46,7 +43,7 @@ public class PlayerWindow : MonoBehaviour
             }
         }
 
-        Player player = GameManager.I.Data.Player;
+        Player player = data.Player;
         playerView.UpdateUI(new List<string>(){
             $"Lv.{player.Lev}",
             $"{player.CurrentExp}/{player.Exp}",
@@ -78,6 +75,7 @@ public class PlayerWindow : MonoBehaviour
             toggleList[i].onValueChanged.AddListener(delegate(bool isOn){
                 if(isOn){
                     number = f;
+                    equipWindow.typeNumber = number;
                     OnSelect();
                 }
             });
@@ -88,7 +86,7 @@ public class PlayerWindow : MonoBehaviour
     {
         // 情報ビュー
         if(number < 4){
-            Armor armor = GameManager.I.Data.Player.ArmorList[number];
+            Armor armor = data.Player.ArmorList[number];
             if(armor != null){
                 // 情報ビュー
                 string info = $"HP+{armor.Hp}\n{armor.Data.Info}";
@@ -99,7 +97,7 @@ public class PlayerWindow : MonoBehaviour
             }
         }
         else{
-            Weapon weapon = GameManager.I.Data.Player.WeaponList[number - 4];
+            Weapon weapon = data.Player.WeaponList[number - 4];
             if(weapon != null){
                 // 情報ビュー
                 string info = $"攻撃力+{weapon.Atk}";
@@ -118,18 +116,16 @@ public class PlayerWindow : MonoBehaviour
         }
 
         // コマンドボタン
-        if((number == 0 & GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Head).Count == 0)
-            | (number == 1 & GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Chest).Count == 0)
-            | (number == 2 & GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Arm).Count == 0)
-            | (number == 3 & GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Leg).Count == 0)){
+        if((number == 0 & data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Head).Count == 0)
+            | (number == 1 & data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Chest).Count == 0)
+            | (number == 2 & data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Arm).Count == 0)
+            | (number == 3 & data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Leg).Count == 0)){
             UpdateCommand(new List<(string name, UnityAction action)>());
         }
         else{
             UpdateCommand(new List<(string name, UnityAction action)>(){
                 ("装備変更", delegate{
-                    equipWindow.typeNumber = number; 
-                    gameObject.SetActive(false);
-                    equipWindow.gameObject.SetActive(true);
+                     
                 })
             });
         }

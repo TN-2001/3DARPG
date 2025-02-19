@@ -6,30 +6,43 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class CollisionDetector : MonoBehaviour
 {
-    [SerializeField] // 当たり判定の対象のタグ
-    public string tagName = null;
+    public string tagName = null; // 当たり判定の対象のタグ
 
-    [HideInInspector] // 引数にColliderを持ったUnityEvent
-    public UnityEvent<Collider> onTriggerEnter, onTriggerStay, onTriggerExit;
+    // 引数にColliderを持ったUnityEvent
+    [HideInInspector] public UnityEvent<Collider> onTriggerEnter = null;
+    [HideInInspector] public UnityEvent<Collider> onTriggerStay = null;
+    [HideInInspector] public UnityEvent<Collider> onTriggerExit = null;
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == tagName | tagName == ""){
+        if(tagName != ""){
+            if(other.gameObject.CompareTag(tagName)){
+                onTriggerEnter?.Invoke(other);
+            }
+        }else{
             onTriggerEnter?.Invoke(other);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == tagName | tagName == ""){
+        if(tagName != ""){
+            if(other.gameObject.CompareTag(tagName)){
+                onTriggerStay?.Invoke(other);
+            }
+        }else{
             onTriggerStay?.Invoke(other);
         }
     }
 
     private void OnTriggerExit(Collider other) 
     {
-        if(other.gameObject.tag == tagName | tagName == ""){
+        if(tagName != ""){
+            if(other.gameObject.CompareTag(tagName)){
+                onTriggerExit?.Invoke(other);
+            }
+        }else{
             onTriggerExit?.Invoke(other);
         }
     }

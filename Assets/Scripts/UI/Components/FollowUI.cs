@@ -1,59 +1,89 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowUI : MonoBehaviour
 {
-    [SerializeField] // 追従するか否か
-    private bool isFollow = false;
-    [SerializeField] // 消すか否か
-    private bool isDestroy = false;
-    [SerializeField] // 生存時間
-    private float survivalTime = 0;
-    [SerializeField] // 追従する対象
-    private Transform target = null;
-    // 追従する対象の最初の位置
-    private Vector3 firstPosition = Vector3.zero;
+    // コンポーネント
+    private RectTransform rectTransform = null;
+
+    // ターゲット
+    public Transform targetTransform = null; // 追従する対象
+    public Vector3 targetPosition = Vector3.zero; // 追従する対象の位置
+
+    // パラメータ
+    [SerializeField] private MoveType moveType = MoveType.None;
+    [SerializeField] private bool isRotate = false;
+    [SerializeField] private bool isConstScale = false; // 固定スケール
+    [SerializeField] private bool isDestroy = false; // 消すか否か
+    [SerializeField] private float survivalTime = 0; // 生存時間
+
+    private Vector3 initialLossyScale = new(1,1,1); // 最初のスケール
+    private Vector3 currentLossyScale = new(1,1,1); // 現在のスケール
 
 
-    public void Init(Transform target)
+    private void Start()
     {
-        this.target = target;
-        firstPosition = target.position;
-        Vector3 pos = Camera.main.WorldToScreenPoint(firstPosition);
-        pos.z = 0;
-        transform.position = pos*2;
-        gameObject.SetActive(true);
+        rectTransform = GetComponent<RectTransform>();
 
-        if(isDestroy) Destroy(gameObject, survivalTime);
-    }
-    public void Init(Vector3 position)
-    {
-        firstPosition = position;
-        Vector3 pos = Camera.main.WorldToScreenPoint(firstPosition);
-        pos.z = 0;
-        transform.position = pos*2;
-        gameObject.SetActive(true);
+        initialLossyScale = transform.lossyScale;
+        currentLossyScale = initialLossyScale;
 
-        if(isDestroy) Destroy(gameObject, survivalTime);
+        if(isDestroy){
+            Destroy(gameObject, survivalTime);
+        }
     }
 
     private void LateUpdate()
     {
-        if(isFollow){
-            if(target){
-                Vector3 pos = Camera.main.WorldToScreenPoint(target.position);
-                pos.z = 0;
-                transform.position = pos*2;
-            }
-            else{
-                Destroy(gameObject);
+        if(targetTransform){
+            targetPosition = targetTransform.position;
+
+            // 回転
+            if(isRotate){
+                Vector3 rot = rectTransform.rotation.eulerAngles;
+                rot.z = -targetTransform.rotation.eulerAngles.y;
+                rectTransform.rotation = Quaternion.Euler(rot);
             }
         }
-        else{
-            Vector3 pos = Camera.main.WorldToScreenPoint(firstPosition);
+
+        // 座標
+        if(moveType == MoveType.WorldToScreen)
+        {
+            Vector3 pos = Camera.main.WorldToScreenPoint(targetPosition);
             pos.z = 0;
-            transform.position = pos*2;
+            rectTransform.position = pos*2;
         }
+        else if(moveType == MoveType.WorldToUI)
+        {
+            rectTransform.anchoredPosition3D = 
+                new Vector3(targetTransform.position.x, targetTransform.position.z, 0);
+        }
+        else if(moveType == MoveType.MinusWorldToUI)
+        {
+            rectTransform.anchoredPosition3D = 
+                new Vector3(-targetTransform.position.x, -targetTransform.position.z, 0);
+        }
+
+        // 固定スケール
+        if(isConstScale){
+            if (transform.lossyScale != currentLossyScale)
+            {
+                Vector3 scaleChange = initialLossyScale;
+                currentLossyScale = transform.lossyScale;
+                scaleChange.x /= currentLossyScale.x;
+                scaleChange.y /= currentLossyScale.y;
+                scaleChange.z /= currentLossyScale.z;
+                transform.localScale = Vector3.Scale(transform.localScale, scaleChange);
+            }
+        }
+    }
+
+
+    // タイプ
+    private enum MoveType
+    {
+        None,
+        WorldToScreen,
+        WorldToUI,
+        MinusWorldToUI,
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,23 +7,16 @@ public class PlayerController : MonoBehaviour, IBattler
 {
     // ステート
     [SerializeField] private string stateName = null;
-    private StateMachine<PlayerController> stateMachine;
+    private StateMachine<PlayerController> stateMachine = null;
 
     //コンポーネント
     private Animator anim = null; // アニメーションコンポーネント
-    private PlayerInput input = null; // 入力
     private PlayerMoveController move = null; // 移動
     private AnimationDetector animDetector = null; // アニメーションディテクター
+    private CharacterEffect effect = null; // エフェク
 
-    // カメラコントローラー
-    private CameraController cameraController = null;
-
-    // キャラクター
-    private Player Player => GameManager.I.Data.Player;
-    // ダメージ
-    private bool isDamage = false;
-    // NPC
-    private readonly List<NpcController> npcControllerList = new();
+    private Player player = null; // プレイヤー
+    private readonly List<NpcController> npcControllerList = new(); // NPC
     private NpcData NpcData
     {
         get{
@@ -36,11 +28,15 @@ public class PlayerController : MonoBehaviour, IBattler
             }
         }
     }
-    // 敵
-    private readonly List<Transform> targetTraList = new();
+    private readonly List<Transform> targetTraList = new(); // 敵
     public Transform TargetTra
     {
         get{
+            for(int i = targetTraList.Count-1; i >= 0; i--){
+                if(targetTraList[i] == null){
+                    targetTraList.RemoveAt(i);
+                }
+            }
             Transform tra = null;
             for(int i = 0; i < targetTraList.Count; i++){
                 if(i == 0){
@@ -59,54 +55,51 @@ public class PlayerController : MonoBehaviour, IBattler
     }
 
     [Header("BattleParameter")]
-    [SerializeField] private CollisionDetector collisionDetector = null; // 判定
+    [SerializeField] private CollisionDetector collisionDetector = null; // 当たり判定
     [SerializeField] private CollisionDetector serchDetector = null; // 索敵判定
-    [SerializeField] private AttackController attackController = null; // 攻撃
+    [SerializeField] private List<AttackController> attackControllerList = new(); // 攻撃リスト
     [SerializeField] private ParticleSystem barrierParticle = null; // バリアパーティクル
 
     [Header("UI")]
     [SerializeField] private BattleWindow battleWindow = null; // バトルウィンドウ
     [SerializeField] private ChatWindow chatWindow = null; // チャットウィンドウ
 
+    private int nextAttackNumber = -1;
+    private bool isGurd = false;
+
 
     private void Start()
     {
         // コンポーネント入手
         anim = GetComponent<Animator>();
-        input = GetComponent<PlayerInput>();
         move = GetComponent<PlayerMoveController>();
         animDetector = GetComponent<AnimationDetector>();
+        effect = GetComponent<CharacterEffect>();
 
-        cameraController = Camera.main.GetComponent<CameraController>();
+        // キャラクター
+        player = DataManager.Instance.Player;
+        player.Transform = transform;
 
-        collisionDetector.onTriggerEnter.AddListener(delegate(Collider other){
-            npcControllerList.Add(other.GetComponent<NpcController>());
-        });
-        collisionDetector.onTriggerExit.AddListener(delegate(Collider other){
-            npcControllerList.Remove(other.GetComponent<NpcController>());
-        });
+        // 当たり判定
+        collisionDetector.onTriggerEnter.AddListener(OnCollisionDetectorEnter);
+        collisionDetector.onTriggerExit.AddListener(OnCollisionDetectorExit);
 
-        serchDetector.onTriggerEnter.AddListener(delegate(Collider other){
-            targetTraList.Add(other.transform);
-        });
-        serchDetector.onTriggerExit.AddListener(delegate(Collider other){
-            targetTraList.Remove(other.transform);
-        });
+        // 索敵判定
+        serchDetector.onTriggerEnter.AddListener(OnSerchDetectorEnter);
+        serchDetector.onTriggerExit.AddListener(OnSerchDetectorExit);
 
-        battleWindow.InitHpSlider(Player.Hp);
-        battleWindow.InitStrSlider(Player.Str);
+        // UI
+        battleWindow.InitHpSlider(player.Hp);
+        battleWindow.InitStrSlider(player.Str);
         battleWindow.InitMapUI(transform);
 
         move.recoveryStamina.AddListener(delegate{
             RecoveryStr();
         });
         move.decreasedStamina.AddListener(delegate{
-            Player.UpdateStr(-50*Time.fixedDeltaTime);
-            battleWindow.UpdateStrSlider(Player.CurrentStr);
+            player.UpdateStr(-50*Time.fixedDeltaTime);
+            battleWindow.UpdateStrSlider(player.CurrentStr);
         });
-
-        // パーティクルストップ
-        barrierParticle.Stop(true);
 
         // ステートマシン
         stateMachine = new StateMachine<PlayerController>(this);
@@ -124,15 +117,15 @@ public class PlayerController : MonoBehaviour, IBattler
         }
 
         // バリア
-        if(Player.BarrierTime > 0){
-            Player.UpdateBarrierTime(Time.fixedDeltaTime);
-            if(Player.BarrierTime == 0){
+        if(player.BarrierTime > 0){
+            player.UpdateBarrierTime(Time.fixedDeltaTime);
+            if(player.BarrierTime == 0){
                 barrierParticle.Stop(true);
             }
         }
 
         stateMachine.OnUpdate();
-        stateName = stateMachine.currentState.ToString();
+        stateName = stateMachine.CurrentState.ToString();
     }
 
     private class Move : StateBase<PlayerController> // 通常状態（立ち、走り、ダッシュ）
@@ -144,23 +137,7 @@ public class PlayerController : MonoBehaviour, IBattler
 
         public override void OnUpdate()
         {
-            Owner.move.isCanDash = Owner.Player.CurrentStr > 0;
-
-            // ステート変更
-            if(Owner.isDamage){
-                Owner.stateMachine.ChangeState(new Hit());
-                return;
-            }
-            else if(Owner.input.actions["Do"].WasPressedThisFrame() & Owner.NpcData != null){
-                Owner.stateMachine.ChangeState(new Talk());
-                return;
-            }
-            for(int i = 0; i < 4; i++){
-                if(Owner.input.actions[$"{i+1}"].WasPressedThisFrame() & Owner.Player.WeaponList[i] != null){
-                    Owner.stateMachine.ChangeState(new Attack(i));
-                    return;
-                }
-            }
+            Owner.move.isCanDash = Owner.player.CurrentStr > 0;
         }
 
         public override void OnEnd()
@@ -171,86 +148,150 @@ public class PlayerController : MonoBehaviour, IBattler
 
     private class Attack : StateBase<PlayerController>
     {
-        private readonly int number = 0; // 番号
-        private int nextNumber = -1; // 次の番号
+        private int number = 0; // 番号
+        private Player player = null;
+        private Weapon weapon = null;
+        private AttackController atkController = null;
 
-        public Attack(int number)
-        {
-            this.number = number;
-        }
+        private bool isStart = false;
+        private float countTime = 0f;
+        private int count = 0;
 
         public override void OnStart()
         {
-            // フラグ初期化
-            Owner.animDetector.Init();
-            Owner.animDetector.onAttackCollisionStart.AddListener(delegate{
-                Owner.attackController.Initialize(Owner.Player.Atk);
-                Owner.attackController.GetComponent<Collider>().enabled = true;
-                // 回復
-                if(Owner.Player.WeaponList[number].Recovery > 0){
-                    Owner.Player.UpdateHp(Owner.Player.WeaponList[number].Recovery);
-                    Owner.battleWindow.UpdateHpSlider(Owner.Player.CurrentHp);
-                }
-                // バリア
-                if(Owner.Player.WeaponList[number].GuardTime > 0){
-                    Owner.Player.InitBarrierTime(Owner.Player.WeaponList[number].GuardTime);
-                    Owner.barrierParticle.Play(true);
-                }
-            });
-            Owner.animDetector.onAttackCollisionEnd.AddListener(delegate{
-                Owner.attackController.GetComponent<Collider>().enabled = false;
-            });
+            isStart = false;
+            countTime = 0f;
+            count = 0;
+            number = Owner.nextAttackNumber;
+            Owner.nextAttackNumber = -1;
 
-            // 武器
-            GameObject weaponObj = Owner.Player.WeaponList[number].Data.Prefab;
-            foreach(Transform child in Owner.attackController.transform){
+            player = Owner.player;
+            weapon = Owner.player.WeaponList[number];
+
+            AnimationDetector animDetector = Owner.animDetector;
+            if(weapon.Data.WeaponType == WeaponType.Sword){
+                atkController = Owner.attackControllerList[0];
+            }else if(weapon.Data.WeaponType == WeaponType.Shield){
+                atkController = Owner.attackControllerList[1];
+            }else if(weapon.Data.WeaponType == WeaponType.Bow){
+                atkController = Owner.attackControllerList[2];
+            }
+
+            animDetector.Init();
+            animDetector.onAnimStart.AddListener(OnAnimStart);
+            animDetector.onAttackCollisionStart.AddListener(delegate{
+                atkController.Initialize(player.Atk);
+                if(weapon.Data.WeaponType == WeaponType.Sword){
+                    atkController.GetComponent<Collider>().enabled = true;
+                }
+            });
+            animDetector.onAttackCollisionEnd.AddListener(delegate{
+                if(weapon.Data.WeaponType == WeaponType.Sword){
+                    atkController.GetComponent<Collider>().enabled = false;
+                }
+            });
+            animDetector.onAnimEnd.AddListener(OnAnimEnd);
+
+            Animator anim = Owner.anim;
+            if(weapon.Data.WeaponType == WeaponType.Sword){
+                anim.SetInteger("atkNum", 0);
+            }else if(weapon.Data.WeaponType == WeaponType.Shield){
+                anim.SetInteger("atkNum", 1);
+            }else if(weapon.Data.WeaponType == WeaponType.Bow){
+                anim.SetInteger("atkNum", 2);
+            }
+            anim.SetTrigger("atkTrigger");
+
+            Owner.isGurd = false;
+        }
+
+        private void OnAnimStart()
+        {
+            foreach(Transform child in atkController.transform){
                 Destroy(child.gameObject);
             }
-            Instantiate(weaponObj, Owner.attackController.transform);
+            Instantiate(weapon.Data.Prefab, atkController.transform);
 
-            if(Owner.Player.WeaponList[number].Data.WeaponType == WeaponType.Sword){
-                Owner.anim.SetInteger("atkNum", 0);
-            }
-            else if(Owner.Player.WeaponList[number].Data.WeaponType == WeaponType.Wand){
-                Owner.anim.SetInteger("atkNum", 1);
-            }
-            Owner.anim.SetTrigger("isAtk");
-            Owner.attackController.GetComponent<Collider>().enabled = false;
-            Owner.attackController.gameObject.SetActive(true);
-            if(Owner.TargetTra){
-                Vector3 dir = new Vector3(Owner.TargetTra.position.x-Owner.transform.position.x, 0, Owner.TargetTra.position.z-Owner.transform.position.z).normalized;
+            Transform target = Owner.TargetTra;
+            if(target){
+                Vector3 dir = new Vector3(target.position.x-Owner.transform.position.x, 0, target.position.z-Owner.transform.position.z).normalized;
                 Owner.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             }
+
+            if(weapon.Data.WeaponType == WeaponType.Sword){
+                atkController.GetComponent<Collider>().enabled = false;
+            }
+
+            atkController.gameObject.SetActive(true);
+
+            Owner.nextAttackNumber = -1;
+            isStart = true;
+            countTime = 0f;
+            count = 0;
+
+            Owner.isGurd = false;
+        }
+
+        private void OnAnimEnd()
+        {
+            if(weapon.Data.WeaponType == WeaponType.Sword){
+                atkController.GetComponent<Collider>().enabled = false;
+            }
+
+            atkController.gameObject.SetActive(false);
+            Owner.isGurd = false;
         }
 
         public override void OnUpdate()
         {
-            if(nextNumber == -1 & Owner.animDetector.isAnimStart){
-                for(int i = 0; i < 4; i++){
-                    if(Owner.input.actions[$"{i+1}"].WasPressedThisFrame() & Owner.Player.WeaponList[i] != null){
-                        nextNumber = i;
+            if(isStart && Owner.anim.GetBool("isAttack")){
+                if(countTime > 3f && count == 2){
+                    count = 3;
+                    Owner.effect.PlayParticle(1);
+                    // 攻撃
+                    atkController.Initialize(player.Atk*3);
+                    // 回復
+                    if(weapon.Recovery > 0){
+                        player.UpdateHp(weapon.Recovery);
+                        Owner.battleWindow.UpdateHpSlider(player.CurrentHp);
                     }
+                    // バリア
+                    if(weapon.GuardTime > 0){
+                        player.InitBarrierTime(weapon.GuardTime);
+                        Owner.barrierParticle.Play(true);
+                    }
+
+                }else if(countTime > 2f && count == 1){
+                    count = 2;
+                    Owner.effect.PlayParticle(1);
+                }else if(countTime > 1f && count == 0){
+                    count = 1;
+                    Owner.effect.PlayParticle(1);
                 }
+
+                countTime += Time.fixedDeltaTime;
+
+                Owner.isGurd = true;
+            }else{
+                Owner.isGurd = false;
             }
 
             // スタミナ
             Owner.RecoveryStr();
 
             // ステート変更
-            if(Owner.isDamage){
-                Owner.stateMachine.ChangeState(new Hit());
-            }
-            else if(Owner.animDetector.isAttackCombo & nextNumber != -1){
-                Owner.stateMachine.ChangeState(new Attack(nextNumber));
-            }
-            else if(Owner.animDetector.isAnimEnd){
-                Owner.stateMachine.ChangeState(new Move());
+            if(Owner.animDetector.isAttackCombo && isStart){
+                if(Owner.nextAttackNumber >= 0){
+                    OnStart();
+                }else if(Owner.anim.GetCurrentAnimatorStateInfo(0).IsName("Locomotion")){
+                    Owner.stateMachine.ChangeState(new Move());
+                }
             }
         }
 
         public override void OnEnd()
         {
-            Owner.attackController.gameObject.SetActive(false);
+            OnAnimEnd();
         }
     }
 
@@ -258,16 +299,14 @@ public class PlayerController : MonoBehaviour, IBattler
     {
         public override void OnStart()
         {
-            // カメラ操作できなくする
-            Owner.cameraController.IsMove(false);
             int number = 1;
-            if(!GameManager.I.Data.IsFindNpcList[Owner.NpcData.Number - 1]){
+            if(!DataManager.Instance.Data.IsFindNpcList[Owner.NpcData.Number - 1]){
                 number = 0;
             }
             else{
                 for(int i = 0; i < Owner.NpcData.TextDataList.Count; i++){
                     if(i >= 2){
-                        if(Owner.NpcData.TextDataList[i].EventData.Number == GameManager.I.Data.EventNumber){
+                        if(Owner.NpcData.TextDataList[i].EventData.Number == DataManager.Instance.Data.EventNumber){
                             number = i;
                         }
                     }
@@ -289,10 +328,8 @@ public class PlayerController : MonoBehaviour, IBattler
 
         public override void OnEnd()
         {
-            // カメラを初期化
-            Owner.cameraController.IsMove(true);
             // NPCを見つけた
-            GameManager.I.Data.UpdateFindNpc(Owner.NpcData.Number - 1);
+            DataManager.Instance.Data.UpdateFindNpc(Owner.NpcData.Number - 1);
         }
     }
 
@@ -305,7 +342,7 @@ public class PlayerController : MonoBehaviour, IBattler
             // フラグ初期化
             Owner.animDetector.Init();
 
-            if(Owner.Player.CurrentHp <= 0f){
+            if(Owner.player.CurrentHp <= 0f){
                 Owner.anim.SetInteger("hitNum",1);
             }
             else{
@@ -313,12 +350,11 @@ public class PlayerController : MonoBehaviour, IBattler
             }
 
             Owner.anim.SetTrigger("isHit");
-            Owner.isDamage = false;
         }
 
         public override void OnUpdate()
         {
-            if(Owner.Player.CurrentHp <= 0f & Owner.animDetector.isAnimEnd & !isEnter){
+            if(Owner.player.CurrentHp <= 0f & Owner.animDetector.isAnimEnd & !isEnter){
                 isEnter = true;
                 // 見つけた敵に追加
                 Owner.GetComponent<Rigidbody>().useGravity = false;
@@ -332,22 +368,98 @@ public class PlayerController : MonoBehaviour, IBattler
         }
     }
 
+
+   
     private void RecoveryStr()
     {
-        if(Player.CurrentStr < Player.Str){
-            Player.UpdateStr(100*Time.deltaTime);
-            battleWindow.UpdateStrSlider(Player.CurrentStr);
+        if(player.CurrentStr < player.Str){
+            player.UpdateStr(100*Time.deltaTime);
+            battleWindow.UpdateStrSlider(player.CurrentStr);
         }
     }
 
-    // IBattlerのダメージ関数
+
+    // 当たり判定
+    private void OnCollisionDetectorEnter(Collider other)
+    {
+        npcControllerList.Add(other.GetComponent<NpcController>());
+    }
+
+    private void OnCollisionDetectorExit(Collider other)
+    {
+        npcControllerList.Remove(other.GetComponent<NpcController>());
+    }
+
+
+    // 索敵判定
+    private void OnSerchDetectorEnter(Collider other)
+    {
+        targetTraList.Add(other.transform);
+    }
+
+    private void OnSerchDetectorExit(Collider other)
+    {
+        targetTraList.Remove(other.transform);
+    }
+
+
+    // InputSytem
+    public void OnDo(InputValue value)
+    {
+        if(stateMachine.CurrentState.GetType() == typeof(Move)){
+            if(NpcData != null){
+                stateMachine.ChangeState(new Talk());
+            }
+        }
+    }
+
+    public void On_1(InputAction.CallbackContext context)
+    {
+        OnAttack(context, 0);
+    }
+
+    public void On_2(InputAction.CallbackContext context)
+    {
+        OnAttack(context, 1);
+    }
+
+    public void On_3(InputAction.CallbackContext context)
+    {
+        OnAttack(context, 2);
+    }
+
+    public void On_4(InputAction.CallbackContext context)
+    {
+        OnAttack(context, 3);
+    }
+
+    private void OnAttack(InputAction.CallbackContext context, int number)
+    {
+        if(context.phase == InputActionPhase.Started){
+            anim.SetBool("isAttack", true);
+            if(stateMachine.CurrentState.GetType() == typeof(Move)){
+                if(player.WeaponList[number] != null){
+                    nextAttackNumber = number;
+                    stateMachine.ChangeState(new Attack());
+                }
+            }else if(stateMachine.CurrentState.GetType() == typeof(Attack)){
+                if(player.WeaponList[number] != null){
+                    nextAttackNumber = number;
+                }
+            }
+        }else if(context.phase == InputActionPhase.Canceled){
+            anim.SetBool("isAttack", false);
+        }
+    }
+
+
+    // IBattler：ダメージ関数
     public void OnDamage(int damage, Vector3 position)
     {
-        if (Player.BarrierTime == 0) {
-            Player.UpdateHp(-damage);
-            battleWindow.UpdateHpSlider(Player.CurrentHp);
-            isDamage = true;
-            GetComponent<CharacterAudio>().PlayOneShot_Hit();
+        if (player.BarrierTime == 0 && !isGurd) {
+            player.UpdateHp(-damage);
+            battleWindow.UpdateHpSlider(player.CurrentHp);
+            stateMachine.ChangeState(new Hit());
         }
     }
 }

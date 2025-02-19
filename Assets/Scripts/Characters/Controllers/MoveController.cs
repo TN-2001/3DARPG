@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,36 +9,25 @@ public class MoveController : MonoBehaviour
     private StateMachine<MoveController> stateMachine = null;
 
     // コンポーネント
-    // ナビメッシュエージェント
-    private NavMeshAgent agent = null;
-    // アニメーター
-    private Animator anim = null;
+    private NavMeshAgent agent = null; // ナビメッシュエージェント
+    private Animator anim = null; // アニメーター
 
     // パラメータ
     [Header("コンポーネント")]
-    [SerializeField] // ターゲット
-    public List<Transform> targetList = new List<Transform>();
+    public List<Transform> targetList = new(); // ターゲット
     [Header("物理パラメータ")] 
-    [SerializeField] // 歩き速度(1秒で移動できる距離 m)
-    private float walkSpeed = 2f;
-    [SerializeField] // 移動のクールタイム
-    private float maxCoolTime = 10f, minCoolTime = 3f;
+    [SerializeField] private float walkSpeed = 2f; // 歩き速度(1秒で移動できる距離 m)
+    [SerializeField] private float maxCoolTime = 10f, minCoolTime = 3f; // 移動のクールタイム
     [Header("アニメーションパラメータ")]
-    [SerializeField] // アニメ遷移速度
-    private float animChangeSpeed = 3f;
-    [SerializeField] // アニメーション再生速度
-    private float animIdleSpeed = 1, animWalkSpeed = 1;
+    [SerializeField] private float animChangeSpeed = 0.3f; // アニメ遷移速度
 
     // 変数
-    // 起動時か
-    private bool isOnEnable = false;
-    // ターゲット
-    private Transform target = null;
+    private Transform target = null; // ターゲット
 
 
     private void OnEnable()
     {
-        isOnEnable = true;
+        stateMachine?.ChangeState(new Idle());
     }
 
     private void Start()
@@ -48,40 +36,27 @@ public class MoveController : MonoBehaviour
         anim = GetComponent<Animator>();
 
         stateMachine = new StateMachine<MoveController>(this);
+        stateMachine.ChangeState(new Idle());
     }
 
     private void FixedUpdate()
     {
-        if(isOnEnable){
-            stateMachine.ChangeState(new Idle());
-            isOnEnable = false;
-        }
-
         stateMachine.OnUpdate();
     }
 
     private class Idle : StateBase<MoveController>
     {
-        // クールタイム
-        private float coolTime = 0f;
-        // 時間カウント
-        private float countTime = 0f;
+        private float coolTime = 0f; // クールタイム
+        private float countTime = 0f; // 時間カウント
 
         public override void OnStart()
         {
             coolTime = Random.Range(Owner.minCoolTime, Owner.maxCoolTime);
-            Owner.anim.SetFloat("playSpeed", Owner.animIdleSpeed);
         }
 
         public override void OnUpdate()
         {
-            if(Owner.anim.GetFloat("speed") > 0f){
-                if(Owner.anim.GetFloat("speed") - Time.fixedDeltaTime*Owner.animChangeSpeed > 0f)
-                    Owner.anim.SetFloat("speed", Owner.anim.GetFloat("speed") - Time.fixedDeltaTime*Owner.animChangeSpeed);
-                else{
-                    Owner.anim.SetFloat("speed", 0f);
-                }
-            }
+            Owner.UpdateAnimation(0f);
 
             if(countTime >= coolTime & Owner.targetList.Count >= 2){
                 Owner.stateMachine.ChangeState(new Move());
@@ -95,8 +70,7 @@ public class MoveController : MonoBehaviour
     {
         public override void OnStart()
         {
-            Owner.anim.SetFloat("playSpeed", Owner.animWalkSpeed);
-            List<Transform> targetList = new List<Transform>();
+            List<Transform> targetList = new();
             for(int i = 0; i < Owner.targetList.Count; i++){
                 if(Owner.targetList[i] != Owner.target){
                     targetList.Add(Owner.targetList[i]);
@@ -109,13 +83,7 @@ public class MoveController : MonoBehaviour
 
         public override void OnUpdate()
         {
-            if(Owner.anim.GetFloat("speed") < 0.5f){
-                if(Owner.anim.GetFloat("speed") + Time.fixedDeltaTime*Owner.animChangeSpeed < 0.5f)
-                    Owner.anim.SetFloat("speed", Owner.anim.GetFloat("speed") + Time.fixedDeltaTime*Owner.animChangeSpeed);
-                else{
-                    Owner.anim.SetFloat("speed", 0.5f);
-                }
-            }
+            Owner.UpdateAnimation(0.5f);
 
             if(Owner.agent.remainingDistance < 0.1f){
                 Owner.stateMachine.ChangeState(new Idle());
@@ -128,10 +96,26 @@ public class MoveController : MonoBehaviour
         }
     }
 
+    private void UpdateAnimation(float speed) // アニメーション更新
+    {
+        if(anim.GetFloat("speed") < speed){
+            if(anim.GetFloat("speed") + Time.fixedDeltaTime/animChangeSpeed < speed)
+                anim.SetFloat("speed", anim.GetFloat("speed") + Time.fixedDeltaTime/animChangeSpeed);
+            else{
+                anim.SetFloat("speed", speed);
+            }
+        }else if(anim.GetFloat("speed") > speed){
+            if(anim.GetFloat("speed") - Time.fixedDeltaTime/animChangeSpeed > speed)
+                anim.SetFloat("speed", anim.GetFloat("speed") - Time.fixedDeltaTime/animChangeSpeed);
+            else{
+                anim.SetFloat("speed", speed);
+            }
+        }
+    }
+
     private void OnDisable()
     {
         anim.SetFloat("speed", 0f);
-        anim.SetFloat("playSpeed",1);
-        stateMachine.currentState.OnEnd();
+        stateMachine.CurrentState.OnEnd();
     }
 }

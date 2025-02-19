@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: 002_redsword
   m_EditorClassIdentifier: 
   number: 2
-  name: "\u30EC\u30C3\u30C9\u30BD\u30FC\u30C9"
-  info: "\u30EC\u30C3\u30C9\u30C9\u30E9\u30B4\u30F3\u306E\u5263\u3002"
-  image: {fileID: 21300000, guid: 094b5bdb02b8d0a46937cf1ea4344ebf, type: 3}
-  prefab: {fileID: 1667636139681000611, guid: 8bc70a091077cae428f48ea2dd339223, type: 3}
+  name: "\u30EC\u30C3\u30C9\u76FE"
+  info: "\u30EC\u30C3\u30C9\u30C9\u30E9\u30B4\u30F3\u306E\u76FE"
+  image: {fileID: 21300000, guid: a4f9c6e3c09d7ca42983a0bf5932483d, type: 3}
   price: 0
   itemDataList: []
-  weaponType: 1
-  atk: 2
+  weaponType: 3
+  atk: 0
   recovery: 50
   guardTime: 0
+  prefab: {fileID: 3492079233302658231, guid: 9ae7bc2ac04dc4a4798c73ffb82e0265, type: 3}

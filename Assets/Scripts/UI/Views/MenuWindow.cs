@@ -1,34 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MenuWindow : MonoBehaviour
 {
-    [SerializeField] // 初めのターゲットボタン
-    private Button firstSelectBtn = null;
-    [SerializeField] // ゲーム終了ボタン
-    private Button endBtn = null;
+    [SerializeField] private Button firstSelectButton = null; // 初めのターゲットボタン
+    [SerializeField] private Button endButton = null; // ゲーム終了ボタン
 
 
     private void OnEnable()
     {
-        firstSelectBtn.Select();
+        firstSelectButton.Select();
 
         Time.timeScale = 0f;
     }
 
     private void Start()
     {
-        endBtn.onClick.AddListener(delegate{
-            SceneManager.LoadScene("Start");
-            Time.timeScale = 1f;
-        });
+        endButton.onClick.AddListener(OnEndButton);
     }
 
     private void OnDisable()
     {
         Time.timeScale = 1f;
+    }
+
+
+    // ボタン
+    private void OnEndButton()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
     }
 }

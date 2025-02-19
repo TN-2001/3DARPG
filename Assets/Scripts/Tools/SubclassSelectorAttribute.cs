@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-#if UNITY_EDITOR
+# if UNITY_EDITOR
 using UnityEditor;
-#endif
+# endif
 
 public class SubclassSelectorAttribute : PropertyAttribute
 {
@@ -14,7 +14,7 @@ public class SubclassSelectorAttribute : PropertyAttribute
     }
 }
 
-#if UNITY_EDITOR
+# if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(SubclassSelectorAttribute))]
 public class SubclassSelectorDrawer : PropertyDrawer
 {
@@ -37,4 +37,4 @@ public class SubclassSelectorDrawer : PropertyDrawer
         }
     }
 }
-#endif
+# endif

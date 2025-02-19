@@ -1,17 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 
 public class SettingWindow : MonoBehaviour
 {
-    [SerializeField] // BGM
-    private Slider bgmSlider = null;
-    [SerializeField] // SE
-    private Slider seSlider = null;
-    [SerializeField] // オーディオミキサー
-    private AudioMixer audioMixer = null;
+    [SerializeField] private Slider bgmSlider = null; // BGM
+    [SerializeField] private Slider seSlider = null; // SE
+
+    private SaveData data = null;
 
 
     private void OnEnable()
@@ -23,18 +18,20 @@ public class SettingWindow : MonoBehaviour
 
     private void Start()
     {
+        data = DataManager.Instance.Data;
+
         bgmSlider.maxValue = 100;
-        bgmSlider.value = GameManager.I.Data.VolumeList[0];
+        bgmSlider.value = data.VolumeList[0];
         seSlider.maxValue = 100;
-        seSlider.value = GameManager.I.Data.VolumeList[1];
+        seSlider.value = data.VolumeList[1];
 
         bgmSlider.onValueChanged.AddListener(delegate(float volume){
-            GameManager.I.Data.UpdateVolume((int)volume, 0);
-            audioMixer.SetFloat("BGM", GameManager.I.Data.VolumeList[0] - 80f);
+            data.UpdateVolume((int)volume, 0);
+            AudioManager.Instance.AudioMixer.SetFloat("BGM", data.VolumeList[0] - 80f);
         });
         seSlider.onValueChanged.AddListener(delegate(float volume){
-            GameManager.I.Data.UpdateVolume((int)volume, 1);
-            audioMixer.SetFloat("SE", GameManager.I.Data.VolumeList[1] - 80f);
+            data.UpdateVolume((int)volume, 1);
+            AudioManager.Instance.AudioMixer.SetFloat("SE", data.VolumeList[1] - 80f);
         });
     }
 

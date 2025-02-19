@@ -116,4 +116,11 @@ public class PlayerMoveController : MonoBehaviour
         anim.SetFloat("speed", 0f);
         rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
     }
+
+
+    // InputSystem
+    public void OnMove(InputValue value)
+    {
+        
+    }
 }

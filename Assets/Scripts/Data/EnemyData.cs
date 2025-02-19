@@ -74,6 +74,7 @@ public class Enemy
     public List<ItemData> DropItemList => dropItemList;
     public List<ArmorData> DropArmorList => dropArmorList;
     public List<WeaponData> DropWeaponList => dropWeaponList;
+    public Transform Transform { get; set; }
 
 
     public Enemy(EnemyData data)

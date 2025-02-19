@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,38 +5,36 @@ using UnityEngine.Events;
 
 public class EquipWindow : MonoBehaviour
 {
-    [SerializeField] // アイテムコンテンツ
-    private RectTransform itemContentTra = null;
-    [SerializeField] // アイテムトグル
-    private GameObject itemToggleObj = null;
-    [SerializeField] // アイテム情報ビュー
-    private View infoView = null;
-    [SerializeField] // インプットボタン
-    private List<Button> btnList = new List<Button>();
-    // タイプ番号
-    public int typeNumber = 0;
-    // 現在の選択番号
-    private int number = 0;
+    [SerializeField] private RectTransform itemContentTra = null; // アイテムコンテンツ
+    [SerializeField] private GameObject itemToggleObj = null; // アイテムトグル
+    [SerializeField] private View infoView = null; // アイテム情報ビュー
+    [SerializeField] private List<Button> btnList = new(); // インプットボタン
+
+    private SaveData data = null;
+    public int typeNumber = 0; // タイプ番号
+    private int number = 0; // 現在の選択番号
 
 
     private void OnEnable()
     {
         Time.timeScale = 0f;
 
+        data = DataManager.Instance.Data;
+
         if(typeNumber == 0){
-            InitContent(GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Head));
+            InitContent(data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Head));
         }
         else if(typeNumber == 1){
-            InitContent(GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Chest));
+            InitContent(data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Chest));
         }
         else if(typeNumber == 2){
-            InitContent(GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Arm));
+            InitContent(data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Arm));
         }
         else if(typeNumber == 3){
-            InitContent(GameManager.I.Data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Leg));
+            InitContent(data.ArmorList.FindAll(x => x.Data.ArmorType == ArmorType.Leg));
         }
         else{
-            InitContent(GameManager.I.Data.WeaponList);
+            InitContent(data.WeaponList);
         }
     }
 
@@ -137,7 +134,8 @@ public class EquipWindow : MonoBehaviour
         if(weapon.EquipNumber != typeNumber-3){
             UpdateCommand(new List<(string name, UnityAction action)>(){
                 ("装備変更", delegate{
-                    GameManager.I.Data.EquipWeapon(weapon, typeNumber-3);
+                    data.EquipWeapon(weapon, typeNumber-3);
+                    OnSelect(weapon);
                 }),
                 ("", null),
                 // ("強化", delegate{
@@ -148,7 +146,8 @@ public class EquipWindow : MonoBehaviour
         else if(weapon.EquipNumber > 0){
             UpdateCommand(new List<(string name, UnityAction action)>(){
                 ("はずす", delegate{
-                    GameManager.I.Data.EquipWeapon(weapon, 0);
+                    data.EquipWeapon(weapon, 0);
+                    OnSelect(weapon);
                 }),
                 ("", null),
                 // ("強化", delegate{
@@ -176,7 +175,8 @@ public class EquipWindow : MonoBehaviour
         if(!armor.IsEquip){
             UpdateCommand(new List<(string name, UnityAction action)>(){
                 ("装備変更", delegate{
-                    GameManager.I.Data.EquipArmor(armor, true);
+                    data.EquipArmor(armor, true);
+                    OnSelect(armor);
                 }),
                 ("", null),
                 // ("強化", delegate{
@@ -187,7 +187,8 @@ public class EquipWindow : MonoBehaviour
         else{
             UpdateCommand(new List<(string name, UnityAction action)>(){
                 ("はずす", delegate{
-                    GameManager.I.Data.EquipArmor(armor, false);
+                    data.EquipArmor(armor, false);
+                    OnSelect(armor);
                 }),
                 ("", null),
                 // ("強化", delegate{

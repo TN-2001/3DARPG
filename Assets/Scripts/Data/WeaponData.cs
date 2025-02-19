@@ -83,4 +83,6 @@ public enum WeaponType
 {
     Sword,
     Wand,
+    Bow,
+    Shield
 }

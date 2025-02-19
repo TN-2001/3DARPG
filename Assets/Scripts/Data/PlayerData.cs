@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,10 +56,10 @@ public class Player
     {
         get{
             List<Weapon> weaponList = new(){null, null, null, null};
-            weaponList[0] = GameManager.I.Data.WeaponList.Find(x => x.EquipNumber == 1);
-            weaponList[1] = GameManager.I.Data.WeaponList.Find(x => x.EquipNumber == 2);
-            weaponList[2] = GameManager.I.Data.WeaponList.Find(x => x.EquipNumber == 3);
-            weaponList[3] = GameManager.I.Data.WeaponList.Find(x => x.EquipNumber == 4);
+            weaponList[0] = DataManager.Instance.Data.WeaponList.Find(x => x.EquipNumber == 1);
+            weaponList[1] = DataManager.Instance.Data.WeaponList.Find(x => x.EquipNumber == 2);
+            weaponList[2] = DataManager.Instance.Data.WeaponList.Find(x => x.EquipNumber == 3);
+            weaponList[3] = DataManager.Instance.Data.WeaponList.Find(x => x.EquipNumber == 4);
             return weaponList;
         }
     }
@@ -68,14 +67,15 @@ public class Player
     {
         get{
             List<Armor> armorList = new(){null, null, null, null};
-            armorList[0] = GameManager.I.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Head);
-            armorList[1] = GameManager.I.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Chest);
-            armorList[2] = GameManager.I.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Arm);
-            armorList[3] = GameManager.I.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Leg);
+            armorList[0] = DataManager.Instance.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Head);
+            armorList[1] = DataManager.Instance.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Chest);
+            armorList[2] = DataManager.Instance.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Arm);
+            armorList[3] = DataManager.Instance.Data.ArmorList.Find(x => x.IsEquip & x.Data.ArmorType == ArmorType.Leg);
             return armorList;
         }
     }
     public float BarrierTime { get; private set; } = 0; // バリア残り時間
+    public Transform Transform { get; set; }
 
 
     public Player(PlayerData data)
@@ -88,7 +88,6 @@ public class Player
     public void Init(PlayerData data)
     {
         this.data = data;
-        currentHp = Hp;
         currentStr = Str;
     }
 
