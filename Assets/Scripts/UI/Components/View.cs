@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +5,8 @@ using TMPro;
 
 public class View : MonoBehaviour
 {
-    [SerializeField]
-    private List<TextMeshProUGUI> textList = new List<TextMeshProUGUI>();
-    [SerializeField]
-    private List<Image> imageList = new List<Image>();
+    [SerializeField] private List<TextMeshProUGUI> textList = new(); // テキストリスト
+    [SerializeField] private List<Image> imageList = new(); // イメージリスト
 
     public void UpdateUI(List<string> stringList, List<Sprite> spriteList)
     {

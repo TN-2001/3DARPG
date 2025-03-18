@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 1
   name: "\u547D\u306E\u96EB"
-  info: "\u751F\u547D\u306B\u7652\u3057\u3092\u4E0E\u3048\u308B\u4E00\u7C92\u306E\u96EB\u3002\u679C\u7269\u306F\u5B9A\u671F\u7684\u306B\u63A5\u89E6\u3057\u306A\u3044\u3068\u3001\u8150\u308A\u679C\u3066\u30E2\u30F3\u30B9\u30BF\u30FC\u3068\u5316\u3057\u3066\u3057\u307E\u3046\u3002"
+  info: "\u751F\u547D\u306B\u7652\u3057\u3092\u4E0E\u3048\u308B\u4E00\u7C92\u306E\u96EB\u3002"
   image: {fileID: 21300000, guid: 7f11eaff3720e894296ff57f4a2fcb19, type: 3}
-  prefab: {fileID: 0}
   price: 0
   itemType: 1
   value: 0
+  prefab: {fileID: 0}

@@ -17,7 +17,8 @@ public class MoveController : MonoBehaviour
     public List<Transform> targetList = new(); // ターゲット
     [Header("物理パラメータ")] 
     [SerializeField] private float walkSpeed = 2f; // 歩き速度(1秒で移動できる距離 m)
-    [SerializeField] private float maxCoolTime = 10f, minCoolTime = 3f; // 移動のクールタイム
+    [SerializeField] private float maxCoolTime = 10f; // 移動のクールタイム
+    [SerializeField] private float minCoolTime = 3f;
     [Header("アニメーションパラメータ")]
     [SerializeField] private float animChangeSpeed = 0.3f; // アニメ遷移速度
 
@@ -116,6 +117,6 @@ public class MoveController : MonoBehaviour
     private void OnDisable()
     {
         anim.SetFloat("speed", 0f);
-        stateMachine.CurrentState.OnEnd();
+        stateMachine.OnEnd();
     }
 }

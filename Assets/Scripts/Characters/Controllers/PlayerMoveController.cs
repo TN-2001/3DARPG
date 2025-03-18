@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -25,21 +23,6 @@ public class PlayerMoveController : MonoBehaviour
     [HideInInspector] public UnityEvent recoveryStamina = null; // スタミナ回復イベント
     [HideInInspector] public UnityEvent decreasedStamina = null; // スタミナ減少イベント
 
-
-    private void OnEnable()
-    {
-        if(input){
-            // アニメーションの初期化
-            if(input.actions["Move"].ReadValue<Vector2>().magnitude > 0){
-                if(input.actions["Dash"].IsPressed() & isCanDash){
-                    anim.SetFloat("speed", 1f);
-                }
-                else{
-                    anim.SetFloat("speed", 0.5f);
-                }
-            }
-        }
-    }
 
     private void Start()
     {
@@ -115,12 +98,5 @@ public class PlayerMoveController : MonoBehaviour
         // 初期化
         anim.SetFloat("speed", 0f);
         rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-    }
-
-
-    // InputSystem
-    public void OnMove(InputValue value)
-    {
-        
     }
 }

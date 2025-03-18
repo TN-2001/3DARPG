@@ -16,9 +16,8 @@ MonoBehaviour:
   name: "\u30EA\u30F3\u30B4"
   info: 
   image: {fileID: 0}
-  prefab: {fileID: 0}
   hp: 100
-  atk: 10
+  atk: 30
   dropItemList:
   - itemData: {fileID: 11400000, guid: 72a4491a8400a7b448b49122933a9d4e, type: 2}
     parsent: 100
@@ -26,3 +25,6 @@ MonoBehaviour:
     parsent: 50
   - itemData: {fileID: 11400000, guid: 8cf7e21ee86255d4ea8ce74e3a92f45a, type: 2}
     parsent: 50
+  dropArmorList: []
+  dropWeaponList: []
+  prefab: {fileID: 0}

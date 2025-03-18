@@ -27,22 +27,31 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "952630fd-5498-4aa1-9302-868dc6f7fdcc",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "1",
+                    "name": "Roll",
                     "type": "Button",
-                    "id": "f479d8eb-b3f3-4a81-9c44-9b660d477535",
+                    "id": "4ad47866-d0dc-4065-91a8-a4347607874b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "2",
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "9ac91efc-a1ee-46e8-aabf-c2128dd24f87",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TiltAttack",
                     "type": "Button",
                     "id": "2b9c1bc1-7e55-483a-8ec4-115eee72f359",
                     "expectedControlType": "",
@@ -51,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "3",
+                    "name": "Guard",
                     "type": "Button",
                     "id": "7beb8d1c-038f-43d3-8783-153f9c041a4b",
                     "expectedControlType": "",
@@ -60,19 +69,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "4",
+                    "name": "Item",
                     "type": "Button",
-                    "id": "a917b35a-b51a-4d83-8fe8-a31b32cb947c",
+                    "id": "7521b2e5-e07a-4dd4-8e59-fe07f1b50623",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Do",
+                    "name": "Event",
                     "type": "Button",
                     "id": "aa4e89df-b047-4320-a182-d482e17e9f60",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -181,7 +190,7 @@
                 {
                     "name": "",
                     "id": "d2d15ce9-794f-45c4-8cbf-9f7e94c403bb",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -191,34 +200,34 @@
                 },
                 {
                     "name": "",
-                    "id": "8d550926-87a6-435b-9111-898dae2da696",
+                    "id": "9e8526d0-a27e-4a4b-8452-cae894926ef8",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "1",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "07f38a08-0bf8-48cb-a172-c13ef110d3bb",
+                    "id": "8e4759aa-ec0f-4564-92f9-3d43c376ec60",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "1",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d5540dad-ba0c-4ede-89fa-1d56be48e9f2",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "2",
+                    "action": "TiltAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -229,18 +238,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "2",
+                    "action": "TiltAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "a23fac47-6338-4122-8984-18e2e9a5fdcc",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "3",
+                    "action": "Guard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -251,29 +260,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "3",
+                    "action": "Guard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5db949f7-7eb3-4ce7-961c-64c123ab339c",
-                    "path": "<Gamepad>/buttonNorth",
+                    "id": "5e61433c-4f2d-431a-967b-c12ac6b21ea4",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "4",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "eb4ca7cc-700f-4388-898e-d3b8c4cbf89c",
-                    "path": "<Keyboard>/e",
+                    "id": "34e55d50-903e-44ef-8e0c-1bfdc2f14ccc",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "4",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -284,7 +293,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Do",
+                    "action": "Event",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -295,7 +304,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Do",
+                    "action": "Event",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ec36408-286b-4a66-82d1-82f77f6a79c1",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ddf0506-9c25-4117-a2b9-bcfc02e2c6e5",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

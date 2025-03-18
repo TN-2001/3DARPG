@@ -772,7 +772,7 @@ PrefabInstance:
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
@@ -782,7 +782,7 @@ PrefabInstance:
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
@@ -832,12 +832,12 @@ PrefabInstance:
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
@@ -908,6 +908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoryButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083261598366638908, guid: 0d967446a71a89d4081e11bcbce6c6d5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1031,7 +1036,7 @@ PrefabInstance:
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
@@ -1041,7 +1046,7 @@ PrefabInstance:
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
@@ -1091,12 +1096,12 @@ PrefabInstance:
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -550
       objectReference: {fileID: 0}
     - target: {fileID: 1814078621449547199, guid: 0d967446a71a89d4081e11bcbce6c6d5,
         type: 3}
@@ -1167,6 +1172,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EndButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8083261598366638908, guid: 0d967446a71a89d4081e11bcbce6c6d5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2836,6 +2846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstSelectButton: {fileID: 2952106253699064771}
   endButton: {fileID: 3203942320607705221}
+  loadView: {fileID: 0}
 --- !u!1 &6328810121424298513 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 799445554899155481, guid: b45f89989f7350245be5d6fc62376295,

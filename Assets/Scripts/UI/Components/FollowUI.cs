@@ -50,7 +50,8 @@ public class FollowUI : MonoBehaviour
         {
             Vector3 pos = Camera.main.WorldToScreenPoint(targetPosition);
             pos.z = 0;
-            rectTransform.position = pos*2;
+            float scale = Screen.width / Camera.main.pixelWidth;
+            rectTransform.position = pos * scale;
         }
         else if(moveType == MoveType.WorldToUI)
         {

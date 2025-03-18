@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: 001_sword
   m_EditorClassIdentifier: 
   number: 1
-  name: "\u30BD\u30FC\u30C9"
-  info: "\u9244\u3067\u3067\u304D\u305F\u5263\u3002"
-  image: {fileID: 21300000, guid: 6a75a4265c97a19478f2eee5fede295a, type: 3}
-  prefab: {fileID: 3009688584852987321, guid: c3dd8268ae5173a499bf925b273145bd, type: 3}
+  name: "\u30A2\u30A4\u30A2\u30F3\u30AC\u30FC\u30C7\u30A3\u30A2\u30F3"
+  info: "\u9811\u4E08\u306A\u9244\u3067\u935B\u3048\u3089\u308C\u305F\u5263\u3068\u76FE\u306E\u30BB\u30C3\u30C8\u3002"
+  image: {fileID: 21300000, guid: 80651f7eaeace35488c245793dd06c6e, type: 3}
   price: 0
   itemDataList: []
-  weaponType: 0
+  weaponType: 4
   atk: 5
+  recovery: 0
+  guardTime: 0
+  leftObject: {fileID: 3492079233302658231, guid: 9ae7bc2ac04dc4a4798c73ffb82e0265,
+    type: 3}
+  rightObject: {fileID: 3009688584852987321, guid: c3dd8268ae5173a499bf925b273145bd,
+    type: 3}

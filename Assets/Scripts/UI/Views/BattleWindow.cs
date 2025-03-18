@@ -13,23 +13,12 @@ public class BattleWindow : MonoBehaviour
     [SerializeField] private Transform itemContentTra = null; // アイテムコンテンツ
     [SerializeField] private TextMeshProUGUI dmgText = null; // ダメージテキス
     [SerializeField] private Transform dmgContentTra = null; // ダメージコンテンツ
-    [SerializeField] private List<View> weaponViewList = new(); // 武器ビュー
     [SerializeField] private List<FollowUI> mapFollowList = new(); // マップ
     [SerializeField] private Transform mapContentTransform = null; // マップコンテンツ
     [SerializeField] private FollowUI enemyMapFollow = null; // 敵のマップアイコン
     
     private readonly Dictionary<Transform, GameObject> enemyMapFollowList = new(); // 敵のマップアイコンリスト
 
-
-    private void OnEnable()
-    {
-        for(int i = 0; i < weaponViewList.Count; i++){
-            weaponViewList[i].UpdateUI(new List<Sprite>());
-            if(DataManager.Instance.Data.Player.WeaponList[i] != null){
-                weaponViewList[i].UpdateUI(DataManager.Instance.Data.Player.WeaponList[i].Data.Image);
-            }
-        }
-    }
 
     private void Start()
     {

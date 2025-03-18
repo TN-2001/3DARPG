@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,8 @@ public class WeaponData : ScriptableObject
     [SerializeField] private int atk = 0; // 攻撃力
     [SerializeField] private int recovery = 0; // 回復
     [SerializeField] private int guardTime = 0; // ガード時間
-    [SerializeField] private GameObject prefab = null; // プレハブ
+    [SerializeField] private GameObject leftObject = null; // 左手のオブジェクト
+    [SerializeField] private GameObject rightObject = null; // 右手のオブジェクト
 
     public int Number => number;
     public string Name => name;
@@ -27,7 +27,8 @@ public class WeaponData : ScriptableObject
     public int Atk => atk;
     public int Recovery => recovery;
     public int GuardTime => guardTime;
-    public GameObject Prefab => prefab;
+    public GameObject LeftObject => leftObject;
+    public GameObject RightObject => rightObject;
 }
 
 [System.Serializable]
@@ -84,5 +85,6 @@ public enum WeaponType
     Sword,
     Wand,
     Bow,
-    Shield
+    Shield,
+    SwordAndShield
 }

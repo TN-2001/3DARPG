@@ -9,7 +9,6 @@ public class PlayerWindow : MonoBehaviour
 {
     [SerializeField] private List<Toggle> toggleList = new(); // トグルリスト
     [SerializeField] private View playerView = null; // プレイヤービュー
-    [SerializeField] private Slider playerSlider = null; // プレイヤースライダー
     [SerializeField] private View infoView = null; // アイテム情報ビュー
     [SerializeField] private List<Button> btnList = new(); // コマンドボタン
     [SerializeField] private EquipWindow equipWindow = null; // 装備ウィンドウ
@@ -33,25 +32,14 @@ public class PlayerWindow : MonoBehaviour
                 toggleList[i].GetComponent<View>().UpdateUI("");
             }
         }
-        for(int i = 0; i < 4; i++){
-            Weapon weapon = data.Player.WeaponList[i];
-            if(weapon != null){
-                toggleList[i+4].GetComponent<View>().UpdateUI(new List<Sprite>(){weapon.Data.Image});
-            }
-            else{
-                toggleList[i+4].GetComponent<View>().UpdateUI("");
-            }
-        }
+        Weapon weapon = data.Player.Weapon;
+        toggleList[4].GetComponent<View>().UpdateUI(new List<Sprite>(){weapon.Data.Image});
 
         Player player = data.Player;
         playerView.UpdateUI(new List<string>(){
-            $"Lv.{player.Lev}",
-            $"{player.CurrentExp}/{player.Exp}",
             $"HP\n攻撃力",
             $"{player.Hp}\n{player.Atk}"
         });
-        playerSlider.maxValue = player.Exp;
-        playerSlider.value = player.CurrentExp;
 
         StartCoroutine(IOnEnable());
     }
@@ -97,7 +85,7 @@ public class PlayerWindow : MonoBehaviour
             }
         }
         else{
-            Weapon weapon = data.Player.WeaponList[number - 4];
+            Weapon weapon = data.Player.Weapon;
             if(weapon != null){
                 // 情報ビュー
                 string info = $"攻撃力+{weapon.Atk}";

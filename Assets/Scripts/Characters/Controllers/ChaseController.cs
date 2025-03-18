@@ -17,7 +17,8 @@ public class ChaseController : MonoBehaviour
     public Transform target = null; // ターゲット
     [Header("物理パラメータ")] 
     [SerializeField] private float chaseSpeed = 2f; // 追いかけ速度(1秒で移動できる距離 m)
-    public float chaseDistance = 2f, stopDistance = 1f; // 追いかける距離
+    public float chaseDistance = 2f; // 追いかける距離
+    public float stopDistance = 1f;
     [SerializeField] private bool isRotate = false; // 回転するか
     [SerializeField] private float angleThreshold = 10.0f; // 許容する角度の範囲
     [Header("アニメーションパラメータ")]
@@ -40,7 +41,9 @@ public class ChaseController : MonoBehaviour
 
     private void OnEnable()
     {
-        stateMachine?.CurrentState?.OnStart();
+        if(anim != null){
+            stateMachine.ChangeState(new Idle());
+        }
     }
 
     private void Start()
@@ -63,13 +66,13 @@ public class ChaseController : MonoBehaviour
             
         }else{
             // ステート
-            if(stateMachine.CurrentState.GetType() != typeof(Idle)){
+            if(stateMachine.CurrentStateType != typeof(Idle)){
                 stateMachine.ChangeState(new Idle());
             }
         }
 
         stateMachine.OnUpdate();
-        stateName = stateMachine.CurrentState.ToString();
+        stateName = stateMachine.CurrentStateType.ToString();
     }
 
     private class Idle : StateBase<ChaseController>
@@ -131,7 +134,7 @@ public class ChaseController : MonoBehaviour
         public override void OnUpdate()
         {
             // 向き
-            Owner.transform.rotation = Quaternion.Slerp(Owner.transform.rotation, Owner.lookRotation, Time.deltaTime * 5.0f);
+            Owner.transform.rotation = Quaternion.Slerp(Owner.transform.rotation, Owner.lookRotation, Time.deltaTime);
 
             // アニメーション
             Owner.UpdateAnimation(0.5f);
@@ -169,6 +172,6 @@ public class ChaseController : MonoBehaviour
     private void OnDisable()
     {
         anim.SetFloat("speed", 0f);
-        stateMachine.CurrentState.OnEnd();
+        stateMachine.OnEnd();
     }
 }

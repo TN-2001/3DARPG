@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,13 +6,19 @@ public class MenuWindow : MonoBehaviour
 {
     [SerializeField] private Button firstSelectButton = null; // 初めのターゲットボタン
     [SerializeField] private Button endButton = null; // ゲーム終了ボタン
+    [SerializeField] private LoadView loadView = null; // ロード画面
 
 
     private void OnEnable()
     {
-        firstSelectButton.Select();
-
         Time.timeScale = 0f;
+        StartCoroutine(EOnEnable());
+    }
+    private IEnumerator EOnEnable()
+    {
+        yield return null;
+
+        firstSelectButton.Select();
     }
 
     private void Start()
@@ -30,7 +37,10 @@ public class MenuWindow : MonoBehaviour
     {
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        #elif UNITY_WEBGL
+        loadView.LoadScene("Start");
+        #else
         Application.Quit();
+        #endif
     }
 }

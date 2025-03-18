@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: 003_bluesword
   m_EditorClassIdentifier: 
   number: 3
-  name: "\u30D6\u30EB\u30FC\u30B7\u30FC\u30EB\u30C9"
-  info: "\u30D6\u30EB\u30FC\u30C9\u30E9\u30B4\u30F3\u306E\u30B7\u30FC\u30EB\u30C9"
-  image: {fileID: 21300000, guid: b8c153217b2f73a4f9edf09bd177dc32, type: 3}
+  name: "\u30B5\u30D5\u30A1\u30A4\u30A2\u30C9\u30E9\u30B4\u30F3\u30AC\u30FC\u30C7\u30A3\u30A2\u30F3"
+  info: " \u9752\u3044\u30C9\u30E9\u30B4\u30F3\u306E\u9C57\u3068\u6C37\u3067\u935B\u3048\u3089\u308C\u305F\u5263\u3068\u76FE\u306E\u30BB\u30C3\u30C8\u3002"
+  image: {fileID: 21300000, guid: a97bf011c7f15ce4597ccb71b0b59261, type: 3}
   price: 0
   itemDataList: []
-  weaponType: 3
-  atk: 0
+  weaponType: 4
+  atk: 7
   recovery: 0
-  guardTime: 10
-  prefab: {fileID: 7818876717398281733, guid: aae6957d2437a0546b5abe92c44de0d9, type: 3}
+  guardTime: 0
+  leftObject: {fileID: 5644964984773185848, guid: 15533d8f837b717439afd68bfece28a7,
+    type: 3}
+  rightObject: {fileID: 5956498335296629564, guid: abb323a345e06d44c8a9086d144b62bd,
+    type: 3}

@@ -1,35 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class StateMachine<TOwner>
+/*
+    StateMachine（ジェネリック）
+*/
+
+public class StateMachine<T>
 {
-    public TOwner Owner { get; }
-    public StateBase<TOwner> CurrentState { get; private set; }
+    public T Owner { get; }
+    private StateBase<T> currentState = null;
 
-    public StateMachine(TOwner owner)
+    public Type PreviousStateType { get; private set; } = null;
+    public Type CurrentStateType { get; private set; } = null;
+    public Type NextStateType { get; private set; } = null;
+
+
+    public StateMachine(T owner)
     {
         Owner = owner;
     }
 
     public void OnUpdate()
     {
-        CurrentState.OnUpdate();
+        currentState.OnUpdate();
     }
 
-    public void ChangeState(StateBase<TOwner> nextState)
+    public void ChangeState(StateBase<T> nextState)
     {
-        CurrentState?.OnEnd();
-        CurrentState = nextState;
-        CurrentState.StateMachine = this;
-        CurrentState.OnStart();
+        NextStateType = nextState.GetType();
+
+        if(currentState != null){
+            currentState.OnEnd();
+            PreviousStateType = currentState.GetType();
+        }
+
+        currentState = nextState;
+        CurrentStateType = currentState.GetType();
+        currentState.StateMachine = this;
+        currentState.OnStart();
+    }
+
+    public void OnEnd()
+    {
+        currentState?.OnEnd();
     }
 }
 
-public abstract class StateBase<TOwner>
+public abstract class StateBase<T>
 {
-    public StateMachine<TOwner> StateMachine;
-    protected TOwner Owner => StateMachine.Owner;
+    public StateMachine<T> StateMachine;
+    protected T Owner => StateMachine.Owner;
 
     public virtual void OnStart() { }
     public virtual void OnUpdate() { }

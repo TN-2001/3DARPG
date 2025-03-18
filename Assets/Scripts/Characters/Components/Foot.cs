@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -15,6 +14,7 @@ public class Foot : MonoBehaviour
     private Quaternion rotation = Quaternion.identity; // IKの向き
     private Quaternion initRotation = Quaternion.identity; // IKの向き
     private Quaternion initLocalRotation = Quaternion.identity; 
+
 
     private void Start()
     {
@@ -33,20 +33,21 @@ public class Foot : MonoBehaviour
     {
         footIK.weight = animator.GetFloat(weightName);
 
-        if (footIK.data.tip.position != position && footIK.weight < 0.9) {
+        if(footIK.weight < 0.9){
             UpdateFoot();
+        }else{
+            DownFoot();
         }
 
         // IKの位置と回転を更新
-        transform.position = position;
-        transform.rotation = rotation;
+        transform.SetPositionAndRotation(position, rotation);
     }
 
     // 足の位置と向きを地面に合わせる
     private void UpdateFoot()
     {
         // レイキャストで地面を検出
-        if (Physics.Raycast(footIK.data.tip.position + Vector3.up, Vector3.down, out RaycastHit hit, 2f, groundLayerMask)) {
+        if(Physics.Raycast(footIK.data.tip.position + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundLayerMask)){
             // 足が少し浮くようにオフセット
             position = new Vector3(footIK.data.tip.position.x, hit.point.y + floatingHeight, footIK.data.tip.position.z);
 
@@ -55,6 +56,16 @@ public class Foot : MonoBehaviour
                 initLocalRotation.eulerAngles.y+transform.parent.eulerAngles.y, initRotation.eulerAngles.z);
             // 現在の回転に、地面との角度を適用
             rotation = Quaternion.FromToRotation(Vector3.up, hit.normal) * rotation;
+        }
+    }
+
+    // 足を地面に付ける
+    private void DownFoot()
+    {
+        // レイキャストで地面を検出
+        if(Physics.Raycast(position + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundLayerMask)){
+            // 足が少し浮くようにオフセット
+            position = new Vector3(position.x, hit.point.y + floatingHeight, position.z);
         }
     }
 }

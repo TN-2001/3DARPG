@@ -48,7 +48,7 @@ public class SaveData
     public List<int> VolumeList => volumeList;
 
     // イベント
-    [HideInInspector] public UnityEvent onChageWeapon = null;
+    [HideInInspector] public UnityEvent<Weapon> onChageWeapon = null;
 
 
     public SaveData(DataBase data) // 生成
@@ -126,7 +126,7 @@ public class SaveData
         }
         weaponList.Find(x => x == weapon).UpdateIsEquip(number);
 
-        onChageWeapon?.Invoke();
+        onChageWeapon?.Invoke(weapon);
     }
 
     // 防具

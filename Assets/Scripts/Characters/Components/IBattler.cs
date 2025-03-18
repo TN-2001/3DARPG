@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public interface IBattler
 {
-    public void OnDamage(int damage, Vector3 position);
+    // 攻撃、ヒット座標
+    public void OnDamage(AttackStatus attack, Vector3 position);
 }

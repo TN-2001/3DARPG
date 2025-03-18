@@ -156,7 +156,7 @@ ModelImporter:
           rotationOrder: 4
       events:
       - time: 0
-        functionName: OnAnimStart
+        functionName: OnAttackAnimationStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -170,7 +170,7 @@ ModelImporter:
         intParameter: 1
         messageOptions: 0
       - time: 0.2580482
-        functionName: OnAttackCollisionStart
+        functionName: OnAttackCollisionEnable
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -184,16 +184,24 @@ ModelImporter:
         intParameter: 1
         messageOptions: 0
       - time: 0.75744164
-        functionName: OnAttackCollisionEnd
+        functionName: OnAttackCollisionDisable
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.98612475
-        functionName: OnAnimEnd
+        functionName: OnAnimationEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.25809819
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 0df1aafc9949dfd43a8a6c981d09d039,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -206,7 +214,7 @@ ModelImporter:
       takeName: Armature|AttackHand
       internalID: 9216618167542711636
       firstFrame: 0
-      lastFrame: 90
+      lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -248,8 +256,8 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.161
-            value: 1
+            time: 0.17
+            value: 1.0037689
             inSlope: 0
             outSlope: 0
             tangentMode: 136
@@ -257,16 +265,16 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.38
+            time: 0.5
             value: 1
-            inSlope: 0
-            outSlope: 0
+            inSlope: -0.043073386
+            outSlope: -0.043073386
             tangentMode: 136
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.381
+            time: 0.52
             value: 0
             inSlope: 0
             outSlope: 0
@@ -284,35 +292,8 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.681
+            time: 0.7
             value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.85
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.86
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.98
-            value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 136
@@ -322,12 +303,12 @@ ModelImporter:
           - serializedVersion: 3
             time: 1
             value: 1
-            inSlope: 50.00005
-            outSlope: 50.00005
-            tangentMode: 34
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
             weightedMode: 0
             inWeight: 0.33333334
-            outWeight: 0
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -345,7 +326,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.11
+            time: 0.13
             value: 1
             inSlope: 0
             outSlope: 0
@@ -354,7 +335,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.111
+            time: 0.16
             value: 0
             inSlope: 0
             outSlope: 0
@@ -363,7 +344,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.2
+            time: 0.33
             value: 0
             inSlope: 0
             outSlope: 0
@@ -372,7 +353,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.22
+            time: 0.35
             value: 1
             inSlope: 0
             outSlope: 0
@@ -381,7 +362,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.38
+            time: 0.53
             value: 1
             inSlope: 0
             outSlope: 0
@@ -390,7 +371,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.381
+            time: 0.55
             value: 0
             inSlope: 0
             outSlope: 0
@@ -417,41 +398,14 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.85
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.86
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.98
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
             time: 1
             value: 1
-            inSlope: 50.00005
-            outSlope: 50.00005
-            tangentMode: 34
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
             weightedMode: 0
             inWeight: 0.33333334
-            outWeight: 0
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -469,7 +423,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.11
+            time: 0.15
             value: 1
             inSlope: 0
             outSlope: 0
@@ -478,7 +432,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.111
+            time: 0.18
             value: 0
             inSlope: 0
             outSlope: 0
@@ -487,7 +441,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.2
+            time: 0.32
             value: 0
             inSlope: 0
             outSlope: 0
@@ -496,7 +450,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.22
+            time: 0.33
             value: 1
             inSlope: 0
             outSlope: 0
@@ -505,20 +459,11 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.38
+            time: 0.53
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.381
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
@@ -527,30 +472,12 @@ ModelImporter:
             value: 0
             inSlope: 0
             outSlope: 0
-            tangentMode: 136
+            tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.57
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.85
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.86
+            time: 0.78
             value: 0
             inSlope: 0
             outSlope: 0
@@ -559,8 +486,8 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.98
-            value: 0
+            time: 0.8
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 136
@@ -570,12 +497,12 @@ ModelImporter:
           - serializedVersion: 3
             time: 1
             value: 1
-            inSlope: 50.00005
-            outSlope: 50.00005
-            tangentMode: 34
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
             weightedMode: 0
             inWeight: 0.33333334
-            outWeight: 0
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -593,7 +520,7 @@ ModelImporter:
             inWeight: 0
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.1
+            time: 0.13
             value: 0
             inSlope: 0
             outSlope: 0
@@ -602,7 +529,7 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.11
+            time: 0.15
             value: 1
             inSlope: 0
             outSlope: 0
@@ -611,20 +538,11 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.38
+            time: 0.53
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.381
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
@@ -633,30 +551,12 @@ ModelImporter:
             value: 0
             inSlope: 0
             outSlope: 0
-            tangentMode: 136
+            tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.57
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.85
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 136
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.86
+            time: 0.78
             value: 0
             inSlope: 0
             outSlope: 0
@@ -665,8 +565,8 @@ ModelImporter:
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.98
-            value: 0
+            time: 0.8
+            value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 136
@@ -676,48 +576,56 @@ ModelImporter:
           - serializedVersion: 3
             time: 1
             value: 1
-            inSlope: 50.00005
-            outSlope: 50.00005
-            tangentMode: 34
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
             weightedMode: 0
             inWeight: 0.33333334
-            outWeight: 0
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
       events:
       - time: 0
-        functionName: OnAnimStart
+        functionName: OnAttackAnimationStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6423174
+        functionName: OnAttackCollisionEnable
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.76264244
+        functionName: PlayParticle
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8141152
+        functionName: OnAttackCollisionDisable
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.9980177
-        functionName: OnAnimEnd
+        functionName: OnAnimationEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.40733394
-        functionName: OnAttackCollisionStart
+      - time: 0.73876685
+        functionName: PlayOneShot
         data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.5896927
-        functionName: OnAttackCollisionEnd
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.5435004
-        functionName: PlayParticle
-        data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 8300000, guid: 9107b6044283a524a9a9aab759085d33,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -851,7 +759,7 @@ ModelImporter:
           rotationOrder: 4
       events:
       - time: 0
-        functionName: OnAnimStart
+        functionName: OnAttackAnimationStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -865,23 +773,31 @@ ModelImporter:
         intParameter: 2
         messageOptions: 0
       - time: 0.34786913
-        functionName: OnAttackCollisionStart
+        functionName: OnAttackCollisionEnable
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6253716
-        functionName: OnAttackCollisionEnd
+        functionName: OnAttackCollisionDisable
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.9940535
-        functionName: OnAnimEnd
+        functionName: OnAnimationEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.40020892
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 1650fd2ebeaab1e4c8301617a8d56896,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -943,15 +859,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: OnAnimStart
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9728555
-        functionName: OnAnimEnd
+      - time: 0.9895506
+        functionName: OnAnimationEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -1274,15 +1183,8 @@ ModelImporter:
           postInfinity: 2
           rotationOrder: 4
       events:
-      - time: 0
-        functionName: OnAnimStart
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.9980178
-        functionName: OnAnimEnd
+        functionName: OnAnimationEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -1729,7 +1631,23 @@ ModelImporter:
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
-      events: []
+      events:
+      - time: 0.48093978
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9602925
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -2071,7 +1989,333 @@ ModelImporter:
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
-      events: []
+      events:
+      - time: 0.48380348
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9644722
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Back
+      takeName: Armature|AttackHand
+      internalID: -10772924301347164
+      firstFrame: 65
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.9895504
+        functionName: OnAnimationEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: OnAnimationStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.044932082
+        functionName: OnRotationStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.88087755
+        functionName: OnRotationEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9435735
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Rotation
+      takeName: Armature|Walk
+      internalID: 8938466291879631872
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: footFLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.48
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.52
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footFRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.58
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.75
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBLWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.58
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.75
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      - name: footBRWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3272728
+          - serializedVersion: 3
+            time: 0.48
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.52
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 136
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          preInfinity: 2
+          postInfinity: 2
+          rotationOrder: 4
+      events:
+      - time: 0.9895506
+        functionName: OnAnimationEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: OnAnimationStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.061651003
+        functionName: OnRotationStart
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4963427
+        functionName: OnRotationEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.47544402
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.97701144
+        functionName: PlayOneShot
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 286b5f79ea972024a9ad5ecb09d1aa1d,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

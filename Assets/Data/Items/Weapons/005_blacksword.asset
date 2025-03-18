@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: 005_blacksword
   m_EditorClassIdentifier: 
   number: 5
-  name: "\u30D6\u30E9\u30C3\u30AF\u30BD\u30FC\u30C9"
-  info: "\u30D6\u30E9\u30C3\u30AF\u30C9\u30E9\u30B4\u30F3\u306E\u5263\u3002"
-  image: {fileID: 21300000, guid: bf93d425d16015943903da5d025352be, type: 3}
-  prefab: {fileID: 5956498335296629564, guid: abb323a345e06d44c8a9086d144b62bd, type: 3}
+  name: "\u30AA\u30D6\u30B7\u30C7\u30A3\u30A2\u30F3\u30C9\u30E9\u30B4\u30F3\u30AC\u30FC\u30C7\u30A3\u30A2\u30F3"
+  info: "\u9ED2\u3044\u30C9\u30E9\u30B4\u30F3\u306E\u9C57\u3068\u95C7\u3067\u935B\u3048\u3089\u308C\u305F\u5263\u3068\u76FE\u306E\u30BB\u30C3\u30C8\u3002"
+  image: {fileID: 21300000, guid: c37a09a53c28e4b4696155074bcdf307, type: 3}
   price: 0
   itemDataList: []
-  weaponType: 0
-  atk: 16
+  weaponType: 4
+  atk: 12
+  recovery: 0
+  guardTime: 0
+  leftObject: {fileID: 7480366357796415711, guid: 4fe9003357e493747a96b2d8161705de,
+    type: 3}
+  rightObject: {fileID: 1795968912398577297, guid: 3052038decb5c9648bc4b9a5a10f699e,
+    type: 3}

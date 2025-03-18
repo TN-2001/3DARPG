@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/EnemyData")]
-public class EnemyData : ScriptableObject
+public class EnemyData : ScriptableObject, IBattlerStatusData
 {
     [SerializeField] private int number = 0; // 番号
     [SerializeField] private new string name = null; // 名前
@@ -58,7 +57,7 @@ public class EnemyData : ScriptableObject
 }
 
 [System.Serializable]
-public class Enemy
+public class Enemy : IBattlerStatus
 {
     [SerializeField] private EnemyData data = null;
     public EnemyData Data => data;
@@ -69,8 +68,8 @@ public class Enemy
     private readonly List<WeaponData> dropWeaponList = new(); // ドロップ武器
 
     public int Hp => data.Hp; // hp
-    public int Atk => data.Atk; // 攻撃力
     public int CurrentHp => currentHp;
+    public int Atk => data.Atk; // 攻撃力
     public List<ItemData> DropItemList => dropItemList;
     public List<ArmorData> DropArmorList => dropArmorList;
     public List<WeaponData> DropWeaponList => dropWeaponList;
@@ -105,13 +104,13 @@ public class Enemy
         }
     }
 
-    public int UpdateHp(int para)
+    public int UpdateHp(int damage)
     {
-        currentHp += para;
+        currentHp += damage;
 
         if(currentHp < 0) currentHp = 0;
         else if(currentHp > Hp) currentHp = Hp;
 
-        return para;
+        return damage;
     }
 }

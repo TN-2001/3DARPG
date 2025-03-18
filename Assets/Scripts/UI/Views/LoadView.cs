@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,6 +18,24 @@ public class LoadView : MonoBehaviour
         StartCoroutine(EImageDisable());
     }
 
+
+    //　イベント実行
+    public IEnumerator ELoadEvent(Action action)
+    {
+        yield return EImageEnable();
+
+        action();
+
+        // ロード画像を回転
+        float countTime = 0f; 
+        while(countTime < 1f){
+            loadImageTransform.Rotate(new Vector3(0,0,-360*Time.deltaTime));
+            countTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return EImageDisable();
+    } 
 
     // シーンロード
     public void LoadScene(string sceneName)
@@ -43,7 +61,7 @@ public class LoadView : MonoBehaviour
 
         // ロード画像を回転
         while(true){
-            loadImageTransform.Rotate(new Vector3(0,0,360*Time.deltaTime));
+            loadImageTransform.Rotate(new Vector3(0,0,-360*Time.deltaTime));
             yield return null;
         }
     }

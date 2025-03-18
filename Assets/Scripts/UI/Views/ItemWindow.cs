@@ -179,10 +179,7 @@ public class ItemWindow : MonoBehaviour
         infoView.UpdateUI(new List<string>(){item.Data.Name, info}, item.Data.Image);
 
         // コマンドボタン
-        UpdateCommand(new List<(string name, UnityAction action)>(){
-            ("換金", delegate{
-            })
-        });
+        UpdateCommand(new List<(string name, UnityAction action)>());
     }
     private void OnSelect(Weapon weapon)
     {

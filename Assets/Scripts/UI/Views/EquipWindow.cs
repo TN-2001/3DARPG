@@ -9,6 +9,7 @@ public class EquipWindow : MonoBehaviour
     [SerializeField] private GameObject itemToggleObj = null; // アイテムトグル
     [SerializeField] private View infoView = null; // アイテム情報ビュー
     [SerializeField] private List<Button> btnList = new(); // インプットボタン
+    [SerializeField] private UnityEvent<Weapon> onChangeWeapon = new();
 
     private SaveData data = null;
     public int typeNumber = 0; // タイプ番号
@@ -133,9 +134,10 @@ public class EquipWindow : MonoBehaviour
         // コマンドボタン
         if(weapon.EquipNumber != typeNumber-3){
             UpdateCommand(new List<(string name, UnityAction action)>(){
-                ("装備変更", delegate{
+                ("装備", delegate{
                     data.EquipWeapon(weapon, typeNumber-3);
                     OnSelect(weapon);
+                    onChangeWeapon.Invoke(weapon);
                 }),
                 ("", null),
                 // ("強化", delegate{
@@ -145,10 +147,7 @@ public class EquipWindow : MonoBehaviour
         }
         else if(weapon.EquipNumber > 0){
             UpdateCommand(new List<(string name, UnityAction action)>(){
-                ("はずす", delegate{
-                    data.EquipWeapon(weapon, 0);
-                    OnSelect(weapon);
-                }),
+                ("", null),
                 ("", null),
                 // ("強化", delegate{
 
@@ -174,7 +173,7 @@ public class EquipWindow : MonoBehaviour
         // コマンドボタン
         if(!armor.IsEquip){
             UpdateCommand(new List<(string name, UnityAction action)>(){
-                ("装備変更", delegate{
+                ("装備", delegate{
                     data.EquipArmor(armor, true);
                     OnSelect(armor);
                 }),
