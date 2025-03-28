@@ -18,3 +18,10 @@
 1. 指定されたバージョンのUnity Editorをダウンロードする
 
 1. プロジェクトの一覧から3DARPGを選択して起動する
+
+## csprojファイルを再生成する方法
+1. EditからPreferencesを選択
+1. External Toolsを選択
+1. Regenerate csproj filesを選択
+
+![alt text](./image/regenerate_csproj.png)
