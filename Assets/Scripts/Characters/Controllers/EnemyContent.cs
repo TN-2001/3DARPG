@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyContent : MonoBehaviour
-{
+public class EnemyContent : MonoBehaviour {
     [SerializeField] private List<EnemyInfomation> enemyInfomationList = new(); // 敵の情報リスト
     [SerializeField] private Transform playerTransform = null; // プレイヤーの位置
     [SerializeField] private float instanceDistance = 100f; // 敵が生成できるプレイヤーとの距離
@@ -15,10 +14,9 @@ public class EnemyContent : MonoBehaviour
     public BattleWindow BattleWindow => battleWindow;
 
 
-    private void Start()
-    {
+    private void Start() {
         // 敵の情報リスト
-        foreach(EnemyInfomation enemyInfomation in enemyInfomationList){
+        foreach (EnemyInfomation enemyInfomation in enemyInfomationList) {
             enemyInfomation.Owner = this;
             enemyInfomation.InitEnemyController();
         }
@@ -26,8 +24,7 @@ public class EnemyContent : MonoBehaviour
 
 
     [System.Serializable] // 敵の情報
-    private class EnemyInfomation
-    {
+    private class EnemyInfomation {
         [SerializeField] private List<GameObject> enemyPefabList = new(); // 現れる敵のプレハブリスト
         [SerializeField] private EnemyController enemyController = null; // 現在の敵コントローラ
         [SerializeField] private Transform initTransform = null; // 初期トランスフォーム
@@ -35,15 +32,14 @@ public class EnemyContent : MonoBehaviour
         public EnemyContent Owner { get; set; } // 親クラス
 
 
-        private IEnumerator OnDie()
-        {
+        private IEnumerator OnDie() {
             // 1分待ち、プレイヤーが一定距離離れるまで待つ
             yield return new WaitForSeconds(Owner.instanceTime);
-            yield return new WaitUntil(() => Vector3.Distance(Owner.playerTransform.position, initTransform.position) > Owner.instanceDistance); 
+            yield return new WaitUntil(() => Vector3.Distance(Owner.playerTransform.position, initTransform.position) > Owner.instanceDistance);
 
             // 敵を生成
             GameObject enemyObject = Instantiate(
-                enemyPefabList[Random.Range(0, enemyPefabList.Count)], 
+                enemyPefabList[Random.Range(0, enemyPefabList.Count)],
                 initTransform.position,
                 initTransform.rotation,
                 Owner.transform

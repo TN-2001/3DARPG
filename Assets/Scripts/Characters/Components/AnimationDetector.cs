@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AnimationDetector : MonoBehaviour
-{
+public class AnimationDetector : MonoBehaviour {
     // フラグ
     public bool isAnimStart { get; private set; }
     public bool isAttackCollisionStart { get; private set; }
@@ -12,10 +11,9 @@ public class AnimationDetector : MonoBehaviour
     public bool isAttackCombo { get; private set; }
     public bool isAnimEnd { get; private set; }
     [HideInInspector] // イベントリスナー
-    public UnityEvent onAnimStart, onAttackCollisionStart, onAttackCollisionEnd, onAttackCombo, onAnimEnd; 
+    public UnityEvent onAnimStart, onAttackCollisionStart, onAttackCollisionEnd, onAttackCombo, onAnimEnd;
 
-    public void Init()
-    {
+    public void Init() {
         isAnimStart = false;
         isAttackCollisionStart = false;
         isAttackCollisionEnd = false;
@@ -29,39 +27,34 @@ public class AnimationDetector : MonoBehaviour
         onAnimEnd.RemoveAllListeners();
     }
 
-    public void OnAnimStart()
-    {
+    public void OnAnimStart() {
         isAnimStart = true;
         onAnimStart?.Invoke();
     }
 
-    public void OnAttackCollisionStart()
-    {
-        if(isAnimStart){
+    public void OnAttackCollisionStart() {
+        if (isAnimStart) {
             isAttackCollisionStart = true;
             onAttackCollisionStart?.Invoke();
         }
     }
 
-    public void OnAttackCollisionEnd()
-    {
-        if(isAnimStart){
+    public void OnAttackCollisionEnd() {
+        if (isAnimStart) {
             isAttackCollisionEnd = true;
             onAttackCollisionEnd?.Invoke();
         }
     }
 
-    public void OnAttackCombo()
-    {
-        if(isAnimStart){
+    public void OnAttackCombo() {
+        if (isAnimStart) {
             isAttackCombo = true;
             onAttackCombo?.Invoke();
         }
     }
 
-    public void OnAnimEnd()
-    {
-        if(isAnimStart){
+    public void OnAnimEnd() {
+        if (isAnimStart) {
             isAnimEnd = true;
             onAnimEnd?.Invoke();
         }

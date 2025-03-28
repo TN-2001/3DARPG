@@ -3,31 +3,29 @@ using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DataManager", menuName = "ScriptableObject/DataManager")]
-public class DataManager : SingletonScriptableObject<DataManager>
-{
+public class DataManager : SingletonScriptableObject<DataManager> {
     [SerializeField] private DataBase dataBase = null; // データベース
     public DataBase DataBase => dataBase;
     public SaveData Data { get; private set; } = null; // セーブデータ
 
-    public Player Player => Data.Player; 
+    public Player Player => Data.Player;
     public List<Enemy> EnemyList { get; private set; } = new();
 
 
-    public void Init()
-    {
+    public void Init() {
         EnemyList.Clear();
     }
 
     // セーブデータ
     public void Load() // ロード
     {
-        try{
+        try {
             StreamReader rd = new(Application.dataPath + "/SaveData.json");
             string json = rd.ReadToEnd();
             rd.Close();
             Data = JsonUtility.FromJson<SaveData>(json);
             Data.Init(dataBase);
-        }catch{
+        } catch {
             Data = new SaveData(dataBase);
             Save();
         }
@@ -38,6 +36,6 @@ public class DataManager : SingletonScriptableObject<DataManager>
         string json = JsonUtility.ToJson(Data);
         StreamWriter wr = new(Application.dataPath + "/SaveData.json", false);
         wr.WriteLine(json);
-        wr.Close(); 
+        wr.Close();
     }
 }

@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
-public class SearchDetector : MonoBehaviour
-{
+public class SearchDetector : MonoBehaviour {
     [Header("物理設定でレイがTriggerにはあたらないようにしよう")]
     [Header("高さは目線に合わせた方がいい")]
     public string tagName = "Player";
@@ -15,17 +14,16 @@ public class SearchDetector : MonoBehaviour
     public List<Collider> ColliderList { get; private set; } = new(); // 視野内のコライダー
     public Collider CloseCollider // 最も近いコライダー
     {
-        get{
+        get {
             Collider collider = null;
-            for(int i = 0; i < ColliderList.Count; i++){
-                if(collider){
+            for (int i = 0; i < ColliderList.Count; i++) {
+                if (collider) {
                     float dis0 = Vector3.Distance(transform.position, collider.transform.position);
                     float dis1 = Vector3.Distance(transform.position, ColliderList[i].transform.position);
-                    if(dis1 < dis0){
+                    if (dis1 < dis0) {
                         collider = ColliderList[i];
                     }
-                }
-                else{
+                } else {
                     collider = ColliderList[i];
                 }
             }
@@ -38,15 +36,13 @@ public class SearchDetector : MonoBehaviour
     [HideInInspector] public UnityEvent<Collider> onExit;
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag(tagName)){
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag(tagName)) {
             AllColliderList.Add(other);
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
+    private void OnTriggerStay(Collider other) {
         if (other.gameObject.CompareTag(tagName)) //視界の範囲内の当たり判定
         {
             //視界の角度内に収まっているか
@@ -55,18 +51,17 @@ public class SearchDetector : MonoBehaviour
 
             if (target_angle < angle) //target_angleがangleに収まっているかどうか
             {
-                if(Physics.Raycast(transform.position, posDelta, out RaycastHit hit)) //Rayを使用してtargetに当たっているか判別
+                if (Physics.Raycast(transform.position, posDelta, out RaycastHit hit)) //Rayを使用してtargetに当たっているか判別
                 {
-                    if (hit.collider==other)
-                    {
+                    if (hit.collider == other) {
                         bool isNew = true;
-                        for(int i = 0; i < ColliderList.Count; i++){
-                            if(ColliderList[i] == other){
+                        for (int i = 0; i < ColliderList.Count; i++) {
+                            if (ColliderList[i] == other) {
                                 isNew = false;
                                 break;
                             }
                         }
-                        if(isNew){
+                        if (isNew) {
                             ColliderList.Add(other);
                             onEnter?.Invoke(other);
                         }
@@ -75,8 +70,8 @@ public class SearchDetector : MonoBehaviour
                 }
             }
 
-            for(int i = 0; i < ColliderList.Count; i++){
-                if(ColliderList[i] == other){
+            for (int i = 0; i < ColliderList.Count; i++) {
+                if (ColliderList[i] == other) {
                     ColliderList.Remove(other);
                     onExit?.Invoke(other);
                     return;
@@ -85,12 +80,11 @@ public class SearchDetector : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.CompareTag(tagName)){
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag(tagName)) {
             AllColliderList.Remove(other);
-            for(int i = 0; i < ColliderList.Count; i++){
-                if(ColliderList[i] == other){
+            for (int i = 0; i < ColliderList.Count; i++) {
+                if (ColliderList[i] == other) {
                     ColliderList.Remove(other);
                     onExit?.Invoke(other);
                     return;
@@ -99,10 +93,9 @@ public class SearchDetector : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
         // シーンビューでRayの軌跡を表示
-        for(int i = 0; i < ColliderList.Count; i++){
+        for (int i = 0; i < ColliderList.Count; i++) {
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, ColliderList[i].transform.position - transform.position);
         }

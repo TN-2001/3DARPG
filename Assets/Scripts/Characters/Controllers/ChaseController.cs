@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator), typeof(NavMeshAgent))]
-public class ChaseController : MonoBehaviour
-{
+public class ChaseController : MonoBehaviour {
     // ステートマシン
     [SerializeField] private string stateName = "";
     private StateMachine<ChaseController> stateMachine = null;
@@ -15,7 +14,7 @@ public class ChaseController : MonoBehaviour
     // パラメータ
     [Header("コンポーネント")]
     public Transform target = null; // ターゲット
-    [Header("物理パラメータ")] 
+    [Header("物理パラメータ")]
     [SerializeField] private float chaseSpeed = 2f; // 追いかけ速度(1秒で移動できる距離 m)
     public float chaseDistance = 2f; // 追いかける距離
     public float stopDistance = 1f;
@@ -29,25 +28,23 @@ public class ChaseController : MonoBehaviour
 
     public bool IsLookTarget // ターゲットの方向を向いているか
     {
-        get{
-            if(target != null){
+        get {
+            if (target != null) {
                 return Quaternion.Angle(transform.rotation, lookRotation) < angleThreshold;
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
 
-    private void OnEnable()
-    {
-        if(anim != null){
+    private void OnEnable() {
+        if (anim != null) {
             stateMachine.ChangeState(new Idle());
         }
     }
 
-    private void Start()
-    {
+    private void Start() {
         // コンポーネント
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -57,16 +54,15 @@ public class ChaseController : MonoBehaviour
         stateMachine.ChangeState(new Idle());
     }
 
-    private void FixedUpdate()
-    {
-        if(target != null){
+    private void FixedUpdate() {
+        if (target != null) {
             // ターゲットの方向を取得
             Vector3 direction = (target.position - transform.position).normalized;
             lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            
-        }else{
+
+        } else {
             // ステート
-            if(stateMachine.CurrentStateType != typeof(Idle)){
+            if (stateMachine.CurrentStateType != typeof(Idle)) {
                 stateMachine.ChangeState(new Idle());
             }
         }
@@ -75,39 +71,34 @@ public class ChaseController : MonoBehaviour
         stateName = stateMachine.CurrentStateType.ToString();
     }
 
-    private class Idle : StateBase<ChaseController>
-    {
-        public override void OnUpdate()
-        {
+    private class Idle : StateBase<ChaseController> {
+        public override void OnUpdate() {
             // アニメーション
             Owner.UpdateAnimation(0f);
 
-            if(Owner.target == null){
+            if (Owner.target == null) {
                 return;
             }
 
             // ステート
-            if(Owner.target){
-                if(Vector3.Distance(Owner.transform.position, Owner.target.position) >= Owner.chaseDistance){
+            if (Owner.target) {
+                if (Vector3.Distance(Owner.transform.position, Owner.target.position) >= Owner.chaseDistance) {
                     Owner.stateMachine.ChangeState(new Chase());
-                }else if(!Owner.IsLookTarget && Owner.isRotate){
+                } else if (!Owner.IsLookTarget && Owner.isRotate) {
                     Owner.stateMachine.ChangeState(new Rotation());
                 }
             }
         }
     }
 
-    private class Chase : StateBase<ChaseController>
-    {
-        public override void OnStart()
-        {
+    private class Chase : StateBase<ChaseController> {
+        public override void OnStart() {
             // 移動
             Owner.agent.SetDestination(Owner.target.position);
             Owner.agent.speed = Owner.chaseSpeed;
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             // 移動
             Owner.agent.SetDestination(Owner.target.position);
 
@@ -115,24 +106,21 @@ public class ChaseController : MonoBehaviour
             Owner.UpdateAnimation(1f);
 
             // ステート
-            if(Vector3.Distance(Owner.transform.position, Owner.target.position) < Owner.stopDistance){
+            if (Vector3.Distance(Owner.transform.position, Owner.target.position) < Owner.stopDistance) {
                 Owner.stateMachine.ChangeState(new Idle());
             }
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             // 移動
             Owner.agent.speed = 0;
         }
     }
 
-    private class Rotation : StateBase<ChaseController>
-    {
+    private class Rotation : StateBase<ChaseController> {
         private float countTime = 0f;
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             // 向き
             Owner.transform.rotation = Quaternion.Slerp(Owner.transform.rotation, Owner.lookRotation, Time.deltaTime);
 
@@ -140,9 +128,9 @@ public class ChaseController : MonoBehaviour
             Owner.UpdateAnimation(0.5f);
 
             // ステート
-            if(Vector3.Distance(Owner.transform.position, Owner.target.position) >= Owner.chaseDistance){
+            if (Vector3.Distance(Owner.transform.position, Owner.target.position) >= Owner.chaseDistance) {
                 Owner.stateMachine.ChangeState(new Chase());
-            }else if(Owner.IsLookTarget && countTime > 1f){
+            } else if (Owner.IsLookTarget && countTime > 1f) {
                 Owner.stateMachine.ChangeState(new Idle());
             }
 
@@ -153,24 +141,23 @@ public class ChaseController : MonoBehaviour
 
     private void UpdateAnimation(float speed) // アニメーション更新
     {
-        if(anim.GetFloat("speed") < speed){
-            if(anim.GetFloat("speed") + Time.fixedDeltaTime/animChangeSpeed < speed)
-                anim.SetFloat("speed", anim.GetFloat("speed") + Time.fixedDeltaTime/animChangeSpeed);
-            else{
+        if (anim.GetFloat("speed") < speed) {
+            if (anim.GetFloat("speed") + Time.fixedDeltaTime / animChangeSpeed < speed)
+                anim.SetFloat("speed", anim.GetFloat("speed") + Time.fixedDeltaTime / animChangeSpeed);
+            else {
                 anim.SetFloat("speed", speed);
             }
-        }else if(anim.GetFloat("speed") > speed){
-            if(anim.GetFloat("speed") - Time.fixedDeltaTime/animChangeSpeed > speed)
-                anim.SetFloat("speed", anim.GetFloat("speed") - Time.fixedDeltaTime/animChangeSpeed);
-            else{
+        } else if (anim.GetFloat("speed") > speed) {
+            if (anim.GetFloat("speed") - Time.fixedDeltaTime / animChangeSpeed > speed)
+                anim.SetFloat("speed", anim.GetFloat("speed") - Time.fixedDeltaTime / animChangeSpeed);
+            else {
                 anim.SetFloat("speed", speed);
             }
         }
     }
 
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         anim.SetFloat("speed", 0f);
         stateMachine.OnEnd();
     }

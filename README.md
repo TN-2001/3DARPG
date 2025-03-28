@@ -25,3 +25,8 @@
 1. Regenerate csproj filesを選択
 
 ![alt text](./image/regenerate_csproj.png)
+
+## フォーマット
+```
+dotnet format 3DARPG.sln
+```

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/ItemData")]
-public class ItemData : ScriptableObject
-{
+public class ItemData : ScriptableObject {
     [SerializeField] private int number = 0; // 番号
     [SerializeField] private new string name = null; // 名前
     [SerializeField, TextArea] private string info = null; // 情報
@@ -25,8 +24,7 @@ public class ItemData : ScriptableObject
 }
 
 [System.Serializable]
-public class Item
-{
+public class Item {
     private ItemData data = null;
     public ItemData Data => data;
 
@@ -37,26 +35,22 @@ public class Item
     public int Count => count;
 
 
-    public Item(ItemData data, int count)
-    {
+    public Item(ItemData data, int count) {
         this.data = data;
         number = data.Number;
         this.count = count;
     }
 
-    public void Init(ItemData data)
-    {
+    public void Init(ItemData data) {
         this.data = data;
     }
 
-    public void UpadateCount(int count)
-    {
+    public void UpadateCount(int count) {
         this.count += count;
     }
 }
 
-public enum ItemType
-{
+public enum ItemType {
     None,
     Recovery,
 }

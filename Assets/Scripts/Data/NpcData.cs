@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/NpcData")]
-public class NpcData : ScriptableObject
-{
+public class NpcData : ScriptableObject {
     [SerializeField] // 番号
     private int number = 0;
     public int Number => number;
@@ -23,8 +22,7 @@ public class NpcData : ScriptableObject
 }
 
 [System.Serializable]
-public class TextData
-{
+public class TextData {
     [SerializeField] // 対称イベント
     private EventData eventData = null;
     public EventData EventData => eventData;

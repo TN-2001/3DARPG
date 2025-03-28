@@ -6,8 +6,7 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(AnimationDetector))]
 [RequireComponent(typeof(MoveController), typeof(ChaseController))]
-public class EnemyController : MonoBehaviour, IBattler
-{
+public class EnemyController : MonoBehaviour, IBattler {
     // ステート
     [SerializeField] private string stateName = null;
     private StateMachine<EnemyController> stateMachine;
@@ -49,8 +48,7 @@ public class EnemyController : MonoBehaviour, IBattler
     [NonSerialized] public UnityEvent onDie = new(); // 死亡時
 
 
-    private void Start()
-    {
+    private void Start() {
         // コンポーネント入手
         anim = GetComponent<Animator>();
         move = GetComponent<MoveController>();
@@ -61,18 +59,18 @@ public class EnemyController : MonoBehaviour, IBattler
 
         battleWindow = GetComponentInParent<EnemyContent>().BattleWindow;
 
-        searchDetector.onEnter.AddListener(delegate(Collider other){
+        searchDetector.onEnter.AddListener(delegate (Collider other) {
             target = other.gameObject;
         });
 
         // キャラクター
-        enemy = new(enemy.Data){
+        enemy = new(enemy.Data) {
             Transform = transform
         };
         DataManager.Instance.EnemyList.Add(enemy);
 
         // 攻撃
-        for (int i = 0; i < attackControllers.Count; i++){
+        for (int i = 0; i < attackControllers.Count; i++) {
             attackStatusList[i].Init(enemy);
             attackControllers[i].Initialize(attackStatusList[i]);
         }
@@ -85,9 +83,8 @@ public class EnemyController : MonoBehaviour, IBattler
         stateMachine.ChangeState(new Move());
     }
 
-    private void FixedUpdate()
-    {
-        if(target != null){
+    private void FixedUpdate() {
+        if (target != null) {
             // ターゲットのパラメータ
             targetDistance = Vector3.Distance(transform.position, target.transform.position);
             Vector3 direction = (target.transform.position - transform.position).normalized;
@@ -99,11 +96,11 @@ public class EnemyController : MonoBehaviour, IBattler
         stateMachine.OnUpdate();
         stateName = stateMachine.CurrentStateType.ToString();
 
-        if(stateMachine.CurrentStateType != typeof(Attack)){
+        if (stateMachine.CurrentStateType != typeof(Attack)) {
             // 時間カウント
             countCoolTime += Time.fixedDeltaTime;
 
-            if(countCoolTime >= coolTime && target != null && attackNumber < 0){
+            if (countCoolTime >= coolTime && target != null && attackNumber < 0) {
                 attackNumber = UnityEngine.Random.Range(0, attackControllers.Count);
             }
         }
@@ -111,78 +108,70 @@ public class EnemyController : MonoBehaviour, IBattler
 
     private class Move : StateBase<EnemyController> // 通常状態（立ち、歩き移動）
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.move.enabled = true;
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             // ステート変更
-            if(Owner.target){
+            if (Owner.target) {
                 Owner.stateMachine.ChangeState(new Chase());
             }
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.move.enabled = false;
         }
     }
 
     private class Chase : StateBase<EnemyController> // 追いかけ状態（立ち、追いかけ）
     {
-        public override void OnStart()
-        {
-            if(Owner.target){
+        public override void OnStart() {
+            if (Owner.target) {
                 Owner.chase.target = Owner.target.transform;
                 Owner.chase.enabled = true;
             }
         }
 
-        public override void OnUpdate()
-        {
-            if(DataManager.Instance.Player.CurrentHp == 0){
+        public override void OnUpdate() {
+            if (DataManager.Instance.Player.CurrentHp == 0) {
                 Owner.target = null;
             }
 
             // ステート変更
-            if(!Owner.target){
+            if (!Owner.target) {
                 Owner.stateMachine.ChangeState(new Move());
             }
 
-            if(Owner.targetAngle > 30){
+            if (Owner.targetAngle > 30) {
                 Owner.stateMachine.ChangeState(new Rotation());
-            }else if(Owner.attackNumber >= 0){
-                if(Owner.attackControllers[Owner.attackNumber].MinRange <= Owner.targetDistance 
-                    && Owner.targetDistance <= Owner.attackControllers[Owner.attackNumber].MaxRange){
+            } else if (Owner.attackNumber >= 0) {
+                if (Owner.attackControllers[Owner.attackNumber].MinRange <= Owner.targetDistance
+                    && Owner.targetDistance <= Owner.attackControllers[Owner.attackNumber].MaxRange) {
                     Owner.stateMachine.ChangeState(new Attack());
-                }else if(Owner.attackControllers[Owner.attackNumber].MinRange > Owner.targetDistance){
+                } else if (Owner.attackControllers[Owner.attackNumber].MinRange > Owner.targetDistance) {
                     Owner.stateMachine.ChangeState(new Back());
                 }
             }
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.chase.enabled = false;
         }
     }
 
     private class Rotation : StateBase<EnemyController> // 回転
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.anim.SetTrigger("rotationTrigger");
         }
 
-        public override void OnUpdate()
-        {
-            if(Owner.isCanRotation && Owner.target != null){
+        public override void OnUpdate() {
+            if (Owner.isCanRotation && Owner.target != null) {
                 // 滑らかに向きを更新
-                if(Owner.targetAngle > 1f){
+                if (Owner.targetAngle > 1f) {
                     Owner.transform.rotation = Quaternion.Slerp(
-                        Owner.transform.rotation, Owner.targetRotation, Time.deltaTime * (Owner.rotationSpeed/Owner.targetAngle));
+                        Owner.transform.rotation, Owner.targetRotation, Time.deltaTime * (Owner.rotationSpeed / Owner.targetAngle));
                 }
             }
         }
@@ -190,8 +179,7 @@ public class EnemyController : MonoBehaviour, IBattler
 
     private class Back : StateBase<EnemyController> // バックステップ
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.OnAnimationStart();
             Owner.anim.SetTrigger("backTrigger");
         }
@@ -199,8 +187,7 @@ public class EnemyController : MonoBehaviour, IBattler
 
     private class Attack : StateBase<EnemyController> // 攻撃
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.OnAnimationStart();
 
             // アニメーション
@@ -208,8 +195,7 @@ public class EnemyController : MonoBehaviour, IBattler
             Owner.anim.SetTrigger("attackTrigger");
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.OnAttackCollisionDisable();
 
             Owner.countCoolTime = 0f;
@@ -219,13 +205,11 @@ public class EnemyController : MonoBehaviour, IBattler
 
     private class Hit : StateBase<EnemyController> // ヒット
     {
-        public override void OnStart()
-        {
-            if(Owner.enemy.CurrentHp <= 0f){
-                Owner.anim.SetInteger("hitNumber",1);
-            }
-            else{
-                Owner.anim.SetInteger("hitNumber",0);
+        public override void OnStart() {
+            if (Owner.enemy.CurrentHp <= 0f) {
+                Owner.anim.SetInteger("hitNumber", 1);
+            } else {
+                Owner.anim.SetInteger("hitNumber", 0);
             }
 
             Owner.anim.SetTrigger("hitTrigger");
@@ -234,18 +218,17 @@ public class EnemyController : MonoBehaviour, IBattler
 
 
     // 死亡
-    private IEnumerator EDie()
-    {
+    private IEnumerator EDie() {
         // 見つけた敵に追加
         DataManager.Instance.Data.UpdateFindEnemy(enemy.Data.Number - 1);
 
-        foreach(ItemData data in Enemy.DropItemList){
+        foreach (ItemData data in Enemy.DropItemList) {
             battleWindow.GetItem(data);
         }
-        foreach(ArmorData data in Enemy.DropArmorList){
+        foreach (ArmorData data in Enemy.DropArmorList) {
             battleWindow.GetArmor(data);
         }
-        foreach(WeaponData data in Enemy.DropWeaponList){
+        foreach (WeaponData data in Enemy.DropWeaponList) {
             battleWindow.GetWeapon(data);
         }
         DataManager.Instance.EnemyList.Remove(enemy);
@@ -261,14 +244,13 @@ public class EnemyController : MonoBehaviour, IBattler
 
 
     // IBattlerのダメージ関数
-    public void OnDamage(AttackStatus attack, Vector3 position)
-    {
-        if(enemy.CurrentHp > 0){
+    public void OnDamage(AttackStatus attack, Vector3 position) {
+        if (enemy.CurrentHp > 0) {
             int dam = enemy.UpdateHp(-attack.Atk);
             battleWindow.InitDamageText(-dam, position);
-            if(enemy.CurrentHp == 0){
+            if (enemy.CurrentHp == 0) {
                 stateMachine.ChangeState(new Hit());
-            }else if(target == null && searchDetector.AllColliderList.Count > 0){
+            } else if (target == null && searchDetector.AllColliderList.Count > 0) {
                 target = searchDetector.AllColliderList[0].gameObject;
             }
             caudio.PlayOneShot_Hit();
@@ -290,24 +272,22 @@ public class EnemyController : MonoBehaviour, IBattler
 
     public void OnAnimationEnd() // アニメーション終了
     {
-        if((stateMachine.CurrentStateType == typeof(Hit) && enemy.CurrentHp > 0)
+        if ((stateMachine.CurrentStateType == typeof(Hit) && enemy.CurrentHp > 0)
             || stateMachine.CurrentStateType == typeof(Back)
             || stateMachine.CurrentStateType == typeof(Attack)
-            || stateMachine.CurrentStateType == typeof(Rotation)){
+            || stateMachine.CurrentStateType == typeof(Rotation)) {
             stateMachine.ChangeState(new Chase());
-        }else if(stateMachine.CurrentStateType == typeof(Hit) && enemy.CurrentHp == 0){
+        } else if (stateMachine.CurrentStateType == typeof(Hit) && enemy.CurrentHp == 0) {
             StartCoroutine(EDie());
         }
     }
 
-    public void OnAttackCollisionEnable(int number)
-    {
+    public void OnAttackCollisionEnable(int number) {
         attackControllers[attackNumber].Initialize(attackStatusList[attackNumber]);
         attackControllers[attackNumber].OnCollisionEnable();
     }
 
-    public void OnAttackCollisionDisable()
-    {
+    public void OnAttackCollisionDisable() {
         attackControllers[attackNumber].OnCollisionDisable();
     }
 

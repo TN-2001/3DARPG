@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class CharacterAudio : MonoBehaviour
-{
+public class CharacterAudio : MonoBehaviour {
     // コンポーネント
     private AudioSource audioSource = null; // オーディオソース
 
@@ -9,20 +8,17 @@ public class CharacterAudio : MonoBehaviour
     [SerializeField] private AudioClip hitAudio = null; // ダメージ音
 
 
-    private void Start()
-    {
+    private void Start() {
         // コンポーネント
         audioSource = GetComponent<AudioSource>();
     }
 
 
-    public void PlayOneShot(AudioClip audioClip)
-    {
+    public void PlayOneShot(AudioClip audioClip) {
         audioSource.PlayOneShot(audioClip);
     }
 
-    public void PlayOneShot_Hit()
-    {
+    public void PlayOneShot_Hit() {
         audioSource.PlayOneShot(hitAudio);
     }
 }

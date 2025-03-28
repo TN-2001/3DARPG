@@ -4,8 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController), typeof(Animator), typeof(PlayerInput))]
-public class PlayerCharacterController : MonoBehaviour
-{
+public class PlayerCharacterController : MonoBehaviour {
     // ステートマシン
     [SerializeField] private string stateName = "";
     private StateMachine<PlayerCharacterController> stateMachine = null;
@@ -19,7 +18,7 @@ public class PlayerCharacterController : MonoBehaviour
     [SerializeField] private float gravity = 9.8f; // 重力
     [SerializeField] private float runSpeed = 3f; // 走り速度（1秒で移動できる距離 m）
     [SerializeField] private float dashSpeed = 5f; // ダッシュ速度
-    [SerializeField, Range(0f,1f)] private float rotationSpeed = 0.25f; // 振り向き速度
+    [SerializeField, Range(0f, 1f)] private float rotationSpeed = 0.25f; // 振り向き速度
     [SerializeField] private float animChangeSpeed = 0.3f; // アニメ遷移速度
 
     // フラグ・イベント
@@ -29,8 +28,7 @@ public class PlayerCharacterController : MonoBehaviour
     [HideInInspector] public UnityEvent decreasedStamina = null; // スタミナ減少イベント
 
 
-    private void Start()
-    {
+    private void Start() {
         // コンポーネント
         con = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
@@ -41,18 +39,15 @@ public class PlayerCharacterController : MonoBehaviour
         stateMachine.ChangeState(new Idle());
     }
 
-    private void Update()
-    {
+    private void Update() {
         // ステートマシン
         stateMachine.OnUpdate();
     }
 
-    private class Idle : StateBase<PlayerCharacterController>
-    {
-        public override void OnUpdate()
-        {
+    private class Idle : StateBase<PlayerCharacterController> {
+        public override void OnUpdate() {
             // ステート
-            if(Owner.input.actions["Move"].ReadValue<Vector2>().magnitude > 0 && Owner.isOn){
+            if (Owner.input.actions["Move"].ReadValue<Vector2>().magnitude > 0 && Owner.isOn) {
                 Owner.stateMachine.ChangeState(new Run());
                 return;
             }
@@ -65,19 +60,17 @@ public class PlayerCharacterController : MonoBehaviour
             // アニメーション
             Owner.UpdateAnimationValue(0f);
 
-            if(Owner.isOn){
+            if (Owner.isOn) {
                 // イベント
                 Owner.recoveryStamina.Invoke();
             }
         }
     }
 
-    private class Run : StateBase<PlayerCharacterController>
-    {
-        public override void OnUpdate()
-        {
+    private class Run : StateBase<PlayerCharacterController> {
+        public override void OnUpdate() {
             // ステート
-            if(Owner.input.actions["Move"].ReadValue<Vector2>().magnitude == 0 || !Owner.isOn){
+            if (Owner.input.actions["Move"].ReadValue<Vector2>().magnitude == 0 || !Owner.isOn) {
                 Owner.stateMachine.ChangeState(new Idle());
                 return;
             }
@@ -88,17 +81,17 @@ public class PlayerCharacterController : MonoBehaviour
             Vector3 dir = camRotation * new Vector3(inpDir.x, 0, inpDir.y).normalized;
             Owner.transform.rotation = Quaternion.Slerp(Owner.transform.rotation, Quaternion.LookRotation(dir, Vector3.up), Owner.rotationSpeed);
 
-            if(!Owner.input.actions["Dash"].IsPressed() || !Owner.isCanDash){
+            if (!Owner.input.actions["Dash"].IsPressed() || !Owner.isCanDash) {
                 // 移動
                 dir *= Owner.runSpeed;
                 // アニメーション
                 Owner.UpdateAnimationValue(0.5f);
 
-                if(!Owner.input.actions["Dash"].IsPressed()){
+                if (!Owner.input.actions["Dash"].IsPressed()) {
                     // イベント
                     Owner.recoveryStamina.Invoke();
                 }
-            }else{
+            } else {
                 // 移動
                 dir *= Owner.dashSpeed;
                 // アニメーション
@@ -114,18 +107,17 @@ public class PlayerCharacterController : MonoBehaviour
 
 
     // アニメーション遷移
-    private void UpdateAnimationValue(float value)
-    {
-        if(anim.GetFloat("speed") > value){
-            if(anim.GetFloat("speed") - Time.deltaTime/animChangeSpeed > value)
-                anim.SetFloat("speed", anim.GetFloat("speed") - Time.deltaTime/animChangeSpeed);
-            else{
+    private void UpdateAnimationValue(float value) {
+        if (anim.GetFloat("speed") > value) {
+            if (anim.GetFloat("speed") - Time.deltaTime / animChangeSpeed > value)
+                anim.SetFloat("speed", anim.GetFloat("speed") - Time.deltaTime / animChangeSpeed);
+            else {
                 anim.SetFloat("speed", value);
             }
-        }else if(anim.GetFloat("speed") < value){
-            if(anim.GetFloat("speed") + Time.deltaTime/animChangeSpeed < value)
-                anim.SetFloat("speed", anim.GetFloat("speed") + Time.deltaTime/animChangeSpeed);
-            else{
+        } else if (anim.GetFloat("speed") < value) {
+            if (anim.GetFloat("speed") + Time.deltaTime / animChangeSpeed < value)
+                anim.SetFloat("speed", anim.GetFloat("speed") + Time.deltaTime / animChangeSpeed);
+            else {
                 anim.SetFloat("speed", value);
             }
         }

@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class FollowUI : MonoBehaviour
-{
+public class FollowUI : MonoBehaviour {
     // コンポーネント
     private RectTransform rectTransform = null;
 
@@ -16,29 +15,27 @@ public class FollowUI : MonoBehaviour
     [SerializeField] private bool isDestroy = false; // 消すか否か
     [SerializeField] private float survivalTime = 0; // 生存時間
 
-    private Vector3 initialLossyScale = new(1,1,1); // 最初のスケール
-    private Vector3 currentLossyScale = new(1,1,1); // 現在のスケール
+    private Vector3 initialLossyScale = new(1, 1, 1); // 最初のスケール
+    private Vector3 currentLossyScale = new(1, 1, 1); // 現在のスケール
 
 
-    private void Start()
-    {
+    private void Start() {
         rectTransform = GetComponent<RectTransform>();
 
         initialLossyScale = transform.lossyScale;
         currentLossyScale = initialLossyScale;
 
-        if(isDestroy){
+        if (isDestroy) {
             Destroy(gameObject, survivalTime);
         }
     }
 
-    private void LateUpdate()
-    {
-        if(targetTransform){
+    private void LateUpdate() {
+        if (targetTransform) {
             targetPosition = targetTransform.position;
 
             // 回転
-            if(isRotate){
+            if (isRotate) {
                 Vector3 rot = rectTransform.rotation.eulerAngles;
                 rot.z = -targetTransform.rotation.eulerAngles.y;
                 rectTransform.rotation = Quaternion.Euler(rot);
@@ -46,28 +43,22 @@ public class FollowUI : MonoBehaviour
         }
 
         // 座標
-        if(moveType == MoveType.WorldToScreen)
-        {
+        if (moveType == MoveType.WorldToScreen) {
             Vector3 pos = Camera.main.WorldToScreenPoint(targetPosition);
             pos.z = 0;
             float scale = Screen.width / Camera.main.pixelWidth;
             rectTransform.position = pos * scale;
-        }
-        else if(moveType == MoveType.WorldToUI)
-        {
-            rectTransform.anchoredPosition3D = 
+        } else if (moveType == MoveType.WorldToUI) {
+            rectTransform.anchoredPosition3D =
                 new Vector3(targetTransform.position.x, targetTransform.position.z, 0);
-        }
-        else if(moveType == MoveType.MinusWorldToUI)
-        {
-            rectTransform.anchoredPosition3D = 
+        } else if (moveType == MoveType.MinusWorldToUI) {
+            rectTransform.anchoredPosition3D =
                 new Vector3(-targetTransform.position.x, -targetTransform.position.z, 0);
         }
 
         // 固定スケール
-        if(isConstScale){
-            if (transform.lossyScale != currentLossyScale)
-            {
+        if (isConstScale) {
+            if (transform.lossyScale != currentLossyScale) {
                 Vector3 scaleChange = initialLossyScale;
                 currentLossyScale = transform.lossyScale;
                 scaleChange.x /= currentLossyScale.x;
@@ -80,8 +71,7 @@ public class FollowUI : MonoBehaviour
 
 
     // タイプ
-    private enum MoveType
-    {
+    private enum MoveType {
         None,
         WorldToScreen,
         WorldToUI,

@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ZoomUI : MonoBehaviour, IDragHandler
-{
+public class ZoomUI : MonoBehaviour, IDragHandler {
     [SerializeField] Canvas uiCanvas;
     [SerializeField] float zoomSpeed = 1f;
     [SerializeField] float minZoomRate = 1f;
@@ -21,14 +20,12 @@ public class ZoomUI : MonoBehaviour, IDragHandler
         canvasScaler.IsActive() &&
         canvasScaler.uiScaleMode == CanvasScaler.ScaleMode.ScaleWithScreenSize;
 
-    void Awake()
-    {
+    void Awake() {
         targetContent = GetComponent<RectTransform>();
         canvasScaler = uiCanvas.GetComponent<CanvasScaler>();
     }
 
-    void Update()
-    {
+    void Update() {
         var scroll = Input.mouseScrollDelta.y;
         ScrollToZoomMap(Input.mousePosition, scroll);
     }
@@ -38,8 +35,7 @@ public class ZoomUI : MonoBehaviour, IDragHandler
     /// </summary>
     /// <param name="mousePosition">Current mouse position.</param>
     /// <param name="scroll">Mouse scroll delta.</param>
-    public void ScrollToZoomMap(Vector2 mousePosition, float scroll)
-    {
+    public void ScrollToZoomMap(Vector2 mousePosition, float scroll) {
         GetLocalPointInRectangle(mousePosition, out var beforeZoomLocalPosition);
 
         var afterZoomScale = CurrentZoomScale + scroll * zoomSpeed;
@@ -60,8 +56,7 @@ public class ZoomUI : MonoBehaviour, IDragHandler
     /// Automatically called by IDragHandler.
     /// </summary>
     /// <param name="eventData"></param>
-    public void OnDrag(PointerEventData eventData)
-    {
+    public void OnDrag(PointerEventData eventData) {
         var dragMoveDelta = eventData.delta;
 
         if (ShouldScaleDragMove) {
@@ -72,13 +67,11 @@ public class ZoomUI : MonoBehaviour, IDragHandler
         targetContent.anchoredPosition += dragMoveDelta;
     }
 
-    void DoZoom(float zoomScale)
-    {
+    void DoZoom(float zoomScale) {
         targetContent.localScale = Vector3.one * zoomScale;
     }
 
-    void GetLocalPointInRectangle(Vector2 mousePosition, out Vector2 localPosition)
-    {
+    void GetLocalPointInRectangle(Vector2 mousePosition, out Vector2 localPosition) {
         var targetCamera = uiCanvas.renderMode switch {
             RenderMode.ScreenSpaceCamera => uiCanvas.worldCamera,
             RenderMode.ScreenSpaceOverlay => null,

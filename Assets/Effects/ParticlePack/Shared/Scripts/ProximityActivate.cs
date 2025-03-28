@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ProximityActivate : MonoBehaviour
-{
+public class ProximityActivate : MonoBehaviour {
 
     public Transform distanceActivator, lookAtActivator;
     public float distance;
@@ -19,21 +18,17 @@ public class ProximityActivate : MonoBehaviour
     public CanvasGroup infoPanel;
     Quaternion originRotation, targetRotation;
 
-    void Start()
-    {
+    void Start() {
         originRotation = transform.rotation;
         alpha = activeState ? 1 : -1;
         if (activator == null) activator = Camera.main.transform;
         infoIcon.SetActive(infoPanel != null);
     }
 
-    bool IsTargetNear()
-    {
+    bool IsTargetNear() {
         var distanceDelta = distanceActivator.position - activator.position;
-        if (distanceDelta.sqrMagnitude < distance * distance)
-        {
-            if (lookAtActivator != null)
-            {
+        if (distanceDelta.sqrMagnitude < distance * distance) {
+            if (lookAtActivator != null) {
                 var lookAtActivatorDelta = lookAtActivator.position - activator.position;
                 if (Vector3.Dot(activator.forward, lookAtActivatorDelta.normalized) > 0.95f)
                     return true;
@@ -45,34 +40,26 @@ public class ProximityActivate : MonoBehaviour
         return false;
     }
 
-    void Update()
-    {
-        if (!activeState)
-        {
-            if (IsTargetNear())
-            {
+    void Update() {
+        if (!activeState) {
+            if (IsTargetNear()) {
                 alpha = 1;
                 activeState = true;
             }
-        }
-        else
-        {
-            if (!IsTargetNear())
-            {
+        } else {
+            if (!IsTargetNear()) {
                 alpha = -1;
                 activeState = false;
                 enableInfoPanel = false;
             }
         }
         target.alpha = Mathf.Clamp01(target.alpha + alpha * Time.deltaTime);
-        if (infoPanel != null)
-        {
+        if (infoPanel != null) {
             if (Input.GetKeyDown(KeyCode.Space))
                 enableInfoPanel = !enableInfoPanel;
             infoPanel.alpha = Mathf.Lerp(infoPanel.alpha, Mathf.Clamp01(enableInfoPanel ? alpha : 0), Time.deltaTime * 10);
         }
-        if (lookAtCamera)
-        {
+        if (lookAtCamera) {
             if (activeState)
                 targetRotation = Quaternion.LookRotation(activator.position - transform.position);
             else

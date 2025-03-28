@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "UIManager", menuName = "ScriptableObject/UIManager")]
-public class UIManager : SingletonScriptableObject<UIManager>
-{
+public class UIManager : SingletonScriptableObject<UIManager> {
     private readonly List<GameObject> windowObjectList = new(); // ウィンドウオブジェクトを保存
 
     // 入力
@@ -23,7 +22,7 @@ public class UIManager : SingletonScriptableObject<UIManager>
     }
     public void ChangeWindow(GameObject windowObject) // ウィンドウを変更
     {
-        if(windowObjectList.Count == 0){
+        if (windowObjectList.Count == 0) {
             Debug.Log("最初のウィンドウが登録されてないよ");
             return;
         }
@@ -34,9 +33,9 @@ public class UIManager : SingletonScriptableObject<UIManager>
     }
     public void ReturnWindow() // 前のウィンドウに戻る
     {
-        if(windowObjectList.Count <= 1){
+        if (windowObjectList.Count <= 1) {
             Debug.Log("これ以上戻れないよ");
-            if(windowObjectList.Count == 0){
+            if (windowObjectList.Count == 0) {
                 Debug.Log("最初のウィンドウが登録されてないよ");
             }
             return;
@@ -75,19 +74,19 @@ public class UIManager : SingletonScriptableObject<UIManager>
 
     public void EnablePlayerInput() // プレイヤーの操作をOn
     {
-        if(PlayerInput != null){
+        if (PlayerInput != null) {
             PlayerInput.actions.FindActionMap(PlayerInput.defaultActionMap).Enable();
         }
-        if(CinemachineInput != null){
+        if (CinemachineInput != null) {
             CinemachineInput.enabled = true;
         }
     }
     public void DisablePlayerInput() // プレイヤーの操作をOff
     {
-        if(PlayerInput != null){
+        if (PlayerInput != null) {
             PlayerInput.actions.FindActionMap(PlayerInput.defaultActionMap).Disable();
         }
-        if(CinemachineInput != null){
+        if (CinemachineInput != null) {
             CinemachineInput.enabled = false;
         }
     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/EventData")]
-public class EventData : ScriptableObject
-{
+public class EventData : ScriptableObject {
     [SerializeField] // 番号
     private int number = 0;
     public int Number => number;

@@ -2,11 +2,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-namespace MatthewAssets
-{
+namespace MatthewAssets {
 
-    public class PrefabManager : MonoBehaviour
-    {
+    public class PrefabManager : MonoBehaviour {
         public GameObject[] prefabs; // List of prefabs assigned from the Inspector
         public Collider floorCollider; // The floor to detect clicks
         public Transform cameraPivot; // Pivot for the camera
@@ -16,28 +14,22 @@ namespace MatthewAssets
         private int currentIndex = 0; // Index of the current prefab
 
 
-        void Start()
-        {
+        void Start() {
             UpdateInfoText(); // Update text at start
         }
-        void Update()
-        {
+        void Update() {
             // Switch between prefabs with left/right keys
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
                 SelectPreviousPrefab();
             }
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
                 SelectNextPrefab();
             }
 
             // Instantiate the prefab with one click
-            if (Input.GetMouseButtonDown(0))
-            {
+            if (Input.GetMouseButtonDown(0)) {
                 RaycastHit hit;
-                if (floorCollider.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1000f))
-                {
+                if (floorCollider.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1000f)) {
                     GameObject instance = Instantiate(prefabs[currentIndex], hit.point, Quaternion.identity);
                     Destroy(instance, destroyDelay); // Destroy in 2 seconds
                 }
@@ -54,8 +46,7 @@ namespace MatthewAssets
         private void SelectPreviousPrefab() // Previous prefab
         {
             currentIndex--;
-            if (currentIndex < 0)
-            {
+            if (currentIndex < 0) {
                 currentIndex = prefabs.Length - 1;
             }
             UpdateInfoText();
@@ -64,8 +55,7 @@ namespace MatthewAssets
         private void SelectNextPrefab() // Next prefab
         {
             currentIndex++;
-            if (currentIndex >= prefabs.Length)
-            {
+            if (currentIndex >= prefabs.Length) {
                 currentIndex = 0;
             }
             UpdateInfoText();

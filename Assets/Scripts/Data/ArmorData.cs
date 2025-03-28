@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/ArmorData")]
-public class ArmorData : ScriptableObject
-{
+public class ArmorData : ScriptableObject {
     [SerializeField] private int number = 0; // 番号
     [SerializeField] private new string name = null; // 名前
     [SerializeField, TextArea] private string info = null; // 情報
@@ -25,8 +24,7 @@ public class ArmorData : ScriptableObject
 }
 
 [System.Serializable]
-public class Armor
-{
+public class Armor {
     [SerializeField] private ArmorData data = null;
     public ArmorData Data => data;
 
@@ -47,7 +45,7 @@ public class Armor
     public Armor(ArmorData data) // 生成
     {
         this.data = data;
-        if(data) number = data.Number;
+        if (data) number = data.Number;
     }
 
     public void Init(ArmorData data) // 初期化
@@ -55,19 +53,16 @@ public class Armor
         this.data = data;
     }
 
-    public void UpdateExp(int exp)
-    {
+    public void UpdateExp(int exp) {
         currentExp += exp;
 
-        while(currentExp >= Exp)
-        {
+        while (currentExp >= Exp) {
             currentExp = currentExp - Exp;
-            lev ++;
+            lev++;
         }
     }
 
-    public void UpdateIsEquip(bool isEquip)
-    {
+    public void UpdateIsEquip(bool isEquip) {
         this.isEquip = isEquip;
     }
 }

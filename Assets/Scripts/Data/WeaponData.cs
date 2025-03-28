@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/WeaponData")]
-public class WeaponData : ScriptableObject
-{
+public class WeaponData : ScriptableObject {
     [SerializeField] private int number = 0; // 番号
     [SerializeField] private new string name = null; // 名前
     [SerializeField, TextArea] private string info = null; // 情報
@@ -20,7 +19,7 @@ public class WeaponData : ScriptableObject
     public int Number => number;
     public string Name => name;
     public string Info => info;
-    public Sprite Image => image; 
+    public Sprite Image => image;
     public int Price => price;
     public List<ItemData> ItemDataList => itemDataList;
     public WeaponType WeaponType => weaponType;
@@ -32,8 +31,7 @@ public class WeaponData : ScriptableObject
 }
 
 [System.Serializable]
-public class Weapon
-{
+public class Weapon {
     [SerializeField] private WeaponData data = null;
     public WeaponData Data => data;
 
@@ -52,36 +50,30 @@ public class Weapon
     public int EquipNumber => equipNumber;
 
 
-    public Weapon(WeaponData data)
-    {
+    public Weapon(WeaponData data) {
         this.data = data;
-        if(data) number = data.Number;
+        if (data) number = data.Number;
     }
 
-    public void Init(WeaponData data)
-    {
+    public void Init(WeaponData data) {
         this.data = data;
     }
 
-    public void UpdateExp(int exp)
-    {
+    public void UpdateExp(int exp) {
         currentExp += exp;
 
-        while(currentExp >= Exp)
-        {
+        while (currentExp >= Exp) {
             currentExp -= Exp;
-            lev ++;
+            lev++;
         }
     }
 
-    public void UpdateIsEquip(int number)
-    {
+    public void UpdateIsEquip(int number) {
         equipNumber = number;
     }
 }
 
-public enum WeaponType
-{
+public enum WeaponType {
     Sword,
     Wand,
     Bow,

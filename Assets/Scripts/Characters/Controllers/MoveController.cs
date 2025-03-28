@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator), typeof(NavMeshAgent))]
-public class MoveController : MonoBehaviour
-{
+public class MoveController : MonoBehaviour {
     // ステートマシン
     private StateMachine<MoveController> stateMachine = null;
 
@@ -15,7 +14,7 @@ public class MoveController : MonoBehaviour
     // パラメータ
     [Header("コンポーネント")]
     public List<Transform> targetList = new(); // ターゲット
-    [Header("物理パラメータ")] 
+    [Header("物理パラメータ")]
     [SerializeField] private float walkSpeed = 2f; // 歩き速度(1秒で移動できる距離 m)
     [SerializeField] private float maxCoolTime = 10f; // 移動のクールタイム
     [SerializeField] private float minCoolTime = 3f;
@@ -26,13 +25,11 @@ public class MoveController : MonoBehaviour
     private Transform target = null; // ターゲット
 
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         stateMachine?.ChangeState(new Idle());
     }
 
-    private void Start()
-    {
+    private void Start() {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -40,26 +37,22 @@ public class MoveController : MonoBehaviour
         stateMachine.ChangeState(new Idle());
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         stateMachine.OnUpdate();
     }
 
-    private class Idle : StateBase<MoveController>
-    {
+    private class Idle : StateBase<MoveController> {
         private float coolTime = 0f; // クールタイム
         private float countTime = 0f; // 時間カウント
 
-        public override void OnStart()
-        {
+        public override void OnStart() {
             coolTime = Random.Range(Owner.minCoolTime, Owner.maxCoolTime);
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             Owner.UpdateAnimation(0f);
 
-            if(countTime >= coolTime & Owner.targetList.Count >= 2){
+            if (countTime >= coolTime & Owner.targetList.Count >= 2) {
                 Owner.stateMachine.ChangeState(new Move());
             }
 
@@ -67,13 +60,11 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    private class Move : StateBase<MoveController>
-    {
-        public override void OnStart()
-        {
+    private class Move : StateBase<MoveController> {
+        public override void OnStart() {
             List<Transform> targetList = new();
-            for(int i = 0; i < Owner.targetList.Count; i++){
-                if(Owner.targetList[i] != Owner.target){
+            for (int i = 0; i < Owner.targetList.Count; i++) {
+                if (Owner.targetList[i] != Owner.target) {
                     targetList.Add(Owner.targetList[i]);
                 }
             }
@@ -82,40 +73,37 @@ public class MoveController : MonoBehaviour
             Owner.agent.speed = Owner.walkSpeed;
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             Owner.UpdateAnimation(0.5f);
 
-            if(Owner.agent.remainingDistance < 0.1f){
+            if (Owner.agent.remainingDistance < 0.1f) {
                 Owner.stateMachine.ChangeState(new Idle());
             }
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.agent.speed = 0;
         }
     }
 
     private void UpdateAnimation(float speed) // アニメーション更新
     {
-        if(anim.GetFloat("speed") < speed){
-            if(anim.GetFloat("speed") + Time.fixedDeltaTime/animChangeSpeed < speed)
-                anim.SetFloat("speed", anim.GetFloat("speed") + Time.fixedDeltaTime/animChangeSpeed);
-            else{
+        if (anim.GetFloat("speed") < speed) {
+            if (anim.GetFloat("speed") + Time.fixedDeltaTime / animChangeSpeed < speed)
+                anim.SetFloat("speed", anim.GetFloat("speed") + Time.fixedDeltaTime / animChangeSpeed);
+            else {
                 anim.SetFloat("speed", speed);
             }
-        }else if(anim.GetFloat("speed") > speed){
-            if(anim.GetFloat("speed") - Time.fixedDeltaTime/animChangeSpeed > speed)
-                anim.SetFloat("speed", anim.GetFloat("speed") - Time.fixedDeltaTime/animChangeSpeed);
-            else{
+        } else if (anim.GetFloat("speed") > speed) {
+            if (anim.GetFloat("speed") - Time.fixedDeltaTime / animChangeSpeed > speed)
+                anim.SetFloat("speed", anim.GetFloat("speed") - Time.fixedDeltaTime / animChangeSpeed);
+            else {
                 anim.SetFloat("speed", speed);
             }
         }
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         anim.SetFloat("speed", 0f);
         stateMachine.OnEnd();
     }

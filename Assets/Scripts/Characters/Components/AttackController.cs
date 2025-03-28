@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackController : MonoBehaviour
-{
+public class AttackController : MonoBehaviour {
     // コンポーネント
     private Collider collision = null;
 
@@ -24,54 +23,48 @@ public class AttackController : MonoBehaviour
     private List<IBattler> iBattlerList = new(); // 当てた敵
 
 
-    public void Initialize(AttackStatus attack)
-    {
+    public void Initialize(AttackStatus attack) {
         this.attack = attack;
         countTime = 0;
     }
 
-    public void OnCollisionEnable()
-    {
+    public void OnCollisionEnable() {
         iBattlerList = new();
 
-        if(collision == null){
-            if(TryGetComponent(out Collider _collider)){
+        if (collision == null) {
+            if (TryGetComponent(out Collider _collider)) {
                 collision = _collider;
             }
         }
 
-        if(collision != null){
+        if (collision != null) {
             collision.enabled = true;
         }
     }
 
-    public void OnCollisionDisable()
-    {
-        if(collision != null){
+    public void OnCollisionDisable() {
+        if (collision != null) {
             collision.enabled = false;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag(tagName))
-        {
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag(tagName)) {
             // 1匹の敵に1度だけヒットするように
 
             IBattler iBattler = null;
-            if(other.TryGetComponent(out IBattler _iBattler)){
+            if (other.TryGetComponent(out IBattler _iBattler)) {
                 iBattler = _iBattler;
-            }
-            else if(other.TryGetComponent(out SubIBattler _subIBattler)){
+            } else if (other.TryGetComponent(out SubIBattler _subIBattler)) {
                 iBattler = _subIBattler.IBattler;
             }
 
-            if(iBattler != null){
+            if (iBattler != null) {
                 bool isHit = false;
-                foreach(IBattler target in iBattlerList){
-                    if(target == iBattler) isHit = true;
+                foreach (IBattler target in iBattlerList) {
+                    if (target == iBattler) isHit = true;
                 }
-                if(!isHit){
+                if (!isHit) {
                     iBattler.OnDamage(attack, other.ClosestPointOnBounds(transform.position));
                     iBattlerList.Add(iBattler);
                 }
@@ -79,15 +72,14 @@ public class AttackController : MonoBehaviour
         }
 
         // 障害物に当たったら消す
-        if(isThrow) {
+        if (isThrow) {
             Destroy(gameObject);
         }
     }
 
-    private void FixedUpdate()
-    {
-        if(isThrow){
-            if(countTime > survivalTime) Destroy(gameObject);
+    private void FixedUpdate() {
+        if (isThrow) {
+            if (countTime > survivalTime) Destroy(gameObject);
             transform.position += speed * Time.fixedDeltaTime * transform.up;
             countTime += Time.fixedDeltaTime;
         }

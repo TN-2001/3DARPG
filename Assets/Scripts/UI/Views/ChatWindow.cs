@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ChatWindow : MonoBehaviour
-{
+public class ChatWindow : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI nameText = null; // 名前テキスト
     [SerializeField] private TextMeshProUGUI chatText = null; // チャットテキスト
     [SerializeField] private Button nextBtn = null; // 次へボタン
@@ -15,18 +14,16 @@ public class ChatWindow : MonoBehaviour
     private bool isNext = false; // 次へフラグ
 
 
-    private void Start()
-    {
+    private void Start() {
         nextBtn.onClick.AddListener(() => isNext = true);
     }
 
-    private IEnumerator IInit(string name, List<string> textList)
-    {
+    private IEnumerator IInit(string name, List<string> textList) {
         // 名前
         nameText.text = name;
 
         // テキスト更新
-        for(int i = 0; i < textList.Count; i++){
+        for (int i = 0; i < textList.Count; i++) {
             nextBtn.gameObject.SetActive(false);
             isNext = false;
             chatText.text = textList[i];
@@ -40,8 +37,7 @@ public class ChatWindow : MonoBehaviour
         gameObject.SetActive(false);
         yield return null;
     }
-    public void Init(string name, List<string> textList)
-    {
+    public void Init(string name, List<string> textList) {
         battleWindowObj.SetActive(false);
         gameObject.SetActive(true);
 

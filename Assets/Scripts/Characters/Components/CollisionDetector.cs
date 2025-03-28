@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
-public class CollisionDetector : MonoBehaviour
-{
+public class CollisionDetector : MonoBehaviour {
     public string tagName = null; // 当たり判定の対象のタグ
 
     // 引数にColliderを持ったUnityEvent
@@ -14,35 +13,32 @@ public class CollisionDetector : MonoBehaviour
     [HideInInspector] public UnityEvent<Collider> onTriggerExit = null;
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(tagName != ""){
-            if(other.gameObject.CompareTag(tagName)){
+    private void OnTriggerEnter(Collider other) {
+        if (tagName != "") {
+            if (other.gameObject.CompareTag(tagName)) {
                 onTriggerEnter?.Invoke(other);
             }
-        }else{
+        } else {
             onTriggerEnter?.Invoke(other);
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if(tagName != ""){
-            if(other.gameObject.CompareTag(tagName)){
+    private void OnTriggerStay(Collider other) {
+        if (tagName != "") {
+            if (other.gameObject.CompareTag(tagName)) {
                 onTriggerStay?.Invoke(other);
             }
-        }else{
+        } else {
             onTriggerStay?.Invoke(other);
         }
     }
 
-    private void OnTriggerExit(Collider other) 
-    {
-        if(tagName != ""){
-            if(other.gameObject.CompareTag(tagName)){
+    private void OnTriggerExit(Collider other) {
+        if (tagName != "") {
+            if (other.gameObject.CompareTag(tagName)) {
                 onTriggerExit?.Invoke(other);
             }
-        }else{
+        } else {
             onTriggerExit?.Invoke(other);
         }
     }

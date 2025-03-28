@@ -4,8 +4,7 @@ using System;
     StateMachine（ジェネリック）
 */
 
-public class StateMachine<T>
-{
+public class StateMachine<T> {
     public T Owner { get; }
     private StateBase<T> currentState = null;
 
@@ -14,21 +13,18 @@ public class StateMachine<T>
     public Type NextStateType { get; private set; } = null;
 
 
-    public StateMachine(T owner)
-    {
+    public StateMachine(T owner) {
         Owner = owner;
     }
 
-    public void OnUpdate()
-    {
+    public void OnUpdate() {
         currentState.OnUpdate();
     }
 
-    public void ChangeState(StateBase<T> nextState)
-    {
+    public void ChangeState(StateBase<T> nextState) {
         NextStateType = nextState.GetType();
 
-        if(currentState != null){
+        if (currentState != null) {
             currentState.OnEnd();
             PreviousStateType = currentState.GetType();
         }
@@ -39,14 +35,12 @@ public class StateMachine<T>
         currentState.OnStart();
     }
 
-    public void OnEnd()
-    {
+    public void OnEnd() {
         currentState?.OnEnd();
     }
 }
 
-public abstract class StateBase<T>
-{
+public abstract class StateBase<T> {
     public StateMachine<T> StateMachine;
     protected T Owner => StateMachine.Owner;
 

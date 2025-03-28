@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class AttackStatus
-{
+public class AttackStatus {
     private IBattlerStatus status = null; // ステータス
 
     [SerializeField] private float atkMultiplier = 1f; // 攻撃倍率
@@ -12,8 +11,7 @@ public class AttackStatus
     public bool IsFly => isFly; // 吹っ飛ぶか
 
     // 初期化
-    public void Init(IBattlerStatus status)
-    {
+    public void Init(IBattlerStatus status) {
         this.status = status;
     }
 }

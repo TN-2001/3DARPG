@@ -4,22 +4,18 @@ using UnityEngine;
 using UnityEditor;
 # endif
 
-public class SubclassSelectorAttribute : PropertyAttribute
-{
+public class SubclassSelectorAttribute : PropertyAttribute {
     public Type Type { get; private set; }
 
-    public SubclassSelectorAttribute(Type type)
-    {
+    public SubclassSelectorAttribute(Type type) {
         Type = type;
     }
 }
 
 # if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(SubclassSelectorAttribute))]
-public class SubclassSelectorDrawer : PropertyDrawer
-{
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
+public class SubclassSelectorDrawer : PropertyDrawer {
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
         SubclassSelectorAttribute selectorAttribute = (SubclassSelectorAttribute)attribute;
 
         // 現在の値を入手
@@ -37,4 +33,4 @@ public class SubclassSelectorDrawer : PropertyDrawer
         }
     }
 }
-# endif
+#endif

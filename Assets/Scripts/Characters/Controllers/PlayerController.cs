@@ -3,8 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IBattler
-{
+public class PlayerController : MonoBehaviour, IBattler {
     // ステート
     [SerializeField] private string stateName = null;
     private StateMachine<PlayerController> stateMachine = null;
@@ -15,35 +14,31 @@ public class PlayerController : MonoBehaviour, IBattler
 
     private Player player = null; // プレイヤー
     private readonly List<NpcController> npcControllerList = new(); // NPC
-    private NpcData NpcData
-    {
-        get{
-            if(npcControllerList.Count > 0){
+    private NpcData NpcData {
+        get {
+            if (npcControllerList.Count > 0) {
                 return npcControllerList[0].NpcData;
-            }
-            else{
+            } else {
                 return null;
             }
         }
     }
     private readonly List<Transform> targetTraList = new(); // 敵
-    public Transform TargetTra
-    {
-        get{
-            for(int i = targetTraList.Count-1; i >= 0; i--){
-                if(targetTraList[i] == null){
+    public Transform TargetTra {
+        get {
+            for (int i = targetTraList.Count - 1; i >= 0; i--) {
+                if (targetTraList[i] == null) {
                     targetTraList.RemoveAt(i);
                 }
             }
             Transform tra = null;
-            for(int i = 0; i < targetTraList.Count; i++){
-                if(i == 0){
+            for (int i = 0; i < targetTraList.Count; i++) {
+                if (i == 0) {
                     tra = targetTraList[0];
-                }
-                else{
+                } else {
                     Vector3 dis1 = transform.position - tra.position;
                     Vector3 dis2 = transform.position - targetTraList[i].position;
-                    if(dis1.magnitude > dis2.magnitude){
+                    if (dis1.magnitude > dis2.magnitude) {
                         tra = targetTraList[i];
                     }
                 }
@@ -82,8 +77,7 @@ public class PlayerController : MonoBehaviour, IBattler
     private int attackCollisionNumber = 0; // 攻撃当たり判定番号
 
 
-    private void Start()
-    {
+    private void Start() {
         // コンポーネント入手
         anim = GetComponent<Animator>();
         move = GetComponent<PlayerCharacterController>();
@@ -107,12 +101,12 @@ public class PlayerController : MonoBehaviour, IBattler
         battleWindow.InitMapUI(transform);
 
         // 移動時の関数
-        move.recoveryStamina.AddListener(() => UpdateStr(30*Time.deltaTime));
-        move.decreasedStamina.AddListener(() => UpdateStr(-10*Time.fixedDeltaTime));
+        move.recoveryStamina.AddListener(() => UpdateStr(30 * Time.deltaTime));
+        move.decreasedStamina.AddListener(() => UpdateStr(-10 * Time.fixedDeltaTime));
 
         // 武器
         weaponControllerList[attackCollisionNumber].EnableWeapon(player.Weapon.Data.LeftObject, player.Weapon.Data.RightObject);
-        foreach(AttackStatus attackStatus in attackStatusList){
+        foreach (AttackStatus attackStatus in attackStatusList) {
             attackStatus.Init(player);
         }
 
@@ -126,27 +120,25 @@ public class PlayerController : MonoBehaviour, IBattler
         stateMachine.ChangeState(new Move());
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         // インプットビュー
-        if(NpcData != null){
+        if (NpcData != null) {
             battleWindow.UpdateInputView("話しかける");
-        }
-        else{
+        } else {
             battleWindow.UpdateInputView();
         }
 
         // バリア
-        if(player.BarrierTime > 0){
+        if (player.BarrierTime > 0) {
             player.UpdateBarrierTime(Time.fixedDeltaTime);
-            if(player.BarrierTime == 0){
+            if (player.BarrierTime == 0) {
                 barrierParticle.Stop(true);
             }
         }
 
         // スタミナ回復
-        if(isStrRecovery){
-            UpdateStr(100*Time.deltaTime);
+        if (isStrRecovery) {
+            UpdateStr(100 * Time.deltaTime);
         }
 
         stateMachine.OnUpdate();
@@ -155,20 +147,17 @@ public class PlayerController : MonoBehaviour, IBattler
 
     private class Move : StateBase<PlayerController> // 通常状態（立ち、走り、ダッシュ）
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.isCanInput = true;
             Owner.move.isOn = true;
             Owner.isStrRecovery = false;
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             Owner.move.isCanDash = Owner.player.CurrentStr > 0;
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.move.isOn = false;
             Owner.isStrRecovery = true;
         }
@@ -176,41 +165,36 @@ public class PlayerController : MonoBehaviour, IBattler
 
     private class Roll : StateBase<PlayerController> // 回避
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.anim.SetTrigger("rollTrigger");
             Owner.isStrRecovery = false;
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.isStrRecovery = true;
         }
     }
 
     private class BattleMove : StateBase<PlayerController> // 抜刀状態（立ち、走り）
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.isCanInput = true;
             Owner.move.isOn = true;
             Owner.move.isCanDash = false;
             Owner.isStrRecovery = false;
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             // 武器しまうアニメーション
-            if(Owner.isDahInput && Owner.anim.GetInteger("stateNumber") != 0){
+            if (Owner.isDahInput && Owner.anim.GetInteger("stateNumber") != 0) {
                 Owner.stateMachine.ChangeState(new SheathWeapon());
             }
         }
 
-        public override void OnEnd()
-        {
-            Owner.anim.SetLayerWeight(1,0);
+        public override void OnEnd() {
+            Owner.anim.SetLayerWeight(1, 0);
 
-            if(Owner.stateMachine.NextStateType != typeof(SheathWeapon)){
+            if (Owner.stateMachine.NextStateType != typeof(SheathWeapon)) {
                 Owner.move.isOn = false;
             }
 
@@ -220,30 +204,28 @@ public class PlayerController : MonoBehaviour, IBattler
 
     private class SheathWeapon : StateBase<PlayerController> // 納刀
     {
-        public override void OnUpdate()
-        {
-            if(Owner.weaponControllerList[0].IsDraw){
-                if(Owner.anim.GetLayerWeight(1) >= 1){
+        public override void OnUpdate() {
+            if (Owner.weaponControllerList[0].IsDraw) {
+                if (Owner.anim.GetLayerWeight(1) >= 1) {
                     Owner.anim.SetInteger("stateNumber", 0);
-                }else{
-                    Owner.anim.SetLayerWeight(1, Owner.anim.GetLayerWeight(1)+Time.fixedDeltaTime/0.2f);
+                } else {
+                    Owner.anim.SetLayerWeight(1, Owner.anim.GetLayerWeight(1) + Time.fixedDeltaTime / 0.2f);
                 }
-            }else{
-                if(Owner.anim.GetLayerWeight(1) <= 0){
+            } else {
+                if (Owner.anim.GetLayerWeight(1) <= 0) {
                     Owner.stateMachine.ChangeState(new Move());
-                }else{
-                    Owner.anim.SetLayerWeight(1, Owner.anim.GetLayerWeight(1)-Time.fixedDeltaTime/0.2f);
+                } else {
+                    Owner.anim.SetLayerWeight(1, Owner.anim.GetLayerWeight(1) - Time.fixedDeltaTime / 0.2f);
                 }
             }
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.anim.SetInteger("stateNumber", 0);
-            Owner.anim.SetLayerWeight(1,0);
+            Owner.anim.SetLayerWeight(1, 0);
             Owner.weaponControllerList[0].SheathWeapon();
 
-            if(Owner.stateMachine.NextStateType != typeof(Move)){
+            if (Owner.stateMachine.NextStateType != typeof(Move)) {
                 Owner.move.isOn = false;
             }
         }
@@ -251,55 +233,48 @@ public class PlayerController : MonoBehaviour, IBattler
 
     private class Attack : StateBase<PlayerController> // 攻撃
     {
-        public override void OnStart()
-        {
+        public override void OnStart() {
             Owner.OnAnimationStart();
 
-            if(!Owner.weaponControllerList[0].IsDraw){
+            if (!Owner.weaponControllerList[0].IsDraw) {
                 Owner.weaponControllerList[0].DrawWeapon();
             }
 
-            Owner.anim.SetInteger("stateNumber",1);
+            Owner.anim.SetInteger("stateNumber", 1);
             Owner.anim.SetTrigger("attackTrigger");
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.OnAttackCollisionDisable();
         }
     }
 
     private class Guard : StateBase<PlayerController> // ガード
     {
-        public override void OnStart()
-        {
-            if(!Owner.weaponControllerList[0].IsDraw){
+        public override void OnStart() {
+            if (!Owner.weaponControllerList[0].IsDraw) {
                 Owner.weaponControllerList[0].DrawWeapon();
             }
 
-            Owner.anim.SetInteger("stateNumber",1);
+            Owner.anim.SetInteger("stateNumber", 1);
             Owner.anim.SetTrigger("guardTrigger");
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             Owner.OnGuardDisable();
             Owner.anim.SetBool("isGuard", false);
         }
     }
 
-    private class Talk : StateBase<PlayerController>
-    {
-        public override void OnStart()
-        {
+    private class Talk : StateBase<PlayerController> {
+        public override void OnStart() {
             int number = 1;
-            if(!DataManager.Instance.Data.IsFindNpcList[Owner.NpcData.Number - 1]){
+            if (!DataManager.Instance.Data.IsFindNpcList[Owner.NpcData.Number - 1]) {
                 number = 0;
-            }
-            else{
-                for(int i = 0; i < Owner.NpcData.TextDataList.Count; i++){
-                    if(i >= 2){
-                        if(Owner.NpcData.TextDataList[i].EventData.Number == DataManager.Instance.Data.EventNumber){
+            } else {
+                for (int i = 0; i < Owner.NpcData.TextDataList.Count; i++) {
+                    if (i >= 2) {
+                        if (Owner.NpcData.TextDataList[i].EventData.Number == DataManager.Instance.Data.EventNumber) {
                             number = i;
                         }
                     }
@@ -308,60 +283,52 @@ public class PlayerController : MonoBehaviour, IBattler
             Owner.chatWindow.Init(Owner.NpcData.Name, Owner.NpcData.TextDataList[number].TextList);
         }
 
-        public override void OnUpdate()
-        {
+        public override void OnUpdate() {
             // ステート変更
-            if(!Owner.chatWindow.gameObject.activeSelf){
-                if(Owner.weaponControllerList[Owner.attackCollisionNumber].IsDraw){
+            if (!Owner.chatWindow.gameObject.activeSelf) {
+                if (Owner.weaponControllerList[Owner.attackCollisionNumber].IsDraw) {
                     Owner.stateMachine.ChangeState(new BattleMove());
-                }else{
+                } else {
                     Owner.stateMachine.ChangeState(new Move());
                 }
             }
         }
 
-        public override void OnEnd()
-        {
+        public override void OnEnd() {
             // NPCを見つけた
             DataManager.Instance.Data.UpdateFindNpc(Owner.NpcData.Number - 1);
         }
     }
 
-    private class Hit : StateBase<PlayerController>
-    {
-        public override void OnStart()
-        {
-            if(Owner.player.CurrentHp <= 0f){
-                Owner.anim.SetInteger("hitNum",2);
-            }
-            else{
-                Owner.anim.SetInteger("hitNum",0);
+    private class Hit : StateBase<PlayerController> {
+        public override void OnStart() {
+            if (Owner.player.CurrentHp <= 0f) {
+                Owner.anim.SetInteger("hitNum", 2);
+            } else {
+                Owner.anim.SetInteger("hitNum", 0);
             }
 
             Owner.anim.SetTrigger("isHit");
         }
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         // データベースイベント
         DataManager.Instance.Data.onChageWeapon.RemoveListener(OnChangeWeapon);
     }
 
 
     // スタミナ回復
-    private void UpdateStr(float value)
-    {
-        if((player.CurrentStr < player.Str && value > 0) || (player.CurrentStr > 0 && value < 0)){
+    private void UpdateStr(float value) {
+        if ((player.CurrentStr < player.Str && value > 0) || (player.CurrentStr > 0 && value < 0)) {
             player.UpdateStr(value);
             battleWindow.UpdateStrSlider(player.CurrentStr);
         }
     }
 
     // プレイヤー死亡
-    private void OnDie()
-    {
-        StartCoroutine(loadView.ELoadEvent(delegate{
+    private void OnDie() {
+        StartCoroutine(loadView.ELoadEvent(delegate {
             anim.Play("Locomotion");
             stateMachine.ChangeState(new Move());
             CharacterController con = GetComponent<CharacterController>();
@@ -376,25 +343,21 @@ public class PlayerController : MonoBehaviour, IBattler
     }
 
     // 当たり判定
-    private void OnCollisionDetectorEnter(Collider other)
-    {
+    private void OnCollisionDetectorEnter(Collider other) {
         npcControllerList.Add(other.GetComponent<NpcController>());
     }
 
-    private void OnCollisionDetectorExit(Collider other)
-    {
+    private void OnCollisionDetectorExit(Collider other) {
         npcControllerList.Remove(other.GetComponent<NpcController>());
     }
 
 
     // 索敵判定
-    private void OnSerchDetectorEnter(Collider other)
-    {
+    private void OnSerchDetectorEnter(Collider other) {
         targetTraList.Add(other.transform);
     }
 
-    private void OnSerchDetectorExit(Collider other)
-    {
+    private void OnSerchDetectorExit(Collider other) {
         targetTraList.Remove(other.transform);
     }
 
@@ -402,18 +365,18 @@ public class PlayerController : MonoBehaviour, IBattler
     // InputSytem
     public void OnDash(InputAction.CallbackContext context) // ダッシュ
     {
-        if(context.phase == InputActionPhase.Started){
+        if (context.phase == InputActionPhase.Started) {
             isDahInput = true;
-        }else if(context.phase == InputActionPhase.Canceled){
+        } else if (context.phase == InputActionPhase.Canceled) {
             isDahInput = false;
         }
     }
 
     public void OnEvent(InputAction.CallbackContext context) // 会話、剥ぎ取り、採取
     {
-        if(context.phase == InputActionPhase.Started){
-            if(stateMachine.CurrentStateType == typeof(Move)){
-                if(NpcData != null){
+        if (context.phase == InputActionPhase.Started) {
+            if (stateMachine.CurrentStateType == typeof(Move)) {
+                if (NpcData != null) {
                     stateMachine.ChangeState(new Talk());
                 }
             }
@@ -422,17 +385,17 @@ public class PlayerController : MonoBehaviour, IBattler
 
     public void OnItem(InputAction.CallbackContext context) // アイテム使用
     {
-        if(context.phase == InputActionPhase.Started){
-            if(stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)){
+        if (context.phase == InputActionPhase.Started) {
+            if (stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)) {
             }
         }
     }
 
     public void OnRoll(InputAction.CallbackContext context) // 回避
     {
-        if(context.phase == InputActionPhase.Started){
-            if(stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)){
-                if(player.CurrentStr > 30){
+        if (context.phase == InputActionPhase.Started) {
+            if (stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)) {
+                if (player.CurrentStr > 30) {
                     stateMachine.ChangeState(new Roll());
                     UpdateStr(-30);
                 }
@@ -442,30 +405,30 @@ public class PlayerController : MonoBehaviour, IBattler
 
     public void OnGuard(InputAction.CallbackContext context) // ガード
     {
-        if(context.phase == InputActionPhase.Started){
+        if (context.phase == InputActionPhase.Started) {
             anim.SetBool("isGuard", true);
-            
-            if(isCanInput || stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)){
-                if(stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)){
+
+            if (isCanInput || stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)) {
+                if (stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)) {
                     stateMachine.ChangeState(new Guard());
-                }else if(stateMachine.CurrentStateType == typeof(Attack)){
-                    if(isCanCombo){
+                } else if (stateMachine.CurrentStateType == typeof(Attack)) {
+                    if (isCanCombo) {
                         stateMachine.ChangeState(new Guard());
-                    }else{
+                    } else {
                         isGuardInput = true;
                     }
                 }
             }
-        }else if(context.phase == InputActionPhase.Canceled){
+        } else if (context.phase == InputActionPhase.Canceled) {
             anim.SetBool("isGuard", false);
         }
     }
 
     public void OnAttack(InputAction.CallbackContext context) // 攻撃
     {
-        if(NpcData != null){
+        if (NpcData != null) {
             stateMachine.ChangeState(new Talk());
-        }else{
+        } else {
             OnAttack(context, 0);
         }
     }
@@ -475,18 +438,17 @@ public class PlayerController : MonoBehaviour, IBattler
         OnAttack(context, 1);
     }
 
-    private void OnAttack(InputAction.CallbackContext context, int number)
-    {
-        if(context.phase == InputActionPhase.Started){
+    private void OnAttack(InputAction.CallbackContext context, int number) {
+        if (context.phase == InputActionPhase.Started) {
             anim.SetInteger("attackNumber", number);
 
-            if(isCanInput || stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)){
-                if(stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)){
+            if (isCanInput || stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)) {
+                if (stateMachine.CurrentStateType == typeof(Move) || stateMachine.CurrentStateType == typeof(BattleMove)) {
                     stateMachine.ChangeState(new Attack());
-                }else if(stateMachine.CurrentStateType == typeof(Attack) || stateMachine.CurrentStateType == typeof(Guard)){
-                    if(isCanCombo){
+                } else if (stateMachine.CurrentStateType == typeof(Attack) || stateMachine.CurrentStateType == typeof(Guard)) {
+                    if (isCanCombo) {
                         stateMachine.ChangeState(new Attack());
-                    }else{
+                    } else {
                         isAttackInput = true;
                     }
                 }
@@ -497,8 +459,7 @@ public class PlayerController : MonoBehaviour, IBattler
 
 
     // IBattler：ダメージ関数
-    public void OnDamage(AttackStatus attack, Vector3 position)
-    {
+    public void OnDamage(AttackStatus attack, Vector3 position) {
         if (player.BarrierTime == 0 && !isGuard) {
             player.UpdateHp(-attack.Atk);
             battleWindow.UpdateHpSlider(player.CurrentHp);
@@ -515,7 +476,7 @@ public class PlayerController : MonoBehaviour, IBattler
         isGuardInput = false;
         isCanInput = false;
     }
-    
+
     public void OnAttackAnimationStart(int number) // 攻撃時アニメーションスタート
     {
         attackNumber = number;
@@ -524,15 +485,15 @@ public class PlayerController : MonoBehaviour, IBattler
 
     public void OnAnimationEnd() // アニメーション終了
     {
-        if(stateMachine.CurrentStateType == typeof(Hit) && player.CurrentHp == 0){
+        if (stateMachine.CurrentStateType == typeof(Hit) && player.CurrentHp == 0) {
             OnDie();
-        }else if((stateMachine.CurrentStateType == typeof(Roll) && !weaponControllerList[0].IsDraw)
-            || (stateMachine.CurrentStateType == typeof(Hit) && !weaponControllerList[0].IsDraw && player.CurrentHp > 0)){
+        } else if ((stateMachine.CurrentStateType == typeof(Roll) && !weaponControllerList[0].IsDraw)
+            || (stateMachine.CurrentStateType == typeof(Hit) && !weaponControllerList[0].IsDraw && player.CurrentHp > 0)) {
             stateMachine.ChangeState(new Move());
-        }else if((stateMachine.CurrentStateType == typeof(Roll) && weaponControllerList[0].IsDraw)
+        } else if ((stateMachine.CurrentStateType == typeof(Roll) && weaponControllerList[0].IsDraw)
             || stateMachine.CurrentStateType == typeof(Guard)
             || stateMachine.CurrentStateType == typeof(Attack)
-            || (stateMachine.CurrentStateType == typeof(Hit) && weaponControllerList[0].IsDraw && player.CurrentHp > 0)){
+            || (stateMachine.CurrentStateType == typeof(Hit) && weaponControllerList[0].IsDraw && player.CurrentHp > 0)) {
             stateMachine.ChangeState(new BattleMove());
         }
     }
@@ -542,35 +503,31 @@ public class PlayerController : MonoBehaviour, IBattler
         weaponControllerList[0].SheathWeapon();
     }
 
-    public void OnAttackCollisionEnable(int number)
-    {
+    public void OnAttackCollisionEnable(int number) {
         attackCollisionNumber = number;
         weaponControllerList[attackCollisionNumber].AttackController.Initialize(attackStatusList[attackNumber]);
         weaponControllerList[attackCollisionNumber].AttackController.OnCollisionEnable();
     }
 
-    public void OnAttackCollisionDisable()
-    {
+    public void OnAttackCollisionDisable() {
         weaponControllerList[attackCollisionNumber].AttackController.OnCollisionDisable();
     }
 
-    public void OnInputEnable()
-    {
+    public void OnInputEnable() {
         isCanInput = true;
     }
 
-    public void OnInputDisable()
-    {
+    public void OnInputDisable() {
         isCanInput = false;
     }
 
     public void OnCanCombo() // コンボ可能
     {
-        if(isAttackInput){
+        if (isAttackInput) {
             stateMachine.ChangeState(new Attack());
-        }else if(isGuardInput){
+        } else if (isGuardInput) {
             stateMachine.ChangeState(new Guard());
-        }else{
+        } else {
             isCanCombo = true;
         }
     }
@@ -587,16 +544,14 @@ public class PlayerController : MonoBehaviour, IBattler
 
 
     // データベースイベント
-    public void OnChangeWeapon(Weapon weapon)
-    {
+    public void OnChangeWeapon(Weapon weapon) {
         weapon ??= player.Weapon;
         weaponControllerList[attackCollisionNumber].ChangeWeapon(weapon.Data.LeftObject, weapon.Data.RightObject);
     }
 
 
     [System.Serializable] // 攻撃
-    private class WeaponController
-    {
+    private class WeaponController {
         [SerializeField] private WeaponType type = WeaponType.SwordAndShield; // 武器のタイプ
         [SerializeField] private GameObject leftObject = null; // 左手の武器
         [SerializeField] private GameObject rightObject = null; // 右手の武器
@@ -615,39 +570,38 @@ public class PlayerController : MonoBehaviour, IBattler
         {
             ChangeWeapon(leftPrefab, rightPrefab);
 
-            if(leftSheathObject != null){
+            if (leftSheathObject != null) {
                 leftSheathObject.SetActive(true);
-            }else if(leftObject != null){
+            } else if (leftObject != null) {
                 leftObject.SetActive(true);
             }
 
-            if(rightSheathObject != null){
+            if (rightSheathObject != null) {
                 rightSheathObject.SetActive(true);
-            }else if(rightObject != null){
+            } else if (rightObject != null) {
                 rightObject.SetActive(true);
             }
         }
 
         public void ChangeWeapon(GameObject leftPrefab, GameObject rightPrefab) // 武器を変える
         {
-            if(leftSheathObject != null){
+            if (leftSheathObject != null) {
                 ChangeObject(leftSheathObject, leftPrefab);
             }
-            if(leftObject != null){
+            if (leftObject != null) {
                 ChangeObject(leftObject, leftPrefab);
             }
 
-            if(rightSheathObject != null){
+            if (rightSheathObject != null) {
                 ChangeObject(rightSheathObject, rightPrefab);
             }
-            if(rightObject != null){
+            if (rightObject != null) {
                 ChangeObject(rightObject, rightPrefab);
             }
         }
 
-        private void ChangeObject(GameObject parentObject, GameObject newObject)
-        {
-            foreach(Transform child in parentObject.transform){
+        private void ChangeObject(GameObject parentObject, GameObject newObject) {
+            foreach (Transform child in parentObject.transform) {
                 Destroy(child.gameObject);
             }
             Instantiate(newObject, parentObject.transform);
@@ -656,11 +610,11 @@ public class PlayerController : MonoBehaviour, IBattler
 
         public void DrawWeapon() // 武器を構える
         {
-            if(leftObject != null && leftSheathObject != null){
+            if (leftObject != null && leftSheathObject != null) {
                 leftObject.SetActive(true);
                 leftSheathObject.SetActive(false);
             }
-            if(rightObject != null && rightSheathObject != null){
+            if (rightObject != null && rightSheathObject != null) {
                 rightObject.SetActive(true);
                 rightSheathObject.SetActive(false);
             }
@@ -669,11 +623,11 @@ public class PlayerController : MonoBehaviour, IBattler
 
         public void SheathWeapon() // 武器をしまう
         {
-            if(leftObject != null && leftSheathObject != null){
+            if (leftObject != null && leftSheathObject != null) {
                 leftObject.SetActive(false);
                 leftSheathObject.SetActive(true);
             }
-            if(rightObject != null && rightSheathObject != null){
+            if (rightObject != null && rightSheathObject != null) {
                 rightObject.SetActive(false);
                 rightSheathObject.SetActive(true);
             }
@@ -682,16 +636,16 @@ public class PlayerController : MonoBehaviour, IBattler
 
         public void DiableWeapon() // 武器を非表示
         {
-            if(leftSheathObject != null){
+            if (leftSheathObject != null) {
                 leftSheathObject.SetActive(false);
             }
-            if(leftObject != null){
+            if (leftObject != null) {
                 leftObject.SetActive(false);
             }
-            if(rightSheathObject != null){
+            if (rightSheathObject != null) {
                 rightSheathObject.SetActive(false);
             }
-            if(rightObject != null){
+            if (rightObject != null) {
                 rightObject.SetActive(false);
             }
         }

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class SimpleCharacterMotor : MonoBehaviour
-{
+public class SimpleCharacterMotor : MonoBehaviour {
     public CursorLockMode cursorLockMode = CursorLockMode.Locked;
     public bool cursorVisible = false;
     [Header("Movement")]
@@ -27,22 +26,19 @@ public class SimpleCharacterMotor : MonoBehaviour
     Quaternion targetRotation, targetPivotRotation;
 
 
-    void Awake()
-    {
+    void Awake() {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = cursorLockMode;
         Cursor.visible = cursorVisible;
         targetRotation = targetPivotRotation = Quaternion.identity;
     }
 
-    void Update()
-    {
+    void Update() {
         UpdateTranslation();
         UpdateLookRotation();
     }
 
-    void UpdateLookRotation()
-    {
+    void UpdateLookRotation() {
         var x = Input.GetAxis("Mouse Y");
         var y = Input.GetAxis("Mouse X");
 
@@ -54,10 +50,8 @@ public class SimpleCharacterMotor : MonoBehaviour
         cameraPivot.localRotation = targetPivotRotation;
     }
 
-    void UpdateTranslation()
-    {
-        if (controller.isGrounded)
-        {
+    void UpdateTranslation() {
+        if (controller.isGrounded) {
             var x = Input.GetAxis("Horizontal");
             var z = Input.GetAxis("Vertical");
             var run = Input.GetKey(KeyCode.LeftShift);
@@ -65,9 +59,7 @@ public class SimpleCharacterMotor : MonoBehaviour
             var translation = new Vector3(x, 0, z);
             speed = run ? runSpeed : walkSpeed;
             movement = transform.TransformDirection(translation * speed);
-        }
-        else
-        {
+        } else {
             movement.y -= gravity * Time.deltaTime;
         }
         finalMovement = Vector3.Lerp(finalMovement, movement, Time.deltaTime * movementAcceleration);
