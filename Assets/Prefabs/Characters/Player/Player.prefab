@@ -1639,8 +1639,20 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.001352
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1648,7 +1660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50.73388
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4532250632830336, guid: 60e8218091f83244c9bf9c8c2569a009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1973,6 +1985,8 @@ MonoBehaviour:
     isFly: 0
   battleWindow: {fileID: 0}
   chatWindow: {fileID: 0}
+  loadView: {fileID: 0}
+  cinemachinePanTilt: {fileID: 0}
 --- !u!82 &1866531216626012829
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2179,7 +2193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateName: 
   gravity: 9.8
-  runSpeed: 3
+  runSpeed: 4.5
   dashSpeed: 5
   rotationSpeed: 0.6
   animChangeSpeed: 0.3
