@@ -1,6 +1,6 @@
 # 3DARPG(Force Slayer)
 
-![](image\game.jpg)
+![](./image/game.jpg)
 
 ## 説明
 モンスターを倒し装備を入手するハンティングアクションゲーム
